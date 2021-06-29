@@ -8,33 +8,33 @@ package PagarmeCoreApiClient
 
 import(
 	"pagarmecoreapi_lib/configuration_pkg"
+	"pagarmecoreapi_lib/plans_pkg"
 	"pagarmecoreapi_lib/subscriptions_pkg"
 	"pagarmecoreapi_lib/orders_pkg"
-	"pagarmecoreapi_lib/plans_pkg"
 	"pagarmecoreapi_lib/invoices_pkg"
 	"pagarmecoreapi_lib/customers_pkg"
 	"pagarmecoreapi_lib/charges_pkg"
+	"pagarmecoreapi_lib/transfers_pkg"
 	"pagarmecoreapi_lib/recipients_pkg"
 	"pagarmecoreapi_lib/tokens_pkg"
 	"pagarmecoreapi_lib/sellers_pkg"
 	"pagarmecoreapi_lib/transactions_pkg"
-	"pagarmecoreapi_lib/transfers_pkg"
 )
 /*
  * Client structure as interface implementation
  */
 type PAGARMECOREAPI_IMPL struct {
+     plans plans_pkg.PLANS
      subscriptions subscriptions_pkg.SUBSCRIPTIONS
      orders orders_pkg.ORDERS
-     plans plans_pkg.PLANS
      invoices invoices_pkg.INVOICES
      customers customers_pkg.CUSTOMERS
      charges charges_pkg.CHARGES
+     transfers transfers_pkg.TRANSFERS
      recipients recipients_pkg.RECIPIENTS
      tokens tokens_pkg.TOKENS
      sellers sellers_pkg.SELLERS
      transactions transactions_pkg.TRANSACTIONS
-     transfers transfers_pkg.TRANSFERS
      config  configuration_pkg.CONFIGURATION
 }
 
@@ -44,6 +44,16 @@ type PAGARMECOREAPI_IMPL struct {
 */
 func (me *PAGARMECOREAPI_IMPL) Configuration() configuration_pkg.CONFIGURATION {
     return me.config
+}
+/**
+     * Access to Plans controller
+     * @return Returns the Plans() instance
+*/
+func (me *PAGARMECOREAPI_IMPL) Plans() plans_pkg.PLANS {
+    if(me.plans) == nil {
+        me.plans = plans_pkg.NewPLANS(me.config)
+    }
+    return me.plans
 }
 /**
      * Access to Subscriptions controller
@@ -64,16 +74,6 @@ func (me *PAGARMECOREAPI_IMPL) Orders() orders_pkg.ORDERS {
         me.orders = orders_pkg.NewORDERS(me.config)
     }
     return me.orders
-}
-/**
-     * Access to Plans controller
-     * @return Returns the Plans() instance
-*/
-func (me *PAGARMECOREAPI_IMPL) Plans() plans_pkg.PLANS {
-    if(me.plans) == nil {
-        me.plans = plans_pkg.NewPLANS(me.config)
-    }
-    return me.plans
 }
 /**
      * Access to Invoices controller
@@ -104,6 +104,16 @@ func (me *PAGARMECOREAPI_IMPL) Charges() charges_pkg.CHARGES {
         me.charges = charges_pkg.NewCHARGES(me.config)
     }
     return me.charges
+}
+/**
+     * Access to Transfers controller
+     * @return Returns the Transfers() instance
+*/
+func (me *PAGARMECOREAPI_IMPL) Transfers() transfers_pkg.TRANSFERS {
+    if(me.transfers) == nil {
+        me.transfers = transfers_pkg.NewTRANSFERS(me.config)
+    }
+    return me.transfers
 }
 /**
      * Access to Recipients controller
@@ -144,15 +154,5 @@ func (me *PAGARMECOREAPI_IMPL) Transactions() transactions_pkg.TRANSACTIONS {
         me.transactions = transactions_pkg.NewTRANSACTIONS(me.config)
     }
     return me.transactions
-}
-/**
-     * Access to Transfers controller
-     * @return Returns the Transfers() instance
-*/
-func (me *PAGARMECOREAPI_IMPL) Transfers() transfers_pkg.TRANSFERS {
-    if(me.transfers) == nil {
-        me.transfers = transfers_pkg.NewTRANSFERS(me.config)
-    }
-    return me.transfers
 }
 
