@@ -19,11 +19,9 @@ type CUSTOMERS interface {
 
     DeleteAccessToken (string, string, *string) (*models_pkg.GetAccessTokenResponse, error)
 
-    CreateAccessToken (string, *models_pkg.CreateAccessTokenRequest, *string) (*models_pkg.GetAccessTokenResponse, error)
+    CreateCustomer (*models_pkg.CreateCustomerRequest, *string) (*models_pkg.GetCustomerResponse, error)
 
     CreateAddress (string, *models_pkg.CreateAddressRequest, *string) (*models_pkg.GetAddressResponse, error)
-
-    CreateCustomer (*models_pkg.CreateCustomerRequest, *string) (*models_pkg.GetCustomerResponse, error)
 
     DeleteAccessTokens (string) (*models_pkg.ListAccessTokensResponse, error)
 
@@ -36,6 +34,8 @@ type CUSTOMERS interface {
     GetCustomers (*string, *string, *int64, *int64, *string, *string) (*models_pkg.ListCustomersResponse, error)
 
     UpdateCustomer (string, *models_pkg.UpdateCustomerRequest, *string) (*models_pkg.GetCustomerResponse, error)
+
+    CreateAccessToken (string, *models_pkg.CreateAccessTokenRequest, *string) (*models_pkg.GetAccessTokenResponse, error)
 
     GetAccessTokens (string, *int64, *int64) (*models_pkg.ListAccessTokensResponse, error)
 
