@@ -1013,14 +1013,15 @@ type UpdateOrderItemRequest struct {
  * Structure for the custom type CreateBoletoPaymentRequest
  */
 type CreateBoletoPaymentRequest struct {
-    Retries            int64           `json:"retries" form:"retries"` //Number of retries
-    Bank               string          `json:"bank" form:"bank"` //The bank code, containing three characters. The available codes are on the API specification
-    Instructions       string          `json:"instructions" form:"instructions"` //The instructions field that will be printed on the boleto.
-    DueAt              *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //Boleto due date
-    BillingAddress     CreateAddressRequest `json:"billing_address" form:"billing_address"` //Card's billing address
-    BillingAddressId   string          `json:"billing_address_id" form:"billing_address_id"` //The address id for the billing address
-    NossoNumero        *string         `json:"nosso_numero,omitempty" form:"nosso_numero,omitempty"` //Customer identification number with the bank
-    DocumentNumber     string          `json:"document_number" form:"document_number"` //Boleto identification
+    Retries              int64           `json:"retries" form:"retries"` //Number of retries
+    Bank                 string          `json:"bank" form:"bank"` //The bank code, containing three characters. The available codes are on the API specification
+    Instructions         string          `json:"instructions" form:"instructions"` //The instructions field that will be printed on the boleto.
+    DueAt                *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //Boleto due date
+    BillingAddress       CreateAddressRequest `json:"billing_address" form:"billing_address"` //Card's billing address
+    BillingAddressId     string          `json:"billing_address_id" form:"billing_address_id"` //The address id for the billing address
+    NossoNumero          *string         `json:"nosso_numero,omitempty" form:"nosso_numero,omitempty"` //Customer identification number with the bank
+    DocumentNumber       string          `json:"document_number" form:"document_number"` //Boleto identification
+    StatementDescriptor  string          `json:"statement_descriptor" form:"statement_descriptor"` //Soft Descriptor
 }
 
 /*
@@ -1046,22 +1047,23 @@ type UpdateAddressRequest struct {
  */
 type GetBoletoTransactionResponse struct {
     GetTransactionResponse // Anonymous member to emulate model inheritence
-    Url             string          `json:"url" form:"url"` //TODO: Write general description for this field
-    Barcode         string          `json:"barcode" form:"barcode"` //TODO: Write general description for this field
-    NossoNumero     string          `json:"nosso_numero" form:"nosso_numero"` //TODO: Write general description for this field
-    Bank            string          `json:"bank" form:"bank"` //TODO: Write general description for this field
-    DocumentNumber  string          `json:"document_number" form:"document_number"` //TODO: Write general description for this field
-    Instructions    string          `json:"instructions" form:"instructions"` //TODO: Write general description for this field
-    BillingAddress  GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //TODO: Write general description for this field
-    DueAt           *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //TODO: Write general description for this field
-    QrCode          string          `json:"qr_code" form:"qr_code"` //TODO: Write general description for this field
-    Line            string          `json:"line" form:"line"` //TODO: Write general description for this field
-    PdfPassword     string          `json:"pdf_password" form:"pdf_password"` //TODO: Write general description for this field
-    Pdf             string          `json:"pdf" form:"pdf"` //TODO: Write general description for this field
-    PaidAt          *time.Time      `json:"paid_at,omitempty" form:"paid_at,omitempty"` //TODO: Write general description for this field
-    PaidAmount      string          `json:"paid_amount" form:"paid_amount"` //TODO: Write general description for this field
-    Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
-    CreditAt        *time.Time      `json:"credit_at,omitempty" form:"credit_at,omitempty"` //TODO: Write general description for this field
+    Url                  string          `json:"url" form:"url"` //TODO: Write general description for this field
+    Barcode              string          `json:"barcode" form:"barcode"` //TODO: Write general description for this field
+    NossoNumero          string          `json:"nosso_numero" form:"nosso_numero"` //TODO: Write general description for this field
+    Bank                 string          `json:"bank" form:"bank"` //TODO: Write general description for this field
+    DocumentNumber       string          `json:"document_number" form:"document_number"` //TODO: Write general description for this field
+    Instructions         string          `json:"instructions" form:"instructions"` //TODO: Write general description for this field
+    BillingAddress       GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //TODO: Write general description for this field
+    DueAt                *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //TODO: Write general description for this field
+    QrCode               string          `json:"qr_code" form:"qr_code"` //TODO: Write general description for this field
+    Line                 string          `json:"line" form:"line"` //TODO: Write general description for this field
+    PdfPassword          string          `json:"pdf_password" form:"pdf_password"` //TODO: Write general description for this field
+    Pdf                  string          `json:"pdf" form:"pdf"` //TODO: Write general description for this field
+    PaidAt               *time.Time      `json:"paid_at,omitempty" form:"paid_at,omitempty"` //TODO: Write general description for this field
+    PaidAmount           string          `json:"paid_amount" form:"paid_amount"` //TODO: Write general description for this field
+    Type                 string          `json:"type" form:"type"` //TODO: Write general description for this field
+    CreditAt             *time.Time      `json:"credit_at,omitempty" form:"credit_at,omitempty"` //TODO: Write general description for this field
+    StatementDescriptor  string          `json:"statement_descriptor" form:"statement_descriptor"` //Soft Descriptor
 }
 
 /*

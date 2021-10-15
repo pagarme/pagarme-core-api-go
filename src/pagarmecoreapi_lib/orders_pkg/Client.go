@@ -75,7 +75,7 @@ func (me *ORDERS_IMPL) GetOrders (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
     }
 
@@ -163,7 +163,7 @@ func (me *ORDERS_IMPL) UpdateOrderItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -248,7 +248,7 @@ func (me *ORDERS_IMPL) DeleteAllOrderItems (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -335,7 +335,7 @@ func (me *ORDERS_IMPL) DeleteOrderItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -421,7 +421,7 @@ func (me *ORDERS_IMPL) CloseOrder (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -497,7 +497,7 @@ func (me *ORDERS_IMPL) CreateOrder (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -584,7 +584,7 @@ func (me *ORDERS_IMPL) CreateOrderItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -670,7 +670,7 @@ func (me *ORDERS_IMPL) GetOrderItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
     }
 
@@ -755,7 +755,7 @@ func (me *ORDERS_IMPL) UpdateOrderMetadata (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -838,7 +838,7 @@ func (me *ORDERS_IMPL) GetOrder (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.0.2",
+        "user-agent" : "PagarmeCoreApi - Go 5.1.0",
         "accept" : "application/json",
     }
 
