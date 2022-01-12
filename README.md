@@ -119,12 +119,12 @@ To configure these for your generated code, open the file "Configuration.go" and
 
 * [plans_pkg](#plans_pkg)
 * [subscriptions_pkg](#subscriptions_pkg)
-* [orders_pkg](#orders_pkg)
 * [invoices_pkg](#invoices_pkg)
+* [orders_pkg](#orders_pkg)
 * [customers_pkg](#customers_pkg)
+* [recipients_pkg](#recipients_pkg)
 * [charges_pkg](#charges_pkg)
 * [transfers_pkg](#transfers_pkg)
-* [recipients_pkg](#recipients_pkg)
 * [tokens_pkg](#tokens_pkg)
 * [transactions_pkg](#transactions_pkg)
 
@@ -161,6 +161,37 @@ planId := "plan_id"
 
 var result *models_pkg.GetPlanResponse
 result,_ = plans.GetPlan(planId)
+
+```
+
+
+### <a name="delete_plan"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.DeletePlan") DeletePlan
+
+> Deletes a plan
+
+
+```go
+func (me *PLANS_IMPL) DeletePlan(
+            planId string,
+            idempotencyKey *string)(*models_pkg.GetPlanResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| planId |  ``` Required ```  | Plan id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+planId := "plan_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetPlanResponse
+result,_ = plans.DeletePlan(planId, idempotencyKey)
 
 ```
 
@@ -398,8 +429,8 @@ func (me *PLANS_IMPL) GetPlans(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 name := "name"
 status := "status"
 billingType := "billing_type"
@@ -446,37 +477,6 @@ result,_ = plans.UpdatePlan(planId, request, idempotencyKey)
 ```
 
 
-### <a name="delete_plan"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.DeletePlan") DeletePlan
-
-> Deletes a plan
-
-
-```go
-func (me *PLANS_IMPL) DeletePlan(
-            planId string,
-            idempotencyKey *string)(*models_pkg.GetPlanResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| planId |  ``` Required ```  | Plan id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-planId := "plan_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetPlanResponse
-result,_ = plans.DeletePlan(planId, idempotencyKey)
-
-```
-
-
 [Back to List of Controllers](#list_of_controllers)
 
 ## <a name="subscriptions_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".subscriptions_pkg") subscriptions_pkg
@@ -488,6 +488,37 @@ Factory for the ``` SUBSCRIPTIONS ``` interface can be accessed from the package
 ```go
 subscriptions := subscriptions_pkg.NewSUBSCRIPTIONS()
 ```
+
+### <a name="renew_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.RenewSubscription") RenewSubscription
+
+> TODO: Add a method description
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) RenewSubscription(
+            subscriptionId string,
+            idempotencyKey *string)(*models_pkg.GetPeriodResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetPeriodResponse
+result,_ = subscriptions.RenewSubscription(subscriptionId, idempotencyKey)
+
+```
+
 
 ### <a name="update_subscription_card"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionCard") UpdateSubscriptionCard
 
@@ -662,40 +693,6 @@ result,_ = subscriptions.UpdateCurrentCycleStatus(subscriptionId, request, idemp
 ```
 
 
-### <a name="update_subscription_payment_method"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionPaymentMethod") UpdateSubscriptionPaymentMethod
-
-> Updates the payment method from a subscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod(
-            subscriptionId string,
-            request *models_pkg.UpdateSubscriptionPaymentMethodRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription id |
-| request |  ``` Required ```  | Request for updating the paymentmethod from a subscription |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var request *models_pkg.UpdateSubscriptionPaymentMethodRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionPaymentMethod(subscriptionId, request, idempotencyKey)
-
-```
-
-
 ### <a name="delete_discount"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteDiscount") DeleteDiscount
 
 > Deletes a discount
@@ -767,8 +764,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 name := "name"
 code := "code"
 status := "status"
@@ -778,6 +775,40 @@ createdUntil := "created_until"
 
 var result *models_pkg.ListSubscriptionItemsResponse
 result,_ = subscriptions.GetSubscriptionItems(subscriptionId, page, size, name, code, status, description, createdSince, createdUntil)
+
+```
+
+
+### <a name="update_subscription_payment_method"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionPaymentMethod") UpdateSubscriptionPaymentMethod
+
+> Updates the payment method from a subscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod(
+            subscriptionId string,
+            request *models_pkg.UpdateSubscriptionPaymentMethodRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription id |
+| request |  ``` Required ```  | Request for updating the paymentmethod from a subscription |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var request *models_pkg.UpdateSubscriptionPaymentMethodRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionPaymentMethod(subscriptionId, request, idempotencyKey)
 
 ```
 
@@ -855,8 +886,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 code := "code"
 billingType := "billing_type"
 customerId := "customer_id"
@@ -979,6 +1010,37 @@ result,_ = subscriptions.CreateUsage(subscriptionId, itemId, body, idempotencyKe
 ```
 
 
+### <a name="get_discount_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscountById") GetDiscountById
+
+> TODO: Add a method description
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetDiscountById(
+            subscriptionId string,
+            discountId string)(*models_pkg.GetDiscountResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| discountId |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+discountId := "discountId"
+
+var result *models_pkg.GetDiscountResponse
+result,_ = subscriptions.GetDiscountById(subscriptionId, discountId)
+
+```
+
+
 ### <a name="create_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.CreateSubscription") CreateSubscription
 
 > Creates a new subscription
@@ -1010,33 +1072,33 @@ result,_ = subscriptions.CreateSubscription(body, idempotencyKey)
 ```
 
 
-### <a name="get_discount_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscountById") GetDiscountById
+### <a name="get_increment_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetIncrementById") GetIncrementById
 
 > TODO: Add a method description
 
 
 ```go
-func (me *SUBSCRIPTIONS_IMPL) GetDiscountById(
+func (me *SUBSCRIPTIONS_IMPL) GetIncrementById(
             subscriptionId string,
-            discountId string)(*models_pkg.GetDiscountResponse,error)
+            incrementId string)(*models_pkg.GetIncrementResponse,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| discountId |  ``` Required ```  | TODO: Add a parameter description |
+| subscriptionId |  ``` Required ```  | The subscription Id |
+| incrementId |  ``` Required ```  | The increment Id |
 
 
 #### Example Usage
 
 ```go
 subscriptionId := "subscription_id"
-discountId := "discountId"
+incrementId := "increment_id"
 
-var result *models_pkg.GetDiscountResponse
-result,_ = subscriptions.GetDiscountById(subscriptionId, discountId)
+var result *models_pkg.GetIncrementResponse
+result,_ = subscriptions.GetIncrementById(subscriptionId, incrementId)
 
 ```
 
@@ -1177,37 +1239,6 @@ result,_ = subscriptions.GetSubscriptionCycles(subscriptionId, page, size)
 ```
 
 
-### <a name="get_increment_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetIncrementById") GetIncrementById
-
-> TODO: Add a method description
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetIncrementById(
-            subscriptionId string,
-            incrementId string)(*models_pkg.GetIncrementResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription Id |
-| incrementId |  ``` Required ```  | The increment Id |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-incrementId := "increment_id"
-
-var result *models_pkg.GetIncrementResponse
-result,_ = subscriptions.GetIncrementById(subscriptionId, incrementId)
-
-```
-
-
 ### <a name="get_discounts"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscounts") GetDiscounts
 
 > TODO: Add a method description
@@ -1233,8 +1264,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscounts(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 
 var result *models_pkg.ListDiscountsResponse
 result,_ = subscriptions.GetDiscounts(subscriptionId, page, size)
@@ -1335,8 +1366,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetIncrements(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 
 var result *models_pkg.ListIncrementsResponse
 result,_ = subscriptions.GetIncrements(subscriptionId, page, size)
@@ -1546,8 +1577,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetUsages(
 ```go
 subscriptionId := "subscription_id"
 itemId := "item_id"
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 code := "code"
 group := "group"
 usedSince := time.Now()
@@ -1658,37 +1689,6 @@ result,_ = subscriptions.GetSubscriptionCycleById(subscriptionId, cycleId)
 ```
 
 
-### <a name="renew_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.RenewSubscription") RenewSubscription
-
-> TODO: Add a method description
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) RenewSubscription(
-            subscriptionId string,
-            idempotencyKey *string)(*models_pkg.GetPeriodResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetPeriodResponse
-result,_ = subscriptions.RenewSubscription(subscriptionId, idempotencyKey)
-
-```
-
-
 ### <a name="get_usage_report"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetUsageReport") GetUsageReport
 
 > TODO: Add a method description
@@ -1716,6 +1716,297 @@ periodId := "period_id"
 
 var result *models_pkg.GetUsageReportResponse
 result,_ = subscriptions.GetUsageReport(subscriptionId, periodId)
+
+```
+
+
+### <a name="update_split_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSplitSubscription") UpdateSplitSubscription
+
+> TODO: Add a method description
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription(
+            id string,
+            request *models_pkg.UpdateSubscriptionSplitRequest)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| id |  ``` Required ```  | Subscription's id |
+| request |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+id := "id"
+var request *models_pkg.UpdateSubscriptionSplitRequest
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSplitSubscription(id, request)
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="invoices_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".invoices_pkg") invoices_pkg
+
+### Get instance
+
+Factory for the ``` INVOICES ``` interface can be accessed from the package invoices_pkg.
+
+```go
+invoices := invoices_pkg.NewINVOICES()
+```
+
+### <a name="update_invoice_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.UpdateInvoiceMetadata") UpdateInvoiceMetadata
+
+> Updates the metadata from an invoice
+
+
+```go
+func (me *INVOICES_IMPL) UpdateInvoiceMetadata(
+            invoiceId string,
+            request *models_pkg.UpdateMetadataRequest,
+            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| invoiceId |  ``` Required ```  | The invoice id |
+| request |  ``` Required ```  | Request for updating the invoice metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+invoiceId := "invoice_id"
+var request *models_pkg.UpdateMetadataRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.UpdateInvoiceMetadata(invoiceId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_partial_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetPartialInvoice") GetPartialInvoice
+
+> TODO: Add a method description
+
+
+```go
+func (me *INVOICES_IMPL) GetPartialInvoice(subscriptionId string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.GetPartialInvoice(subscriptionId)
+
+```
+
+
+### <a name="cancel_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.CancelInvoice") CancelInvoice
+
+> Cancels an invoice
+
+
+```go
+func (me *INVOICES_IMPL) CancelInvoice(
+            invoiceId string,
+            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| invoiceId |  ``` Required ```  | Invoice id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+invoiceId := "invoice_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.CancelInvoice(invoiceId, idempotencyKey)
+
+```
+
+
+### <a name="create_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.CreateInvoice") CreateInvoice
+
+> Create an Invoice
+
+
+```go
+func (me *INVOICES_IMPL) CreateInvoice(
+            subscriptionId string,
+            cycleId string,
+            request *models_pkg.CreateInvoiceRequest,
+            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+| cycleId |  ``` Required ```  | Cycle Id |
+| request |  ``` Optional ```  | TODO: Add a parameter description |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+cycleId := "cycle_id"
+var request *models_pkg.CreateInvoiceRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.CreateInvoice(subscriptionId, cycleId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_invoices"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetInvoices") GetInvoices
+
+> Gets all invoices
+
+
+```go
+func (me *INVOICES_IMPL) GetInvoices(
+            page *int64,
+            size *int64,
+            code *string,
+            customerId *string,
+            subscriptionId *string,
+            createdSince *time.Time,
+            createdUntil *time.Time,
+            status *string,
+            dueSince *time.Time,
+            dueUntil *time.Time,
+            customerDocument *string)(*models_pkg.ListInvoicesResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| code |  ``` Optional ```  | Filter for Invoice's code |
+| customerId |  ``` Optional ```  | Filter for Invoice's customer id |
+| subscriptionId |  ``` Optional ```  | Filter for Invoice's subscription id |
+| createdSince |  ``` Optional ```  | Filter for Invoice's creation date start range |
+| createdUntil |  ``` Optional ```  | Filter for Invoices creation date end range |
+| status |  ``` Optional ```  | Filter for Invoice's status |
+| dueSince |  ``` Optional ```  | Filter for Invoice's due date start range |
+| dueUntil |  ``` Optional ```  | Filter for Invoice's due date end range |
+| customerDocument |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+code := "code"
+customerId := "customer_id"
+subscriptionId := "subscription_id"
+createdSince := time.Now()
+createdUntil := time.Now()
+status := "status"
+dueSince := time.Now()
+dueUntil := time.Now()
+customerDocument := "customer_document"
+
+var result *models_pkg.ListInvoicesResponse
+result,_ = invoices.GetInvoices(page, size, code, customerId, subscriptionId, createdSince, createdUntil, status, dueSince, dueUntil, customerDocument)
+
+```
+
+
+### <a name="get_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetInvoice") GetInvoice
+
+> Gets an invoice
+
+
+```go
+func (me *INVOICES_IMPL) GetInvoice(invoiceId string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| invoiceId |  ``` Required ```  | Invoice Id |
+
+
+#### Example Usage
+
+```go
+invoiceId := "invoice_id"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.GetInvoice(invoiceId)
+
+```
+
+
+### <a name="update_invoice_status"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.UpdateInvoiceStatus") UpdateInvoiceStatus
+
+> Updates the status from an invoice
+
+
+```go
+func (me *INVOICES_IMPL) UpdateInvoiceStatus(
+            invoiceId string,
+            request *models_pkg.UpdateInvoiceStatusRequest,
+            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| invoiceId |  ``` Required ```  | Invoice Id |
+| request |  ``` Required ```  | Request for updating an invoice's status |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+invoiceId := "invoice_id"
+var request *models_pkg.UpdateInvoiceStatusRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.UpdateInvoiceStatus(invoiceId, request, idempotencyKey)
 
 ```
 
@@ -1764,8 +2055,8 @@ func (me *ORDERS_IMPL) GetOrders(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("245", 10, 8)
-size,_ := strconv.ParseInt("245", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 code := "code"
 status := "status"
 createdSince := time.Now()
@@ -1774,37 +2065,6 @@ customerId := "customer_id"
 
 var result *models_pkg.ListOrderResponse
 result,_ = orders.GetOrders(page, size, code, status, createdSince, createdUntil, customerId)
-
-```
-
-
-### <a name="delete_all_order_items"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteAllOrderItems") DeleteAllOrderItems
-
-> TODO: Add a method description
-
-
-```go
-func (me *ORDERS_IMPL) DeleteAllOrderItems(
-            orderId string,
-            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| orderId |  ``` Required ```  | Order Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-orderId := "orderId"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetOrderResponse
-result,_ = orders.DeleteAllOrderItems(orderId, idempotencyKey)
 
 ```
 
@@ -1842,6 +2102,37 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetOrderItemResponse
 result,_ = orders.UpdateOrderItem(orderId, itemId, request, idempotencyKey)
+
+```
+
+
+### <a name="delete_all_order_items"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteAllOrderItems") DeleteAllOrderItems
+
+> TODO: Add a method description
+
+
+```go
+func (me *ORDERS_IMPL) DeleteAllOrderItems(
+            orderId string,
+            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| orderId |  ``` Required ```  | Order Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+orderId := "orderId"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetOrderResponse
+result,_ = orders.DeleteAllOrderItems(orderId, idempotencyKey)
 
 ```
 
@@ -2073,266 +2364,6 @@ result,_ = orders.GetOrder(orderId)
 
 [Back to List of Controllers](#list_of_controllers)
 
-## <a name="invoices_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".invoices_pkg") invoices_pkg
-
-### Get instance
-
-Factory for the ``` INVOICES ``` interface can be accessed from the package invoices_pkg.
-
-```go
-invoices := invoices_pkg.NewINVOICES()
-```
-
-### <a name="get_partial_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetPartialInvoice") GetPartialInvoice
-
-> TODO: Add a method description
-
-
-```go
-func (me *INVOICES_IMPL) GetPartialInvoice(subscriptionId string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.GetPartialInvoice(subscriptionId)
-
-```
-
-
-### <a name="cancel_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.CancelInvoice") CancelInvoice
-
-> Cancels an invoice
-
-
-```go
-func (me *INVOICES_IMPL) CancelInvoice(
-            invoiceId string,
-            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| invoiceId |  ``` Required ```  | Invoice id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-invoiceId := "invoice_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.CancelInvoice(invoiceId, idempotencyKey)
-
-```
-
-
-### <a name="create_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.CreateInvoice") CreateInvoice
-
-> Create an Invoice
-
-
-```go
-func (me *INVOICES_IMPL) CreateInvoice(
-            subscriptionId string,
-            cycleId string,
-            request *models_pkg.CreateInvoiceRequest,
-            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-| cycleId |  ``` Required ```  | Cycle Id |
-| request |  ``` Optional ```  | TODO: Add a parameter description |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-cycleId := "cycle_id"
-var request *models_pkg.CreateInvoiceRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.CreateInvoice(subscriptionId, cycleId, request, idempotencyKey)
-
-```
-
-
-### <a name="update_invoice_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.UpdateInvoiceMetadata") UpdateInvoiceMetadata
-
-> Updates the metadata from an invoice
-
-
-```go
-func (me *INVOICES_IMPL) UpdateInvoiceMetadata(
-            invoiceId string,
-            request *models_pkg.UpdateMetadataRequest,
-            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| invoiceId |  ``` Required ```  | The invoice id |
-| request |  ``` Required ```  | Request for updating the invoice metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-invoiceId := "invoice_id"
-var request *models_pkg.UpdateMetadataRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.UpdateInvoiceMetadata(invoiceId, request, idempotencyKey)
-
-```
-
-
-### <a name="get_invoices"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetInvoices") GetInvoices
-
-> Gets all invoices
-
-
-```go
-func (me *INVOICES_IMPL) GetInvoices(
-            page *int64,
-            size *int64,
-            code *string,
-            customerId *string,
-            subscriptionId *string,
-            createdSince *time.Time,
-            createdUntil *time.Time,
-            status *string,
-            dueSince *time.Time,
-            dueUntil *time.Time,
-            customerDocument *string)(*models_pkg.ListInvoicesResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| code |  ``` Optional ```  | Filter for Invoice's code |
-| customerId |  ``` Optional ```  | Filter for Invoice's customer id |
-| subscriptionId |  ``` Optional ```  | Filter for Invoice's subscription id |
-| createdSince |  ``` Optional ```  | Filter for Invoice's creation date start range |
-| createdUntil |  ``` Optional ```  | Filter for Invoices creation date end range |
-| status |  ``` Optional ```  | Filter for Invoice's status |
-| dueSince |  ``` Optional ```  | Filter for Invoice's due date start range |
-| dueUntil |  ``` Optional ```  | Filter for Invoice's due date end range |
-| customerDocument |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
-code := "code"
-customerId := "customer_id"
-subscriptionId := "subscription_id"
-createdSince := time.Now()
-createdUntil := time.Now()
-status := "status"
-dueSince := time.Now()
-dueUntil := time.Now()
-customerDocument := "customer_document"
-
-var result *models_pkg.ListInvoicesResponse
-result,_ = invoices.GetInvoices(page, size, code, customerId, subscriptionId, createdSince, createdUntil, status, dueSince, dueUntil, customerDocument)
-
-```
-
-
-### <a name="get_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetInvoice") GetInvoice
-
-> Gets an invoice
-
-
-```go
-func (me *INVOICES_IMPL) GetInvoice(invoiceId string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| invoiceId |  ``` Required ```  | Invoice Id |
-
-
-#### Example Usage
-
-```go
-invoiceId := "invoice_id"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.GetInvoice(invoiceId)
-
-```
-
-
-### <a name="update_invoice_status"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.UpdateInvoiceStatus") UpdateInvoiceStatus
-
-> Updates the status from an invoice
-
-
-```go
-func (me *INVOICES_IMPL) UpdateInvoiceStatus(
-            invoiceId string,
-            request *models_pkg.UpdateInvoiceStatusRequest,
-            idempotencyKey *string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| invoiceId |  ``` Required ```  | Invoice Id |
-| request |  ``` Required ```  | Request for updating an invoice's status |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-invoiceId := "invoice_id"
-var request *models_pkg.UpdateInvoiceStatusRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.UpdateInvoiceStatus(invoiceId, request, idempotencyKey)
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
 ## <a name="customers_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".customers_pkg") customers_pkg
 
 ### Get instance
@@ -2451,36 +2482,33 @@ result,_ = customers.DeleteAccessToken(customerId, tokenId, idempotencyKey)
 ```
 
 
-### <a name="create_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAccessToken") CreateAccessToken
+### <a name="create_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCustomer") CreateCustomer
 
-> Creates a access token for a customer
+> Creates a new customer
 
 
 ```go
-func (me *CUSTOMERS_IMPL) CreateAccessToken(
-            customerId string,
-            request *models_pkg.CreateAccessTokenRequest,
-            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
+func (me *CUSTOMERS_IMPL) CreateCustomer(
+            request *models_pkg.CreateCustomerRequest,
+            idempotencyKey *string)(*models_pkg.GetCustomerResponse,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| request |  ``` Required ```  | Request for creating a access token |
+| request |  ``` Required ```  | Request for creating a customer |
 | idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
 
 
 #### Example Usage
 
 ```go
-customerId := "customer_id"
-var request *models_pkg.CreateAccessTokenRequest
+var request *models_pkg.CreateCustomerRequest
 idempotencyKey := "idempotency-key"
 
-var result *models_pkg.GetAccessTokenResponse
-result,_ = customers.CreateAccessToken(customerId, request, idempotencyKey)
+var result *models_pkg.GetCustomerResponse
+result,_ = customers.CreateCustomer(request, idempotencyKey)
 
 ```
 
@@ -2515,37 +2543,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetAddressResponse
 result,_ = customers.CreateAddress(customerId, request, idempotencyKey)
-
-```
-
-
-### <a name="create_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCustomer") CreateCustomer
-
-> Creates a new customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) CreateCustomer(
-            request *models_pkg.CreateCustomerRequest,
-            idempotencyKey *string)(*models_pkg.GetCustomerResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| request |  ``` Required ```  | Request for creating a customer |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-var request *models_pkg.CreateCustomerRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetCustomerResponse
-result,_ = customers.CreateCustomer(request, idempotencyKey)
 
 ```
 
@@ -2753,6 +2750,40 @@ result,_ = customers.UpdateCustomer(customerId, request, idempotencyKey)
 ```
 
 
+### <a name="create_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAccessToken") CreateAccessToken
+
+> Creates a access token for a customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) CreateAccessToken(
+            customerId string,
+            request *models_pkg.CreateAccessTokenRequest,
+            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| request |  ``` Required ```  | Request for creating a access token |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+var request *models_pkg.CreateAccessTokenRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAccessTokenResponse
+result,_ = customers.CreateAccessToken(customerId, request, idempotencyKey)
+
+```
+
+
 ### <a name="get_access_tokens"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAccessTokens") GetAccessTokens
 
 > Get all access tokens from a customer
@@ -2778,8 +2809,8 @@ func (me *CUSTOMERS_IMPL) GetAccessTokens(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 
 var result *models_pkg.ListAccessTokensResponse
 result,_ = customers.GetAccessTokens(customerId, page, size)
@@ -2812,8 +2843,8 @@ func (me *CUSTOMERS_IMPL) GetCards(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 
 var result *models_pkg.ListCardsResponse
 result,_ = customers.GetCards(customerId, page, size)
@@ -2979,8 +3010,8 @@ func (me *CUSTOMERS_IMPL) GetAddresses(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 
 var result *models_pkg.ListAddressesResponse
 result,_ = customers.GetAddresses(customerId, page, size)
@@ -3048,6 +3079,714 @@ result,_ = customers.GetCard(customerId, cardId)
 
 [Back to List of Controllers](#list_of_controllers)
 
+## <a name="recipients_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".recipients_pkg") recipients_pkg
+
+### Get instance
+
+Factory for the ``` RECIPIENTS ``` interface can be accessed from the package recipients_pkg.
+
+```go
+recipients := recipients_pkg.NewRECIPIENTS()
+```
+
+### <a name="update_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipient") UpdateRecipient
+
+> Updates a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateRecipient(
+            recipientId string,
+            request *models_pkg.UpdateRecipientRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| request |  ``` Required ```  | Recipient data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.UpdateRecipientRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipient(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="create_anticipation"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateAnticipation") CreateAnticipation
+
+> Creates an anticipation
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateAnticipation(
+            recipientId string,
+            request *models_pkg.CreateAnticipationRequest,
+            idempotencyKey *string)(*models_pkg.GetAnticipationResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| request |  ``` Required ```  | Anticipation data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.CreateAnticipationRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAnticipationResponse
+result,_ = recipients.CreateAnticipation(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_anticipation_limits"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipationLimits") GetAnticipationLimits
+
+> Gets the anticipation limits for a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetAnticipationLimits(
+            recipientId string,
+            timeframe string,
+            paymentDate *time.Time)(*models_pkg.GetAnticipationLimitResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| timeframe |  ``` Required ```  | Timeframe |
+| paymentDate |  ``` Required ```  | Anticipation payment date |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+timeframe := "timeframe"
+paymentDate := time.Now()
+
+var result *models_pkg.GetAnticipationLimitResponse
+result,_ = recipients.GetAnticipationLimits(recipientId, timeframe, paymentDate)
+
+```
+
+
+### <a name="get_recipients"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipients") GetRecipients
+
+> Retrieves paginated recipients information
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetRecipients(
+            page *int64,
+            size *int64)(*models_pkg.ListRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
+
+var result *models_pkg.ListRecipientResponse
+result,_ = recipients.GetRecipients(page, size)
+
+```
+
+
+### <a name="get_withdraw_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawById") GetWithdrawById
+
+> TODO: Add a method description
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetWithdrawById(
+            recipientId string,
+            withdrawalId string)(*models_pkg.GetWithdrawResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | TODO: Add a parameter description |
+| withdrawalId |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+withdrawalId := "withdrawal_id"
+
+var result *models_pkg.GetWithdrawResponse
+result,_ = recipients.GetWithdrawById(recipientId, withdrawalId)
+
+```
+
+
+### <a name="update_recipient_default_bank_account"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientDefaultBankAccount") UpdateRecipientDefaultBankAccount
+
+> Updates the default bank account from a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateRecipientDefaultBankAccount(
+            recipientId string,
+            request *models_pkg.UpdateRecipientBankAccountRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| request |  ``` Required ```  | Bank account data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.UpdateRecipientBankAccountRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipientDefaultBankAccount(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="update_recipient_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientMetadata") UpdateRecipientMetadata
+
+> Updates recipient metadata
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateRecipientMetadata(
+            recipientId string,
+            request *models_pkg.UpdateMetadataRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| request |  ``` Required ```  | Metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.UpdateMetadataRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipientMetadata(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_transfers"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetTransfers") GetTransfers
+
+> Gets a paginated list of transfers for the recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetTransfers(
+            recipientId string,
+            page *int64,
+            size *int64,
+            status *string,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListTransferResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| status |  ``` Optional ```  | Filter for transfer status |
+| createdSince |  ``` Optional ```  | Filter for start range of transfer creation date |
+| createdUntil |  ``` Optional ```  | Filter for end range of transfer creation date |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
+status := "status"
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListTransferResponse
+result,_ = recipients.GetTransfers(recipientId, page, size, status, createdSince, createdUntil)
+
+```
+
+
+### <a name="get_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetTransfer") GetTransfer
+
+> Gets a transfer
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetTransfer(
+            recipientId string,
+            transferId string)(*models_pkg.GetTransferResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| transferId |  ``` Required ```  | Transfer id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+transferId := "transfer_id"
+
+var result *models_pkg.GetTransferResponse
+result,_ = recipients.GetTransfer(recipientId, transferId)
+
+```
+
+
+### <a name="create_withdraw"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateWithdraw") CreateWithdraw
+
+> TODO: Add a method description
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateWithdraw(
+            recipientId string,
+            request *models_pkg.CreateWithdrawRequest)(*models_pkg.GetWithdrawResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | TODO: Add a parameter description |
+| request |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.CreateWithdrawRequest
+
+var result *models_pkg.GetWithdrawResponse
+result,_ = recipients.CreateWithdraw(recipientId, request)
+
+```
+
+
+### <a name="update_automatic_anticipation_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateAutomaticAnticipationSettings") UpdateAutomaticAnticipationSettings
+
+> Updates recipient metadata
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateAutomaticAnticipationSettings(
+            recipientId string,
+            request *models_pkg.UpdateAutomaticAnticipationSettingsRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| request |  ``` Required ```  | Metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.UpdateAutomaticAnticipationSettingsRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateAutomaticAnticipationSettings(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_anticipation"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipation") GetAnticipation
+
+> Gets an anticipation
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetAnticipation(
+            recipientId string,
+            anticipationId string)(*models_pkg.GetAnticipationResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| anticipationId |  ``` Required ```  | Anticipation id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+anticipationId := "anticipation_id"
+
+var result *models_pkg.GetAnticipationResponse
+result,_ = recipients.GetAnticipation(recipientId, anticipationId)
+
+```
+
+
+### <a name="update_recipient_transfer_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientTransferSettings") UpdateRecipientTransferSettings
+
+> TODO: Add a method description
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateRecipientTransferSettings(
+            recipientId string,
+            request *models_pkg.UpdateTransferSettingsRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient Identificator |
+| request |  ``` Required ```  | TODO: Add a parameter description |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.UpdateTransferSettingsRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipientTransferSettings(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="get_anticipations"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipations") GetAnticipations
+
+> Retrieves a paginated list of anticipations from a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetAnticipations(
+            recipientId string,
+            page *int64,
+            size *int64,
+            status *string,
+            timeframe *string,
+            paymentDateSince *time.Time,
+            paymentDateUntil *time.Time,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListAnticipationResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| status |  ``` Optional ```  | Filter for anticipation status |
+| timeframe |  ``` Optional ```  | Filter for anticipation timeframe |
+| paymentDateSince |  ``` Optional ```  | Filter for start range for anticipation payment date |
+| paymentDateUntil |  ``` Optional ```  | Filter for end range for anticipation payment date |
+| createdSince |  ``` Optional ```  | Filter for start range for anticipation creation date |
+| createdUntil |  ``` Optional ```  | Filter for end range for anticipation creation date |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
+status := "status"
+timeframe := "timeframe"
+paymentDateSince := time.Now()
+paymentDateUntil := time.Now()
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListAnticipationResponse
+result,_ = recipients.GetAnticipations(recipientId, page, size, status, timeframe, paymentDateSince, paymentDateUntil, createdSince, createdUntil)
+
+```
+
+
+### <a name="get_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipient") GetRecipient
+
+> Retrieves recipient information
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetRecipient(recipientId string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipiend id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.GetRecipient(recipientId)
+
+```
+
+
+### <a name="get_balance"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetBalance") GetBalance
+
+> Get balance information for a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetBalance(recipientId string)(*models_pkg.GetBalanceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+
+var result *models_pkg.GetBalanceResponse
+result,_ = recipients.GetBalance(recipientId)
+
+```
+
+
+### <a name="get_withdrawals"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawals") GetWithdrawals
+
+> Gets a paginated list of transfers for the recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetWithdrawals(
+            recipientId string,
+            page *int64,
+            size *int64,
+            status *string,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListWithdrawals,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | TODO: Add a parameter description |
+| page |  ``` Optional ```  | TODO: Add a parameter description |
+| size |  ``` Optional ```  | TODO: Add a parameter description |
+| status |  ``` Optional ```  | TODO: Add a parameter description |
+| createdSince |  ``` Optional ```  | TODO: Add a parameter description |
+| createdUntil |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
+status := "status"
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListWithdrawals
+result,_ = recipients.GetWithdrawals(recipientId, page, size, status, createdSince, createdUntil)
+
+```
+
+
+### <a name="create_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateTransfer") CreateTransfer
+
+> Creates a transfer for a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateTransfer(
+            recipientId string,
+            request *models_pkg.CreateTransferRequest,
+            idempotencyKey *string)(*models_pkg.GetTransferResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient Id |
+| request |  ``` Required ```  | Transfer data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var request *models_pkg.CreateTransferRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetTransferResponse
+result,_ = recipients.CreateTransfer(recipientId, request, idempotencyKey)
+
+```
+
+
+### <a name="create_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateRecipient") CreateRecipient
+
+> Creates a new recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateRecipient(
+            request *models_pkg.CreateRecipientRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| request |  ``` Required ```  | Recipient data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+var request *models_pkg.CreateRecipientRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.CreateRecipient(request, idempotencyKey)
+
+```
+
+
+### <a name="get_recipient_by_code"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipientByCode") GetRecipientByCode
+
+> Retrieves recipient information
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetRecipientByCode(code string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| code |  ``` Required ```  | Recipient code |
+
+
+#### Example Usage
+
+```go
+code := "code"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.GetRecipientByCode(code)
+
+```
+
+
+### <a name="get_default_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetDefaultRecipient") GetDefaultRecipient
+
+> TODO: Add a method description
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetDefaultRecipient()(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Example Usage
+
+```go
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.GetDefaultRecipient()
+
+```
+
+
+[Back to List of Controllers](#list_of_controllers)
+
 ## <a name="charges_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".charges_pkg") charges_pkg
 
 ### Get instance
@@ -3088,40 +3827,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetChargeResponse
 result,_ = charges.UpdateChargeMetadata(chargeId, request, idempotencyKey)
-
-```
-
-
-### <a name="capture_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.CaptureCharge") CaptureCharge
-
-> Captures a charge
-
-
-```go
-func (me *CHARGES_IMPL) CaptureCharge(
-            chargeId string,
-            request *models_pkg.CreateCaptureChargeRequest,
-            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| chargeId |  ``` Required ```  | Charge id |
-| request |  ``` Optional ```  | Request for capturing a charge |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-chargeId := "charge_id"
-var request *models_pkg.CreateCaptureChargeRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetChargeResponse
-result,_ = charges.CaptureCharge(chargeId, request, idempotencyKey)
 
 ```
 
@@ -3185,8 +3890,8 @@ func (me *CHARGES_IMPL) GetChargeTransactions(
 
 ```go
 chargeId := "charge_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 
 var result *models_pkg.ListChargeTransactionsResponse
 result,_ = charges.GetChargeTransactions(chargeId, page, size)
@@ -3264,8 +3969,8 @@ func (me *CHARGES_IMPL) GetCharges(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
+page,_ := strconv.ParseInt("76", 10, 8)
+size,_ := strconv.ParseInt("76", 10, 8)
 code := "code"
 status := "status"
 paymentMethod := "payment_method"
@@ -3276,6 +3981,40 @@ createdUntil := time.Now()
 
 var result *models_pkg.ListChargesResponse
 result,_ = charges.GetCharges(page, size, code, status, paymentMethod, customerId, orderId, createdSince, createdUntil)
+
+```
+
+
+### <a name="capture_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.CaptureCharge") CaptureCharge
+
+> Captures a charge
+
+
+```go
+func (me *CHARGES_IMPL) CaptureCharge(
+            chargeId string,
+            request *models_pkg.CreateCaptureChargeRequest,
+            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| chargeId |  ``` Required ```  | Charge id |
+| request |  ``` Optional ```  | Request for capturing a charge |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+chargeId := "charge_id"
+var request *models_pkg.CreateCaptureChargeRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetChargeResponse
+result,_ = charges.CaptureCharge(chargeId, request, idempotencyKey)
 
 ```
 
@@ -3586,714 +4325,6 @@ func (me *TRANSFERS_IMPL) GetTransfers()(*models_pkg.ListTransfers,error)
 
 var result *models_pkg.ListTransfers
 result,_ = transfers.GetTransfers()
-
-```
-
-
-[Back to List of Controllers](#list_of_controllers)
-
-## <a name="recipients_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".recipients_pkg") recipients_pkg
-
-### Get instance
-
-Factory for the ``` RECIPIENTS ``` interface can be accessed from the package recipients_pkg.
-
-```go
-recipients := recipients_pkg.NewRECIPIENTS()
-```
-
-### <a name="get_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetTransfer") GetTransfer
-
-> Gets a transfer
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetTransfer(
-            recipientId string,
-            transferId string)(*models_pkg.GetTransferResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| transferId |  ``` Required ```  | Transfer id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-transferId := "transfer_id"
-
-var result *models_pkg.GetTransferResponse
-result,_ = recipients.GetTransfer(recipientId, transferId)
-
-```
-
-
-### <a name="update_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipient") UpdateRecipient
-
-> Updates a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipient(
-            recipientId string,
-            request *models_pkg.UpdateRecipientRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| request |  ``` Required ```  | Recipient data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.UpdateRecipientRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipient(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="create_anticipation"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateAnticipation") CreateAnticipation
-
-> Creates an anticipation
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateAnticipation(
-            recipientId string,
-            request *models_pkg.CreateAnticipationRequest,
-            idempotencyKey *string)(*models_pkg.GetAnticipationResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| request |  ``` Required ```  | Anticipation data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.CreateAnticipationRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetAnticipationResponse
-result,_ = recipients.CreateAnticipation(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="get_anticipation_limits"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipationLimits") GetAnticipationLimits
-
-> Gets the anticipation limits for a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetAnticipationLimits(
-            recipientId string,
-            timeframe string,
-            paymentDate *time.Time)(*models_pkg.GetAnticipationLimitResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| timeframe |  ``` Required ```  | Timeframe |
-| paymentDate |  ``` Required ```  | Anticipation payment date |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-timeframe := "timeframe"
-paymentDate := time.Now()
-
-var result *models_pkg.GetAnticipationLimitResponse
-result,_ = recipients.GetAnticipationLimits(recipientId, timeframe, paymentDate)
-
-```
-
-
-### <a name="get_recipients"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipients") GetRecipients
-
-> Retrieves paginated recipients information
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetRecipients(
-            page *int64,
-            size *int64)(*models_pkg.ListRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-
-
-#### Example Usage
-
-```go
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
-
-var result *models_pkg.ListRecipientResponse
-result,_ = recipients.GetRecipients(page, size)
-
-```
-
-
-### <a name="get_withdraw_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawById") GetWithdrawById
-
-> TODO: Add a method description
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetWithdrawById(
-            recipientId string,
-            withdrawalId string)(*models_pkg.GetWithdrawResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | TODO: Add a parameter description |
-| withdrawalId |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-withdrawalId := "withdrawal_id"
-
-var result *models_pkg.GetWithdrawResponse
-result,_ = recipients.GetWithdrawById(recipientId, withdrawalId)
-
-```
-
-
-### <a name="update_recipient_default_bank_account"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientDefaultBankAccount") UpdateRecipientDefaultBankAccount
-
-> Updates the default bank account from a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipientDefaultBankAccount(
-            recipientId string,
-            request *models_pkg.UpdateRecipientBankAccountRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| request |  ``` Required ```  | Bank account data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.UpdateRecipientBankAccountRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipientDefaultBankAccount(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="update_recipient_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientMetadata") UpdateRecipientMetadata
-
-> Updates recipient metadata
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipientMetadata(
-            recipientId string,
-            request *models_pkg.UpdateMetadataRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| request |  ``` Required ```  | Metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.UpdateMetadataRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipientMetadata(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="get_transfers"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetTransfers") GetTransfers
-
-> Gets a paginated list of transfers for the recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetTransfers(
-            recipientId string,
-            page *int64,
-            size *int64,
-            status *string,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListTransferResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| status |  ``` Optional ```  | Filter for transfer status |
-| createdSince |  ``` Optional ```  | Filter for start range of transfer creation date |
-| createdUntil |  ``` Optional ```  | Filter for end range of transfer creation date |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
-status := "status"
-createdSince := time.Now()
-createdUntil := time.Now()
-
-var result *models_pkg.ListTransferResponse
-result,_ = recipients.GetTransfers(recipientId, page, size, status, createdSince, createdUntil)
-
-```
-
-
-### <a name="create_withdraw"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateWithdraw") CreateWithdraw
-
-> TODO: Add a method description
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateWithdraw(
-            recipientId string,
-            request *models_pkg.CreateWithdrawRequest)(*models_pkg.GetWithdrawResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | TODO: Add a parameter description |
-| request |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.CreateWithdrawRequest
-
-var result *models_pkg.GetWithdrawResponse
-result,_ = recipients.CreateWithdraw(recipientId, request)
-
-```
-
-
-### <a name="update_automatic_anticipation_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateAutomaticAnticipationSettings") UpdateAutomaticAnticipationSettings
-
-> Updates recipient metadata
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateAutomaticAnticipationSettings(
-            recipientId string,
-            request *models_pkg.UpdateAutomaticAnticipationSettingsRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| request |  ``` Required ```  | Metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.UpdateAutomaticAnticipationSettingsRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateAutomaticAnticipationSettings(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="get_anticipation"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipation") GetAnticipation
-
-> Gets an anticipation
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetAnticipation(
-            recipientId string,
-            anticipationId string)(*models_pkg.GetAnticipationResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| anticipationId |  ``` Required ```  | Anticipation id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-anticipationId := "anticipation_id"
-
-var result *models_pkg.GetAnticipationResponse
-result,_ = recipients.GetAnticipation(recipientId, anticipationId)
-
-```
-
-
-### <a name="update_recipient_transfer_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientTransferSettings") UpdateRecipientTransferSettings
-
-> TODO: Add a method description
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipientTransferSettings(
-            recipientId string,
-            request *models_pkg.UpdateTransferSettingsRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient Identificator |
-| request |  ``` Required ```  | TODO: Add a parameter description |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.UpdateTransferSettingsRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipientTransferSettings(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="get_anticipations"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipations") GetAnticipations
-
-> Retrieves a paginated list of anticipations from a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetAnticipations(
-            recipientId string,
-            page *int64,
-            size *int64,
-            status *string,
-            timeframe *string,
-            paymentDateSince *time.Time,
-            paymentDateUntil *time.Time,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListAnticipationResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| status |  ``` Optional ```  | Filter for anticipation status |
-| timeframe |  ``` Optional ```  | Filter for anticipation timeframe |
-| paymentDateSince |  ``` Optional ```  | Filter for start range for anticipation payment date |
-| paymentDateUntil |  ``` Optional ```  | Filter for end range for anticipation payment date |
-| createdSince |  ``` Optional ```  | Filter for start range for anticipation creation date |
-| createdUntil |  ``` Optional ```  | Filter for end range for anticipation creation date |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
-status := "status"
-timeframe := "timeframe"
-paymentDateSince := time.Now()
-paymentDateUntil := time.Now()
-createdSince := time.Now()
-createdUntil := time.Now()
-
-var result *models_pkg.ListAnticipationResponse
-result,_ = recipients.GetAnticipations(recipientId, page, size, status, timeframe, paymentDateSince, paymentDateUntil, createdSince, createdUntil)
-
-```
-
-
-### <a name="get_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipient") GetRecipient
-
-> Retrieves recipient information
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetRecipient(recipientId string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipiend id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.GetRecipient(recipientId)
-
-```
-
-
-### <a name="get_withdrawals"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawals") GetWithdrawals
-
-> Gets a paginated list of transfers for the recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetWithdrawals(
-            recipientId string,
-            page *int64,
-            size *int64,
-            status *string,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListWithdrawals,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | TODO: Add a parameter description |
-| page |  ``` Optional ```  | TODO: Add a parameter description |
-| size |  ``` Optional ```  | TODO: Add a parameter description |
-| status |  ``` Optional ```  | TODO: Add a parameter description |
-| createdSince |  ``` Optional ```  | TODO: Add a parameter description |
-| createdUntil |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-page,_ := strconv.ParseInt("82", 10, 8)
-size,_ := strconv.ParseInt("82", 10, 8)
-status := "status"
-createdSince := time.Now()
-createdUntil := time.Now()
-
-var result *models_pkg.ListWithdrawals
-result,_ = recipients.GetWithdrawals(recipientId, page, size, status, createdSince, createdUntil)
-
-```
-
-
-### <a name="get_balance"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetBalance") GetBalance
-
-> Get balance information for a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetBalance(recipientId string)(*models_pkg.GetBalanceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-
-var result *models_pkg.GetBalanceResponse
-result,_ = recipients.GetBalance(recipientId)
-
-```
-
-
-### <a name="create_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateTransfer") CreateTransfer
-
-> Creates a transfer for a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateTransfer(
-            recipientId string,
-            request *models_pkg.CreateTransferRequest,
-            idempotencyKey *string)(*models_pkg.GetTransferResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient Id |
-| request |  ``` Required ```  | Transfer data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var request *models_pkg.CreateTransferRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetTransferResponse
-result,_ = recipients.CreateTransfer(recipientId, request, idempotencyKey)
-
-```
-
-
-### <a name="create_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateRecipient") CreateRecipient
-
-> Creates a new recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateRecipient(
-            request *models_pkg.CreateRecipientRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| request |  ``` Required ```  | Recipient data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-var request *models_pkg.CreateRecipientRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.CreateRecipient(request, idempotencyKey)
-
-```
-
-
-### <a name="get_recipient_by_code"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipientByCode") GetRecipientByCode
-
-> Retrieves recipient information
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetRecipientByCode(code string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| code |  ``` Required ```  | Recipient code |
-
-
-#### Example Usage
-
-```go
-code := "code"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.GetRecipientByCode(code)
-
-```
-
-
-### <a name="get_default_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetDefaultRecipient") GetDefaultRecipient
-
-> TODO: Add a method description
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetDefaultRecipient()(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Example Usage
-
-```go
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.GetDefaultRecipient()
 
 ```
 
