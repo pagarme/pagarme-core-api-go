@@ -2047,6 +2047,7 @@ type CreateSplitRequest struct {
     Amount          int64           `json:"amount" form:"amount"` //Amount
     RecipientId     string          `json:"recipient_id" form:"recipient_id"` //Recipient id
     Options         *CreateSplitOptionsRequest `json:"options,omitempty" form:"options,omitempty"` //The split options request
+    SplitRuleId     *string         `json:"split_rule_id,omitempty" form:"split_rule_id,omitempty"` //Rule code used in cancellation.
 }
 
 /*
@@ -2339,17 +2340,6 @@ type CreateCheckoutPixPaymentRequest struct {
 type GetCheckoutPixPaymentResponse struct {
     ExpiresAt              *time.Time      `json:"expires_at" form:"expires_at"` //Expires at
     AdditionalInformation  []*PixAdditionalInformation `json:"additional_information" form:"additional_information"` //Additional information
-}
-
-/*
- * Structure for the custom type CancelSplitRequest
- */
-type CancelSplitRequest struct {
-    Type            string          `json:"type" form:"type"` //Split type
-    Amount          int64           `json:"amount" form:"amount"` //Amount
-    RecipientId     string          `json:"recipient_id" form:"recipient_id"` //Recipient id
-    Options         *CreateSplitOptionsRequest `json:"options,omitempty" form:"options,omitempty"` //The split options request
-    SplitRuleId     *string         `json:"split_rule_id,omitempty" form:"split_rule_id,omitempty"` //Rule id
 }
 
 /*
