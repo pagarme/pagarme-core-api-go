@@ -23,99 +23,15 @@ type SUBSCRIPTIONS_IMPL struct {
 }
 
 /**
- * TODO: type endpoint description here
- * @param    string         subscriptionId      parameter: Required
- * @param    *string        idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetPeriodResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) RenewSubscription (
-            subscriptionId string,
-            idempotencyKey *string) (*models_pkg.GetPeriodResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/cycles"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
-    }
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, nil, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetPeriodResponse = &models_pkg.GetPeriodResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
  * Updates the credit card from a subscription
  * @param    string                                           subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionCardRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionCardRequest        body                parameter: Required
  * @param    *string                                          idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionCard (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionCardRequest,
+            body *models_pkg.UpdateSubscriptionCardRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/card"
@@ -148,11 +64,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionCard (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -286,13 +203,13 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteUsage (
 /**
  * Creates a discount
  * @param    string                                   subscriptionId      parameter: Required
- * @param    *models_pkg.CreateDiscountRequest        request             parameter: Required
+ * @param    *models_pkg.CreateDiscountRequest        body                parameter: Required
  * @param    *string                                  idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetDiscountResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) CreateDiscount (
             subscriptionId string,
-            request *models_pkg.CreateDiscountRequest,
+            body *models_pkg.CreateDiscountRequest,
             idempotencyKey *string) (*models_pkg.GetDiscountResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/discounts"
@@ -325,11 +242,12 @@ func (me *SUBSCRIPTIONS_IMPL) CreateDiscount (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -458,15 +376,125 @@ func (me *SUBSCRIPTIONS_IMPL) CreateAnUsage (
 }
 
 /**
- * TODO: type endpoint description here
+ * Lists all usages from a subscription item
+ * @param    string            subscriptionId      parameter: Required
+ * @param    string            itemId              parameter: Required
+ * @param    *int64            page                parameter: Optional
+ * @param    *int64            size                parameter: Optional
+ * @param    *string           code                parameter: Optional
+ * @param    *string           group               parameter: Optional
+ * @param    *time.Time        usedSince           parameter: Optional
+ * @param    *time.Time        usedUntil           parameter: Optional
+ * @return	Returns the *models_pkg.ListUsagesResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) GetUsages (
+            subscriptionId string,
+            itemId string,
+            page *int64,
+            size *int64,
+            code *string,
+            group *string,
+            usedSince *time.Time,
+            usedUntil *time.Time) (*models_pkg.ListUsagesResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}/items/{item_id}/usages"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+        "item_id" : itemId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //process optional query parameters
+    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
+        "page" : page,
+        "size" : size,
+        "code" : code,
+        "group" : group,
+        "used_since" : usedSince,
+        "used_until" : usedUntil,
+    })
+    if err != nil {
+        //error in query param handling
+        return nil, err
+    }
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+    }
+
+    //prepare API request
+    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.ListUsagesResponse = &models_pkg.ListUsagesResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * UpdateCurrentCycleStatus
  * @param    string                                             subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateCurrentCycleStatusRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateCurrentCycleStatusRequest        body                parameter: Required
  * @param    *string                                            idempotencyKey      parameter: Optional
  * @return	Returns the  response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus (
             subscriptionId string,
-            request *models_pkg.UpdateCurrentCycleStatusRequest,
+            body *models_pkg.UpdateCurrentCycleStatusRequest,
             idempotencyKey *string) (error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/cycle-status"
@@ -498,11 +526,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus (
     headers := map[string]interface{} {
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -533,6 +562,94 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus (
 
     //returning the response
     return nil
+
+}
+
+/**
+ * Updates the payment method from a subscription
+ * @param    string                                                    subscriptionId      parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionPaymentMethodRequest        body                parameter: Required
+ * @param    *string                                                   idempotencyKey      parameter: Optional
+ * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod (
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionPaymentMethodRequest,
+            idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}/payment-method"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
+        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
+    }
+
+    //prepare API request
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
 
 }
 
@@ -737,18 +854,18 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems (
 }
 
 /**
- * Updates the payment method from a subscription
- * @param    string                                                    subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionPaymentMethodRequest        request             parameter: Required
- * @param    *string                                                   idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
+ * Creates a new Subscription item
+ * @param    string                                           subscriptionId      parameter: Required
+ * @param    *models_pkg.CreateSubscriptionItemRequest        body                parameter: Required
+ * @param    *string                                          idempotencyKey      parameter: Optional
+ * @return	Returns the *models_pkg.GetSubscriptionItemResponse response from the API call
  */
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod (
+func (me *SUBSCRIPTIONS_IMPL) CreateSubscriptionItem (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionPaymentMethodRequest,
-            idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
+            body *models_pkg.CreateSubscriptionItemRequest,
+            idempotencyKey *string) (*models_pkg.GetSubscriptionItemResponse, error) {
     //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/payment-method"
+    _pathUrl := "/subscriptions/{subscription_id}/items"
 
     //variable to hold errors
     var err error = nil
@@ -778,11 +895,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -812,7 +930,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod (
     }
 
     //returning the response
-    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
+    var retVal *models_pkg.GetSubscriptionItemResponse = &models_pkg.GetSubscriptionItemResponse{}
     err = json.Unmarshal(_response.RawBody, &retVal)
 
     if err != nil {
@@ -867,6 +985,97 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItem (
 
     //prepare API request
     _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetSubscriptionItemResponse = &models_pkg.GetSubscriptionItemResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Updates a subscription item
+ * @param    string                                           subscriptionId      parameter: Required
+ * @param    string                                           itemId              parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionItemRequest        body                parameter: Required
+ * @param    *string                                          idempotencyKey      parameter: Optional
+ * @return	Returns the *models_pkg.GetSubscriptionItemResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionItem (
+            subscriptionId string,
+            itemId string,
+            body *models_pkg.UpdateSubscriptionItemRequest,
+            idempotencyKey *string) (*models_pkg.GetSubscriptionItemResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}/items/{item_id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+        "item_id" : itemId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
+        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
+    }
+
+    //prepare API request
+    _request := unirest.PutWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1022,15 +1231,90 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions (
 }
 
 /**
+ * Creates a new subscription
+ * @param    *models_pkg.CreateSubscriptionRequest        body                parameter: Required
+ * @param    *string                                      idempotencyKey      parameter: Optional
+ * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) CreateSubscription (
+            body *models_pkg.CreateSubscriptionRequest,
+            idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions"
+
+    //variable to hold errors
+    var err error = nil
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
+        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
+    }
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
  * Cancels a subscription
- * @param    string                                             subscriptionId      parameter: Required
- * @param    *models_pkg.CreateCancelSubscriptionRequest        request             parameter: Optional
- * @param    *string                                            idempotencyKey      parameter: Optional
+ * @param    string         subscriptionId      parameter: Required
+ * @param    *string        idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) CancelSubscription (
             subscriptionId string,
-            request *models_pkg.CreateCancelSubscriptionRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}"
@@ -1062,12 +1346,92 @@ func (me *SUBSCRIPTIONS_IMPL) CancelSubscription (
     headers := map[string]interface{} {
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.DeleteWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.DeleteWithAuth(_queryBuilder, headers, nil, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * Gets a subscription
+ * @param    string        subscriptionId      parameter: Required
+ * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) GetSubscription (
+            subscriptionId string) (*models_pkg.GetSubscriptionResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+    }
+
+    //prepare API request
+    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1111,13 +1475,13 @@ func (me *SUBSCRIPTIONS_IMPL) CancelSubscription (
 /**
  * Creates a increment
  * @param    string                                    subscriptionId      parameter: Required
- * @param    *models_pkg.CreateIncrementRequest        request             parameter: Required
+ * @param    *models_pkg.CreateIncrementRequest        body                parameter: Required
  * @param    *string                                   idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetIncrementResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) CreateIncrement (
             subscriptionId string,
-            request *models_pkg.CreateIncrementRequest,
+            body *models_pkg.CreateIncrementRequest,
             idempotencyKey *string) (*models_pkg.GetIncrementResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/increments"
@@ -1150,11 +1514,12 @@ func (me *SUBSCRIPTIONS_IMPL) CreateIncrement (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1196,97 +1561,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateIncrement (
 }
 
 /**
- * Creates a usage
- * @param    string                                subscriptionId      parameter: Required
- * @param    string                                itemId              parameter: Required
- * @param    *models_pkg.CreateUsageRequest        body                parameter: Required
- * @param    *string                               idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetUsageResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) CreateUsage (
-            subscriptionId string,
-            itemId string,
-            body *models_pkg.CreateUsageRequest,
-            idempotencyKey *string) (*models_pkg.GetUsageResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/items/{item_id}/usages"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-        "item_id" : itemId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
-    }
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetUsageResponse = &models_pkg.GetUsageResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * TODO: type endpoint description here
+ * GetDiscountById
  * @param    string        subscriptionId      parameter: Required
  * @param    string        discountId          parameter: Required
  * @return	Returns the *models_pkg.GetDiscountResponse response from the API call
@@ -1370,175 +1645,15 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscountById (
 }
 
 /**
- * Creates a new subscription
- * @param    *models_pkg.CreateSubscriptionRequest        body                parameter: Required
- * @param    *string                                      idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) CreateSubscription (
-            body *models_pkg.CreateSubscriptionRequest,
-            idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions"
-
-    //variable to hold errors
-    var err error = nil
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
-    }
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * TODO: type endpoint description here
- * @param    string        subscriptionId      parameter: Required
- * @param    string        incrementId         parameter: Required
- * @return	Returns the *models_pkg.GetIncrementResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) GetIncrementById (
-            subscriptionId string,
-            incrementId string) (*models_pkg.GetIncrementResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/increments/{increment_id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-        "increment_id" : incrementId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-    }
-
-    //prepare API request
-    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetIncrementResponse = &models_pkg.GetIncrementResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * TODO: type endpoint description here
+ * UpdateSubscriptionAffiliationId
  * @param    string                                                    subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionAffiliationIdRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionAffiliationIdRequest        body                parameter: Required
  * @param    *string                                                   idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionAffiliationIdRequest,
+            body *models_pkg.UpdateSubscriptionAffiliationIdRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/gateway-affiliation-id"
@@ -1571,11 +1686,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1619,13 +1735,13 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId (
 /**
  * Updates the metadata from a subscription
  * @param    string                                   subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateMetadataRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateMetadataRequest        body                parameter: Required
  * @param    *string                                  idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMetadata (
             subscriptionId string,
-            request *models_pkg.UpdateMetadataRequest,
+            body *models_pkg.UpdateMetadataRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/Subscriptions/{subscription_id}/metadata"
@@ -1658,11 +1774,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMetadata (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1791,7 +1908,91 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteIncrement (
 }
 
 /**
- * TODO: type endpoint description here
+ * GetIncrementById
+ * @param    string        subscriptionId      parameter: Required
+ * @param    string        incrementId         parameter: Required
+ * @return	Returns the *models_pkg.GetIncrementResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) GetIncrementById (
+            subscriptionId string,
+            incrementId string) (*models_pkg.GetIncrementResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}/increments/{increment_id}"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+        "increment_id" : incrementId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+    }
+
+    //prepare API request
+    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetIncrementResponse = &models_pkg.GetIncrementResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * GetSubscriptionCycles
  * @param    string        subscriptionId      parameter: Required
  * @param    string        page                parameter: Required
  * @param    string        size                parameter: Required
@@ -1886,7 +2087,91 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycles (
 }
 
 /**
- * TODO: type endpoint description here
+ * RenewSubscription
+ * @param    string         subscriptionId      parameter: Required
+ * @param    *string        idempotencyKey      parameter: Optional
+ * @return	Returns the *models_pkg.GetPeriodResponse response from the API call
+ */
+func (me *SUBSCRIPTIONS_IMPL) RenewSubscription (
+            subscriptionId string,
+            idempotencyKey *string) (*models_pkg.GetPeriodResponse, error) {
+    //the endpoint path uri
+    _pathUrl := "/subscriptions/{subscription_id}/cycles"
+
+    //variable to hold errors
+    var err error = nil
+    //process optional template parameters
+    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
+        "subscription_id" : subscriptionId,
+    })
+    if err != nil {
+        //error in template param handling
+        return nil, err
+    }
+
+    //the base uri for api requests
+    _queryBuilder := configuration_pkg.BASEURI;
+
+    //prepare query string for API call
+   _queryBuilder = _queryBuilder + _pathUrl
+
+    //validate and preprocess url
+    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
+    if err != nil {
+        //error in url validation or cleaning
+        return nil, err
+    }
+    //prepare headers for the outgoing request
+    headers := map[string]interface{} {
+        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "accept" : "application/json",
+        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
+    }
+
+    //prepare API request
+    _request := unirest.PostWithAuth(_queryBuilder, headers, nil, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    //and invoke the API call request to fetch the response
+    _response, err := unirest.AsString(_request,false);
+    if err != nil {
+        //error in API invocation
+        return nil, err
+    }
+
+    //error handling using HTTP status codes
+    if (_response.Code == 400) {
+        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
+    } else if (_response.Code == 401) {
+        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
+    } else if (_response.Code == 404) {
+        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
+    } else if (_response.Code == 412) {
+        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 422) {
+        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
+    } else if (_response.Code == 500) {
+        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
+    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
+            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
+    }
+    if(err != nil) {
+        //error detected in status code validation
+        return nil, err
+    }
+
+    //returning the response
+    var retVal *models_pkg.GetPeriodResponse = &models_pkg.GetPeriodResponse{}
+    err = json.Unmarshal(_response.RawBody, &retVal)
+
+    if err != nil {
+        //error in parsing
+        return nil, err
+    }
+    return retVal, nil
+
+}
+
+/**
+ * GetDiscounts
  * @param    string        subscriptionId      parameter: Required
  * @param    int64         page                parameter: Required
  * @param    int64         size                parameter: Required
@@ -1983,13 +2268,13 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscounts (
 /**
  * Updates the billing date from a subscription
  * @param    string                                                  subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionBillingDateRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionBillingDateRequest        body                parameter: Required
  * @param    *string                                                 idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionBillingDate (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionBillingDateRequest,
+            body *models_pkg.UpdateSubscriptionBillingDateRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/billing-date"
@@ -2022,11 +2307,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionBillingDate (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -2155,7 +2441,7 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteSubscriptionItem (
 }
 
 /**
- * TODO: type endpoint description here
+ * GetIncrements
  * @param    string        subscriptionId      parameter: Required
  * @param    *int64        page                parameter: Optional
  * @param    *int64        size                parameter: Optional
@@ -2252,13 +2538,13 @@ func (me *SUBSCRIPTIONS_IMPL) GetIncrements (
 /**
  * Updates the boleto due days from a subscription
  * @param    string                                              subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionDueDaysRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionDueDaysRequest        body                parameter: Required
  * @param    *string                                             idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionDueDaysRequest,
+            body *models_pkg.UpdateSubscriptionDueDaysRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/boleto-due-days"
@@ -2291,11 +2577,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -2339,13 +2626,13 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays (
 /**
  * Updates the start at date from a subscription
  * @param    string                                              subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionStartAtRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionStartAtRequest        body                parameter: Required
  * @param    *string                                             idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionStartAtRequest,
+            body *models_pkg.UpdateSubscriptionStartAtRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/start-at"
@@ -2378,11 +2665,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -2424,383 +2712,15 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt (
 }
 
 /**
- * Updates a subscription item
- * @param    string                                           subscriptionId      parameter: Required
- * @param    string                                           itemId              parameter: Required
- * @param    *models_pkg.UpdateSubscriptionItemRequest        body                parameter: Required
- * @param    *string                                          idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetSubscriptionItemResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionItem (
-            subscriptionId string,
-            itemId string,
-            body *models_pkg.UpdateSubscriptionItemRequest,
-            idempotencyKey *string) (*models_pkg.GetSubscriptionItemResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/items/{item_id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-        "item_id" : itemId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
-    }
-
-    //prepare API request
-    _request := unirest.PutWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetSubscriptionItemResponse = &models_pkg.GetSubscriptionItemResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Creates a new Subscription item
- * @param    string                                           subscriptionId      parameter: Required
- * @param    *models_pkg.CreateSubscriptionItemRequest        request             parameter: Required
- * @param    *string                                          idempotencyKey      parameter: Optional
- * @return	Returns the *models_pkg.GetSubscriptionItemResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) CreateSubscriptionItem (
-            subscriptionId string,
-            request *models_pkg.CreateSubscriptionItemRequest,
-            idempotencyKey *string) (*models_pkg.GetSubscriptionItemResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/items"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-        "content-type" : "application/json; charset=utf-8",
-        "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
-    }
-
-    //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetSubscriptionItemResponse = &models_pkg.GetSubscriptionItemResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Gets a subscription
- * @param    string        subscriptionId      parameter: Required
- * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) GetSubscription (
-            subscriptionId string) (*models_pkg.GetSubscriptionResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-    }
-
-    //prepare API request
-    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.GetSubscriptionResponse = &models_pkg.GetSubscriptionResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * Lists all usages from a subscription item
- * @param    string            subscriptionId      parameter: Required
- * @param    string            itemId              parameter: Required
- * @param    *int64            page                parameter: Optional
- * @param    *int64            size                parameter: Optional
- * @param    *string           code                parameter: Optional
- * @param    *string           group               parameter: Optional
- * @param    *time.Time        usedSince           parameter: Optional
- * @param    *time.Time        usedUntil           parameter: Optional
- * @return	Returns the *models_pkg.ListUsagesResponse response from the API call
- */
-func (me *SUBSCRIPTIONS_IMPL) GetUsages (
-            subscriptionId string,
-            itemId string,
-            page *int64,
-            size *int64,
-            code *string,
-            group *string,
-            usedSince *time.Time,
-            usedUntil *time.Time) (*models_pkg.ListUsagesResponse, error) {
-    //the endpoint path uri
-    _pathUrl := "/subscriptions/{subscription_id}/items/{item_id}/usages"
-
-    //variable to hold errors
-    var err error = nil
-    //process optional template parameters
-    _pathUrl, err = apihelper_pkg.AppendUrlWithTemplateParameters(_pathUrl, map[string]interface{} {
-        "subscription_id" : subscriptionId,
-        "item_id" : itemId,
-    })
-    if err != nil {
-        //error in template param handling
-        return nil, err
-    }
-
-    //the base uri for api requests
-    _queryBuilder := configuration_pkg.BASEURI;
-
-    //prepare query string for API call
-   _queryBuilder = _queryBuilder + _pathUrl
-
-    //process optional query parameters
-    _queryBuilder, err = apihelper_pkg.AppendUrlWithQueryParameters(_queryBuilder, map[string]interface{} {
-        "page" : page,
-        "size" : size,
-        "code" : code,
-        "group" : group,
-        "used_since" : usedSince,
-        "used_until" : usedUntil,
-    })
-    if err != nil {
-        //error in query param handling
-        return nil, err
-    }
-
-    //validate and preprocess url
-    _queryBuilder, err = apihelper_pkg.CleanUrl(_queryBuilder)
-    if err != nil {
-        //error in url validation or cleaning
-        return nil, err
-    }
-    //prepare headers for the outgoing request
-    headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
-        "accept" : "application/json",
-    }
-
-    //prepare API request
-    _request := unirest.GetWithAuth(_queryBuilder, headers, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
-    //and invoke the API call request to fetch the response
-    _response, err := unirest.AsString(_request,false);
-    if err != nil {
-        //error in API invocation
-        return nil, err
-    }
-
-    //error handling using HTTP status codes
-    if (_response.Code == 400) {
-        err = apihelper_pkg.NewAPIError("Invalid request", _response.Code, _response.RawBody)
-    } else if (_response.Code == 401) {
-        err = apihelper_pkg.NewAPIError("Invalid API key", _response.Code, _response.RawBody)
-    } else if (_response.Code == 404) {
-        err = apihelper_pkg.NewAPIError("An informed resource was not found", _response.Code, _response.RawBody)
-    } else if (_response.Code == 412) {
-        err = apihelper_pkg.NewAPIError("Business validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 422) {
-        err = apihelper_pkg.NewAPIError("Contract validation error", _response.Code, _response.RawBody)
-    } else if (_response.Code == 500) {
-        err = apihelper_pkg.NewAPIError("Internal server error", _response.Code, _response.RawBody)
-    } else if (_response.Code < 200) || (_response.Code > 206) { //[200,206] = HTTP OK
-            err = apihelper_pkg.NewAPIError("HTTP Response Not OK", _response.Code, _response.RawBody)
-    }
-    if(err != nil) {
-        //error detected in status code validation
-        return nil, err
-    }
-
-    //returning the response
-    var retVal *models_pkg.ListUsagesResponse = &models_pkg.ListUsagesResponse{}
-    err = json.Unmarshal(_response.RawBody, &retVal)
-
-    if err != nil {
-        //error in parsing
-        return nil, err
-    }
-    return retVal, nil
-
-}
-
-/**
- * TODO: type endpoint description here
+ * UpdateLatestPeriodEndAt
  * @param    string                                              subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateCurrentCycleEndDateRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateCurrentCycleEndDateRequest        body                parameter: Required
  * @param    *string                                             idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt (
             subscriptionId string,
-            request *models_pkg.UpdateCurrentCycleEndDateRequest,
+            body *models_pkg.UpdateCurrentCycleEndDateRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/periods/latest/end-at"
@@ -2833,11 +2753,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -2881,13 +2802,13 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt (
 /**
  * Atualização do valor mínimo da assinatura
  * @param    string                                                   subscriptionId      parameter: Required
- * @param    *models_pkg.UpdateSubscriptionMinimumPriceRequest        request             parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionMinimumPriceRequest        body                parameter: Required
  * @param    *string                                                  idempotencyKey      parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice (
             subscriptionId string,
-            request *models_pkg.UpdateSubscriptionMinimumPriceRequest,
+            body *models_pkg.UpdateSubscriptionMinimumPriceRequest,
             idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}/minimum_price"
@@ -2920,11 +2841,12 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -2966,7 +2888,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice (
 }
 
 /**
- * TODO: type endpoint description here
+ * GetSubscriptionCycleById
  * @param    string        subscriptionId      parameter: Required
  * @param    string        cycleId             parameter: Required
  * @return	Returns the *models_pkg.GetPeriodResponse response from the API call
@@ -3050,7 +2972,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycleById (
 }
 
 /**
- * TODO: type endpoint description here
+ * GetUsageReport
  * @param    string        subscriptionId      parameter: Required
  * @param    string        periodId            parameter: Required
  * @return	Returns the *models_pkg.GetUsageReportResponse response from the API call
@@ -3134,14 +3056,14 @@ func (me *SUBSCRIPTIONS_IMPL) GetUsageReport (
 }
 
 /**
- * TODO: type endpoint description here
- * @param    string                                            id          parameter: Required
- * @param    *models_pkg.UpdateSubscriptionSplitRequest        request     parameter: Required
+ * UpdateSplitSubscription
+ * @param    string                                            id               parameter: Required
+ * @param    *models_pkg.UpdateSubscriptionSplitRequest        body             parameter: Required
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription (
             id string,
-            request *models_pkg.UpdateSubscriptionSplitRequest) (*models_pkg.GetSubscriptionResponse, error) {
+            body *models_pkg.UpdateSubscriptionSplitRequest) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{id}/split"
 
@@ -3173,10 +3095,11 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
     }
 
     //prepare API request
-    _request := unirest.PatchWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PatchWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {

@@ -14,13 +14,21 @@ import "pagarmecoreapi_lib/models_pkg"
  * Interface for the RECIPIENTS_IMPL
  */
 type RECIPIENTS interface {
+    GetTransfer (string, string) (*models_pkg.GetTransferResponse, error)
+
     UpdateRecipient (string, *models_pkg.UpdateRecipientRequest, *string) (*models_pkg.GetRecipientResponse, error)
 
+    GetRecipient (string) (*models_pkg.GetRecipientResponse, error)
+
     CreateAnticipation (string, *models_pkg.CreateAnticipationRequest, *string) (*models_pkg.GetAnticipationResponse, error)
+
+    GetAnticipations (string, *int64, *int64, *string, *string, *time.Time, *time.Time, *time.Time, *time.Time) (*models_pkg.ListAnticipationResponse, error)
 
     GetAnticipationLimits (string, string, *time.Time) (*models_pkg.GetAnticipationLimitResponse, error)
 
     GetRecipients (*int64, *int64) (*models_pkg.ListRecipientResponse, error)
+
+    CreateRecipient (*models_pkg.CreateRecipientRequest, *string) (*models_pkg.GetRecipientResponse, error)
 
     GetWithdrawById (string, string) (*models_pkg.GetWithdrawResponse, error)
 
@@ -30,9 +38,11 @@ type RECIPIENTS interface {
 
     GetTransfers (string, *int64, *int64, *string, *time.Time, *time.Time) (*models_pkg.ListTransferResponse, error)
 
-    GetTransfer (string, string) (*models_pkg.GetTransferResponse, error)
+    CreateTransfer (string, *models_pkg.CreateTransferRequest, *string) (*models_pkg.GetTransferResponse, error)
 
     CreateWithdraw (string, *models_pkg.CreateWithdrawRequest) (*models_pkg.GetWithdrawResponse, error)
+
+    GetWithdrawals (string, *int64, *int64, *string, *time.Time, *time.Time) (*models_pkg.ListWithdrawals, error)
 
     UpdateAutomaticAnticipationSettings (string, *models_pkg.UpdateAutomaticAnticipationSettingsRequest, *string) (*models_pkg.GetRecipientResponse, error)
 
@@ -40,17 +50,7 @@ type RECIPIENTS interface {
 
     UpdateRecipientTransferSettings (string, *models_pkg.UpdateTransferSettingsRequest, *string) (*models_pkg.GetRecipientResponse, error)
 
-    GetAnticipations (string, *int64, *int64, *string, *string, *time.Time, *time.Time, *time.Time, *time.Time) (*models_pkg.ListAnticipationResponse, error)
-
-    GetRecipient (string) (*models_pkg.GetRecipientResponse, error)
-
     GetBalance (string) (*models_pkg.GetBalanceResponse, error)
-
-    GetWithdrawals (string, *int64, *int64, *string, *time.Time, *time.Time) (*models_pkg.ListWithdrawals, error)
-
-    CreateTransfer (string, *models_pkg.CreateTransferRequest, *string) (*models_pkg.GetTransferResponse, error)
-
-    CreateRecipient (*models_pkg.CreateRecipientRequest, *string) (*models_pkg.GetRecipientResponse, error)
 
     GetRecipientByCode (string) (*models_pkg.GetRecipientResponse, error)
 

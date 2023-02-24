@@ -14,7 +14,7 @@ import "time"
  */
 type ListInvoicesResponse struct {
     Data            []*GetInvoiceResponse `json:"data" form:"data"` //The Invoice objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -26,10 +26,13 @@ type GetCheckoutBoletoPaymentResponse struct {
 }
 
 /*
- * Structure for the custom type CreateCardOptionsRequest
+ * Structure for the custom type UpdatePriceBracketRequest
  */
-type CreateCardOptionsRequest struct {
-    VerifyCard      bool            `json:"verify_card" form:"verify_card"` //Indicates if the card should be verified before creation. If true, executes an authorization before saving the card.
+type UpdatePriceBracketRequest struct {
+    StartQuantity   int64           `json:"start_quantity" form:"start_quantity"` //Start quantity of the bracket
+    Price           int64           `json:"price" form:"price"` //Price
+    EndQuantity     *int64          `json:"end_quantity,omitempty" form:"end_quantity,omitempty"` //End quantity of the bracket
+    OveragePrice    *int64          `json:"overage_price,omitempty" form:"overage_price,omitempty"` //Overage price
 }
 
 /*
@@ -44,7 +47,7 @@ type UpdateSubscriptionBillingDateRequest struct {
  */
 type ListChargesResponse struct {
     Data            []*GetChargeResponse `json:"data" form:"data"` //The charge objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -52,7 +55,7 @@ type ListChargesResponse struct {
  */
 type ListSubscriptionsResponse struct {
     Data            []*GetSubscriptionResponse `json:"data" form:"data"` //The subscription objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -65,11 +68,18 @@ type PagingResponse struct {
 }
 
 /*
+ * Structure for the custom type CreateCardOptionsRequest
+ */
+type CreateCardOptionsRequest struct {
+    VerifyCard      bool            `json:"verify_card" form:"verify_card"` //Indicates if the card should be verified before creation. If true, executes an authorization before saving the card.
+}
+
+/*
  * Structure for the custom type ListTransactionsResponse
  */
 type ListTransactionsResponse struct {
     Data            []*GetTransactionResponse `json:"data" form:"data"` //The transaction objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -81,12 +91,20 @@ type GetPlanItemResponse struct {
     Status          string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    PricingScheme   GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //TODO: Write general description for this field
+    PricingScheme   GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //Response object for getting a pricing scheme
     Description     string          `json:"description" form:"description"` //TODO: Write general description for this field
-    Plan            GetPlanResponse `json:"plan" form:"plan"` //TODO: Write general description for this field
+    Plan            GetPlanResponse `json:"plan" form:"plan"` //Response object for getting a plan
     Quantity        *int64          `json:"quantity,omitempty" form:"quantity,omitempty"` //TODO: Write general description for this field
     Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //TODO: Write general description for this field
     DeletedAt       *time.Time      `json:"deleted_at,omitempty" form:"deleted_at,omitempty"` //TODO: Write general description for this field
+}
+
+/*
+ * Structure for the custom type ListCardsResponse
+ */
+type ListCardsResponse struct {
+    Data            []*GetCardResponse `json:"data" form:"data"` //The card objects
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -108,14 +126,6 @@ type CreateCardTokenRequest struct {
     Cvv             string          `json:"cvv" form:"cvv"` //The card's security code
     Brand           string          `json:"brand" form:"brand"` //Card brand
     Label           string          `json:"label" form:"label"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type ListCardsResponse
- */
-type ListCardsResponse struct {
-    Data            []*GetCardResponse `json:"data" form:"data"` //The card objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
 }
 
 /*
@@ -147,7 +157,7 @@ type GetTokenResponse struct {
     Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     ExpiresAt       string          `json:"expires_at" form:"expires_at"` //TODO: Write general description for this field
-    Card            GetCardTokenResponse `json:"card" form:"card"` //TODO: Write general description for this field
+    Card            GetCardTokenResponse `json:"card" form:"card"` //Card token data
 }
 
 /*
@@ -155,7 +165,7 @@ type GetTokenResponse struct {
  */
 type ListCustomersResponse struct {
     Data            []*GetCustomerResponse `json:"data" form:"data"` //The customer object
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -165,7 +175,7 @@ type UpdatePlanItemRequest struct {
     Name            string          `json:"name" form:"name"` //Item name
     Description     string          `json:"description" form:"description"` //Description
     Status          string          `json:"status" form:"status"` //Item status
-    PricingScheme   UpdatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Pricing scheme
+    PricingScheme   UpdatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for updating a pricing scheme
     Quantity        *int64          `json:"quantity,omitempty" form:"quantity,omitempty"` //Quantity
     Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles that the item will be charged
 }
@@ -176,7 +186,7 @@ type UpdatePlanItemRequest struct {
 type UpdateSubscriptionItemRequest struct {
     Description     string          `json:"description" form:"description"` //Description
     Status          string          `json:"status" form:"status"` //Status
-    PricingScheme   UpdatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Pricing scheme
+    PricingScheme   UpdatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for updating a pricing scheme
     Name            string          `json:"name" form:"name"` //Item name
     Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles that the item will be charged
     Quantity        *int64          `json:"quantity,omitempty" form:"quantity,omitempty"` //Quantity
@@ -197,10 +207,10 @@ type GetChargeResponse struct {
     DueAt                  *time.Time      `json:"due_at" form:"due_at"` //TODO: Write general description for this field
     CreatedAt              *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt              *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    LastTransaction        *GetTransactionResponse `json:"last_transaction,omitempty" form:"last_transaction,omitempty"` //TODO: Write general description for this field
-    Invoice                *GetInvoiceResponse `json:"invoice,omitempty" form:"invoice,omitempty"` //TODO: Write general description for this field
-    Order                  *GetOrderResponse `json:"order,omitempty" form:"order,omitempty"` //TODO: Write general description for this field
-    Customer               *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
+    LastTransaction        *GetTransactionResponse `json:"last_transaction,omitempty" form:"last_transaction,omitempty"` //Generic response object for getting a transaction.
+    Invoice                *GetInvoiceResponse `json:"invoice,omitempty" form:"invoice,omitempty"` //Response object for getting an invoice
+    Order                  *GetOrderResponse `json:"order,omitempty" form:"order,omitempty"` //Response object for getting an Order
+    Customer               *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
     Metadata               map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     PaidAt                 *time.Time      `json:"paid_at,omitempty" form:"paid_at,omitempty"` //TODO: Write general description for this field
     CanceledAt             *time.Time      `json:"canceled_at,omitempty" form:"canceled_at,omitempty"` //TODO: Write general description for this field
@@ -230,7 +240,7 @@ type GetCheckoutPaymentSettingsResponse struct {
     PaymentUrl               string          `json:"payment_url" form:"payment_url"` //Payment Url
     AcceptedPaymentMethods   []string        `json:"accepted_payment_methods" form:"accepted_payment_methods"` //Accepted Payment Methods
     Status                   string          `json:"status" form:"status"` //Status
-    Customer                 *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Customer
+    Customer                 *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
     Amount                   *int64          `json:"amount,omitempty" form:"amount,omitempty"` //Payment amount
     DefaultPaymentMethod     *string         `json:"default_payment_method,omitempty" form:"default_payment_method,omitempty"` //Default Payment Method
     GatewayAffiliationId     *string         `json:"gateway_affiliation_id,omitempty" form:"gateway_affiliation_id,omitempty"` //Gateway Affiliation Id
@@ -241,7 +251,7 @@ type GetCheckoutPaymentSettingsResponse struct {
  */
 type ListPlansResponse struct {
     Data            []*GetPlanResponse `json:"data" form:"data"` //The plan objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -252,19 +262,19 @@ type GetOrderResponse struct {
     Code            string          `json:"code" form:"code"` //TODO: Write general description for this field
     Currency        string          `json:"currency" form:"currency"` //TODO: Write general description for this field
     Items           []*GetOrderItemResponse `json:"items" form:"items"` //TODO: Write general description for this field
-    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
+    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
     Status          string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
     Charges         []*GetChargeResponse `json:"charges" form:"charges"` //TODO: Write general description for this field
     InvoiceUrl      string          `json:"invoice_url" form:"invoice_url"` //TODO: Write general description for this field
-    Shipping        GetShippingResponse `json:"shipping" form:"shipping"` //TODO: Write general description for this field
+    Shipping        GetShippingResponse `json:"shipping" form:"shipping"` //Response object for getting the shipping data
     Metadata        map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     Checkouts       []*GetCheckoutPaymentResponse `json:"checkouts,omitempty" form:"checkouts,omitempty"` //Checkout Payment Settings Response
     Ip              *string         `json:"ip,omitempty" form:"ip,omitempty"` //Ip address
     SessionId       *string         `json:"session_id,omitempty" form:"session_id,omitempty"` //Session id
-    Location        *GetLocationResponse `json:"location,omitempty" form:"location,omitempty"` //Location
-    Device          *GetDeviceResponse `json:"device,omitempty" form:"device,omitempty"` //Device's informations
+    Location        *GetLocationResponse `json:"location,omitempty" form:"location,omitempty"` //Response object for geetting an order location request
+    Device          *GetDeviceResponse `json:"device,omitempty" form:"device,omitempty"` //Response object for geetting an order device
     Closed          bool            `json:"closed" form:"closed"` //Indicates whether the order is closed
 }
 
@@ -312,7 +322,7 @@ type CreatePhoneRequest struct {
  */
 type CreateCheckoutDebitCardPaymentRequest struct {
     StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //Card invoice text descriptor
-    Authentication       CreatePaymentAuthenticationRequest `json:"authentication" form:"authentication"` //Creates payment authentication
+    Authentication       CreatePaymentAuthenticationRequest `json:"authentication" form:"authentication"` //The payment authentication request
 }
 
 /*
@@ -320,7 +330,7 @@ type CreateCheckoutDebitCardPaymentRequest struct {
  */
 type CreatePlanItemRequest struct {
     Name            string          `json:"name" form:"name"` //Item name
-    PricingScheme   CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Item's pricing scheme
+    PricingScheme   CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for creating a pricing scheme
     Id              string          `json:"id" form:"id"` //Item's id
     Description     string          `json:"description" form:"description"` //Item's description
     Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles where the item will be charged
@@ -353,7 +363,7 @@ type GetSafetyPayTransactionResponse struct {
  */
 type CreateTokenRequest struct {
     Type            string          `json:"type" form:"type"` //Token type
-    Card            CreateCardTokenRequest `json:"card" form:"card"` //Card data
+    Card            CreateCardTokenRequest `json:"card" form:"card"` //Card token data
 }
 
 /*
@@ -387,7 +397,7 @@ type UpdatePricingSchemeRequest struct {
  */
 type ListAccessTokensResponse struct {
     Data            []*GetAccessTokenResponse `json:"data" form:"data"` //The access token objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -395,14 +405,14 @@ type ListAccessTokensResponse struct {
  */
 type ListUsagesResponse struct {
     Data            []*GetUsageResponse `json:"data" form:"data"` //The usage objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
  * Structure for the custom type UpdateSubscriptionCardRequest
  */
 type UpdateSubscriptionCardRequest struct {
-    Card            CreateCardRequest `json:"card" form:"card"` //Credit card data
+    Card            CreateCardRequest `json:"card" form:"card"` //Card data
     CardId          string          `json:"card_id" form:"card_id"` //Credit card id
 }
 
@@ -497,17 +507,6 @@ type GetCheckoutCardInstallmentOptionsResponse struct {
 }
 
 /*
- * Structure for the custom type CreatePricingSchemeRequest
- */
-type CreatePricingSchemeRequest struct {
-    SchemeType      string          `json:"scheme_type" form:"scheme_type"` //Scheme type
-    PriceBrackets   []*CreatePriceBracketRequest `json:"price_brackets" form:"price_brackets"` //Price brackets
-    Price           *int64          `json:"price,omitempty" form:"price,omitempty"` //Price
-    MinimumPrice    *int64          `json:"minimum_price,omitempty" form:"minimum_price,omitempty"` //Minimum price
-    Percentage      *float64        `json:"percentage,omitempty" form:"percentage,omitempty"` //percentual value used in pricing_scheme Percent
-}
-
-/*
  * Structure for the custom type CreateCancelSubscriptionRequest
  */
 type CreateCancelSubscriptionRequest struct {
@@ -522,7 +521,7 @@ type UpdateCardRequest struct {
     ExpMonth           int64           `json:"exp_month" form:"exp_month"` //Expiration month
     ExpYear            int64           `json:"exp_year" form:"exp_year"` //Expiration year
     BillingAddressId   string          `json:"billing_address_id" form:"billing_address_id"` //Id of the address to be used as billing address
-    BillingAddress     CreateAddressRequest `json:"billing_address" form:"billing_address"` //Billing address
+    BillingAddress     CreateAddressRequest `json:"billing_address" form:"billing_address"` //Request for creating a new Address
     Metadata           map[string]string `json:"metadata" form:"metadata"` //Metadata
     Label              string          `json:"label" form:"label"` //TODO: Write general description for this field
 }
@@ -543,7 +542,7 @@ type CreatePlanRequest struct {
     IntervalCount        int64           `json:"interval_count" form:"interval_count"` //Interval counts between two charges. For instance, if the interval is 'month' and count is 2, the customer will be charged once every two months.
     BillingDays          []int64         `json:"billing_days" form:"billing_days"` //Allowed billings days for the subscription, in case the plan type is 'exact_day'
     BillingType          string          `json:"billing_type" form:"billing_type"` //Billing type
-    PricingScheme        CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Plan's pricing scheme
+    PricingScheme        CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for creating a pricing scheme
     Metadata             map[string]string `json:"metadata" form:"metadata"` //Metadata
     MinimumPrice         *int64          `json:"minimum_price,omitempty" form:"minimum_price,omitempty"` //Minimum price that will be charged
     Cycles               *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles
@@ -557,6 +556,17 @@ type CreatePlanRequest struct {
 type CreateBankTransferPaymentRequest struct {
     Bank            string          `json:"bank" form:"bank"` //Bank
     Retries         int64           `json:"retries" form:"retries"` //Number of retries
+}
+
+/*
+ * Structure for the custom type CreatePricingSchemeRequest
+ */
+type CreatePricingSchemeRequest struct {
+    SchemeType      string          `json:"scheme_type" form:"scheme_type"` //Scheme type
+    PriceBrackets   []*CreatePriceBracketRequest `json:"price_brackets" form:"price_brackets"` //Price brackets
+    Price           *int64          `json:"price,omitempty" form:"price,omitempty"` //Price
+    MinimumPrice    *int64          `json:"minimum_price,omitempty" form:"minimum_price,omitempty"` //Minimum price
+    Percentage      *float64        `json:"percentage,omitempty" form:"percentage,omitempty"` //percentual value used in pricing_scheme Percent
 }
 
 /*
@@ -574,7 +584,7 @@ type CreateVoucherPaymentRequest struct {
     StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //The text that will be shown on the voucher's statement
     CardId               *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //Card id
     CardToken            *string         `json:"card_token,omitempty" form:"card_token,omitempty"` //Card token
-    Card                 *CreateCardRequest `json:"Card,omitempty" form:"Card,omitempty"` //Card info
+    Card                 *CreateCardRequest `json:"Card,omitempty" form:"Card,omitempty"` //Card data
     RecurrencyCycle      *string         `json:"recurrency_cycle,omitempty" form:"recurrency_cycle,omitempty"` //Defines whether the card has been used one or more times.
 }
 
@@ -592,14 +602,6 @@ type CreateCheckoutBoletoPaymentRequest struct {
  */
 type UpdateChargeDueDateRequest struct {
     DueAt           *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //The charge's new due date
-}
-
-/*
- * Structure for the custom type ListSubscriptionItemsResponse
- */
-type ListSubscriptionItemsResponse struct {
-    Data            []*GetSubscriptionItemResponse `json:"data" form:"data"` //The subscription items
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
 }
 
 /*
@@ -632,7 +634,15 @@ type GetVoucherTransactionResponse struct {
     AcquirerMessage           string          `json:"acquirer_message" form:"acquirer_message"` //acquirer_message
     AcquirerReturnCode        string          `json:"acquirer_return_code" form:"acquirer_return_code"` //Acquirer return code
     OperationType             string          `json:"operation_type" form:"operation_type"` //Operation type
-    Card                      GetCardResponse `json:"card" form:"card"` //Card data
+    Card                      GetCardResponse `json:"card" form:"card"` //Response object for getting a credit card
+}
+
+/*
+ * Structure for the custom type ListSubscriptionItemsResponse
+ */
+type ListSubscriptionItemsResponse struct {
+    Data            []*GetSubscriptionItemResponse `json:"data" form:"data"` //The subscription items
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -640,7 +650,7 @@ type GetVoucherTransactionResponse struct {
  */
 type ListOrderResponse struct {
     Data            []*GetOrderResponse `json:"data" form:"data"` //The order object
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -648,7 +658,7 @@ type ListOrderResponse struct {
  */
 type ListAddressesResponse struct {
     Data            []*GetAddressResponse `json:"data" form:"data"` //The address objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -664,7 +674,7 @@ type GetDiscountResponse struct {
     DeletedAt         *time.Time      `json:"deleted_at,omitempty" form:"deleted_at,omitempty"` //TODO: Write general description for this field
     Description       *string         `json:"description,omitempty" form:"description,omitempty"` //TODO: Write general description for this field
     Subscription      *GetSubscriptionResponse `json:"subscription,omitempty" form:"subscription,omitempty"` //TODO: Write general description for this field
-    SubscriptionItem  *GetSubscriptionItemResponse `json:"subscription_item,omitempty" form:"subscription_item,omitempty"` //The subscription item
+    SubscriptionItem  *GetSubscriptionItemResponse `json:"subscription_item,omitempty" form:"subscription_item,omitempty"` //TODO: Write general description for this field
 }
 
 /*
@@ -680,7 +690,7 @@ type GetCustomerResponse struct {
     Document        string          `json:"document" form:"document"` //TODO: Write general description for this field
     Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
     FbAccessToken   string          `json:"fb_access_token" form:"fb_access_token"` //TODO: Write general description for this field
-    Address         GetAddressResponse `json:"address" form:"address"` //TODO: Write general description for this field
+    Address         GetAddressResponse `json:"address" form:"address"` //Response object for getting an Address
     Metadata        map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     Phones          GetPhonesResponse `json:"phones" form:"phones"` //TODO: Write general description for this field
     FbId            *int64          `json:"fb_id,omitempty" form:"fb_id,omitempty"` //TODO: Write general description for this field
@@ -706,21 +716,11 @@ type CreateAddressRequest struct {
 }
 
 /*
- * Structure for the custom type UpdatePriceBracketRequest
- */
-type UpdatePriceBracketRequest struct {
-    StartQuantity   int64           `json:"start_quantity" form:"start_quantity"` //Start quantity of the bracket
-    Price           int64           `json:"price" form:"price"` //Price
-    EndQuantity     *int64          `json:"end_quantity,omitempty" form:"end_quantity,omitempty"` //End quantity of the bracket
-    OveragePrice    *int64          `json:"overage_price,omitempty" form:"overage_price,omitempty"` //Overage price
-}
-
-/*
  * Structure for the custom type CreateSubscriptionItemRequest
  */
 type CreateSubscriptionItemRequest struct {
     Description     string          `json:"description" form:"description"` //Item description
-    PricingScheme   CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Pricing scheme
+    PricingScheme   CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for creating a pricing scheme
     Id              string          `json:"id" form:"id"` //Item id
     PlanItemId      string          `json:"plan_item_id" form:"plan_item_id"` //Plan item id
     Discounts       []*CreateDiscountRequest `json:"discounts" form:"discounts"` //Discounts for the item
@@ -735,7 +735,7 @@ type CreateSubscriptionItemRequest struct {
  */
 type CreateOrderRequest struct {
     Items             []*CreateOrderItemRequest `json:"items" form:"items"` //Items
-    Customer          CreateCustomerRequest `json:"customer" form:"customer"` //Customer
+    Customer          CreateCustomerRequest `json:"customer" form:"customer"` //Request for creating a new customer
     Payments          []*CreatePaymentRequest `json:"payments" form:"payments"` //Payment data
     Code              string          `json:"code" form:"code"` //The order code
     CustomerId        string          `json:"customer_id" form:"customer_id"` //The customer id
@@ -744,8 +744,8 @@ type CreateOrderRequest struct {
     AntifraudEnabled  *bool           `json:"antifraud_enabled,omitempty" form:"antifraud_enabled,omitempty"` //Defines whether the order will go through anti-fraud
     Ip                *string         `json:"ip,omitempty" form:"ip,omitempty"` //Ip address
     SessionId         *string         `json:"session_id,omitempty" form:"session_id,omitempty"` //Session id
-    Location          *CreateLocationRequest `json:"location,omitempty" form:"location,omitempty"` //Request's location
-    Device            *CreateDeviceRequest `json:"device,omitempty" form:"device,omitempty"` //Device's informations
+    Location          *CreateLocationRequest `json:"location,omitempty" form:"location,omitempty"` //Request for creating a location
+    Device            *CreateDeviceRequest `json:"device,omitempty" form:"device,omitempty"` //Request for creating a device
     Closed            bool            `json:"closed" form:"closed"` //TODO: Write general description for this field
     Currency          *string         `json:"currency,omitempty" form:"currency,omitempty"` //Currency
     Antifraud         *CreateAntifraudRequest `json:"antifraud,omitempty" form:"antifraud,omitempty"` //TODO: Write general description for this field
@@ -787,7 +787,7 @@ type GetIncrementResponse struct {
     DeletedAt         *time.Time      `json:"deleted_at,omitempty" form:"deleted_at,omitempty"` //TODO: Write general description for this field
     Description       *string         `json:"description,omitempty" form:"description,omitempty"` //TODO: Write general description for this field
     Subscription      *GetSubscriptionResponse `json:"subscription,omitempty" form:"subscription,omitempty"` //TODO: Write general description for this field
-    SubscriptionItem  *GetSubscriptionItemResponse `json:"subscription_item,omitempty" form:"subscription_item,omitempty"` //The Subscription Item
+    SubscriptionItem  *GetSubscriptionItemResponse `json:"subscription_item,omitempty" form:"subscription_item,omitempty"` //TODO: Write general description for this field
 }
 
 /*
@@ -809,13 +809,13 @@ type CreateThreeDSecureRequest struct {
 type UpdateChargePaymentMethodRequest struct {
     UpdateSubscription  bool            `json:"update_subscription" form:"update_subscription"` //Indicates if the payment method from the subscription must also be updated
     PaymentMethod       string          `json:"payment_method" form:"payment_method"` //The new payment method
-    CreditCard          CreateCreditCardPaymentRequest `json:"credit_card" form:"credit_card"` //Credit card data
-    DebitCard           CreateDebitCardPaymentRequest `json:"debit_card" form:"debit_card"` //Debit card data
-    Boleto              CreateBoletoPaymentRequest `json:"boleto" form:"boleto"` //Boleto data
-    Voucher             CreateVoucherPaymentRequest `json:"voucher" form:"voucher"` //Voucher data
-    Cash                CreateCashPaymentRequest `json:"cash" form:"cash"` //Cash data
-    BankTransfer        CreateBankTransferPaymentRequest `json:"bank_transfer" form:"bank_transfer"` //Bank Transfer data
-    PrivateLabel        CreatePrivateLabelPaymentRequest `json:"private_label" form:"private_label"` //TODO: Write general description for this field
+    CreditCard          CreateCreditCardPaymentRequest `json:"credit_card" form:"credit_card"` //The settings for creating a credit card payment
+    DebitCard           CreateDebitCardPaymentRequest `json:"debit_card" form:"debit_card"` //The settings for creating a debit card payment
+    Boleto              CreateBoletoPaymentRequest `json:"boleto" form:"boleto"` //Contains the settings for creating a boleto payment
+    Voucher             CreateVoucherPaymentRequest `json:"voucher" form:"voucher"` //The settings for creating a voucher payment
+    Cash                CreateCashPaymentRequest `json:"cash" form:"cash"` //TODO: Write general description for this field
+    BankTransfer        CreateBankTransferPaymentRequest `json:"bank_transfer" form:"bank_transfer"` //Request for creating a bank transfer payment
+    PrivateLabel        CreatePrivateLabelPaymentRequest `json:"private_label" form:"private_label"` //The settings for creating a private label payment
 }
 
 /*
@@ -832,7 +832,7 @@ type GetRecipientResponse struct {
     CreatedAt                       *time.Time      `json:"created_at" form:"created_at"` //Creation date
     UpdatedAt                       *time.Time      `json:"updated_at" form:"updated_at"` //Last update date
     DeletedAt                       *time.Time      `json:"deleted_at" form:"deleted_at"` //Deletion date
-    DefaultBankAccount              GetBankAccountResponse `json:"default_bank_account" form:"default_bank_account"` //Default bank account
+    DefaultBankAccount              GetBankAccountResponse `json:"default_bank_account" form:"default_bank_account"` //TODO: Write general description for this field
     GatewayRecipients               []*GetGatewayRecipientResponse `json:"gateway_recipients" form:"gateway_recipients"` //Info about the recipient on the gateway
     Metadata                        map[string]string `json:"metadata" form:"metadata"` //Metadata
     AutomaticAnticipationSettings   *GetAutomaticAnticipationResponse `json:"automatic_anticipation_settings,omitempty" form:"automatic_anticipation_settings,omitempty"` //TODO: Write general description for this field
@@ -854,6 +854,25 @@ type UpdateRecipientRequest struct {
 }
 
 /*
+ * Structure for the custom type GetGatewayRecipientResponse
+ */
+type GetGatewayRecipientResponse struct {
+    Gateway         string          `json:"gateway" form:"gateway"` //Gateway name
+    Status          string          `json:"status" form:"status"` //Status of the recipient on the gateway
+    Pgid            string          `json:"pgid" form:"pgid"` //Recipient id on the gateway
+    CreatedAt       string          `json:"created_at" form:"created_at"` //Creation date
+    UpdatedAt       string          `json:"updated_at" form:"updated_at"` //Last update date
+}
+
+/*
+ * Structure for the custom type ListIncrementsResponse
+ */
+type ListIncrementsResponse struct {
+    Data            []*GetIncrementResponse `json:"data" form:"data"` //The Increments response
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
+}
+
+/*
  * Structure for the custom type CreateAnticipationRequest
  */
 type CreateAnticipationRequest struct {
@@ -866,8 +885,8 @@ type CreateAnticipationRequest struct {
  * Structure for the custom type GetAnticipationLimitsResponse
  */
 type GetAnticipationLimitsResponse struct {
-    Max             GetAnticipationLimitResponse `json:"max" form:"max"` //Max limit
-    Min             GetAnticipationLimitResponse `json:"min" form:"min"` //Min limit
+    Max             GetAnticipationLimitResponse `json:"max" form:"max"` //Anticipation limit
+    Min             GetAnticipationLimitResponse `json:"min" form:"min"` //Anticipation limit
 }
 
 /*
@@ -876,8 +895,8 @@ type GetAnticipationLimitsResponse struct {
 type GetInvoiceItemResponse struct {
     Amount               int64           `json:"amount" form:"amount"` //TODO: Write general description for this field
     Description          string          `json:"description" form:"description"` //TODO: Write general description for this field
-    PricingScheme        GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //TODO: Write general description for this field
-    PriceBracket         GetPriceBracketResponse `json:"price_bracket" form:"price_bracket"` //TODO: Write general description for this field
+    PricingScheme        GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //Response object for getting a pricing scheme
+    PriceBracket         GetPriceBracketResponse `json:"price_bracket" form:"price_bracket"` //Response object for getting a price bracket
     Quantity             *int64          `json:"quantity,omitempty" form:"quantity,omitempty"` //TODO: Write general description for this field
     Name                 *string         `json:"name,omitempty" form:"name,omitempty"` //TODO: Write general description for this field
     SubscriptionItemId   string          `json:"subscription_item_id" form:"subscription_item_id"` //Subscription Item Id
@@ -907,33 +926,14 @@ type GetCardResponse struct {
     Status           string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt        *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt        *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    BillingAddress   GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //TODO: Write general description for this field
-    Customer         *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
+    BillingAddress   GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //Response object for getting a billing address
+    Customer         *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
     Metadata         map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     Type             string          `json:"type" form:"type"` //Card type
     HolderDocument   string          `json:"holder_document" form:"holder_document"` //Document number for the card's holder
     DeletedAt        *time.Time      `json:"deleted_at,omitempty" form:"deleted_at,omitempty"` //TODO: Write general description for this field
     FirstSixDigits   string          `json:"first_six_digits" form:"first_six_digits"` //First six digits
     Label            string          `json:"label" form:"label"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type GetGatewayRecipientResponse
- */
-type GetGatewayRecipientResponse struct {
-    Gateway         string          `json:"gateway" form:"gateway"` //Gateway name
-    Status          string          `json:"status" form:"status"` //Status of the recipient on the gateway
-    Pgid            string          `json:"pgid" form:"pgid"` //Recipient id on the gateway
-    CreatedAt       string          `json:"created_at" form:"created_at"` //Creation date
-    UpdatedAt       string          `json:"updated_at" form:"updated_at"` //Last update date
-}
-
-/*
- * Structure for the custom type ListIncrementsResponse
- */
-type ListIncrementsResponse struct {
-    Data            []*GetIncrementResponse `json:"data" form:"data"` //The Increments response
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
 }
 
 /*
@@ -959,7 +959,7 @@ type CreateBankAccountRequest struct {
 type GetBalanceResponse struct {
     Currency             string          `json:"currency" form:"currency"` //Currency
     AvailableAmount      int64           `json:"available_amount" form:"available_amount"` //Amount available for transferring
-    Recipient            *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient
+    Recipient            *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient response
     TransferredAmount    int64           `json:"transferred_amount" form:"transferred_amount"` //TODO: Write general description for this field
     WaitingFundsAmount   int64           `json:"waiting_funds_amount" form:"waiting_funds_amount"` //TODO: Write general description for this field
 }
@@ -982,13 +982,13 @@ type CreateBoletoPaymentRequest struct {
     Bank                     string          `json:"bank" form:"bank"` //The bank code, containing three characters. The available codes are on the API specification
     Instructions             string          `json:"instructions" form:"instructions"` //The instructions field that will be printed on the boleto.
     DueAt                    *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //Boleto due date
-    BillingAddress           CreateAddressRequest `json:"billing_address" form:"billing_address"` //Card's billing address
+    BillingAddress           CreateAddressRequest `json:"billing_address" form:"billing_address"` //Request for creating a new Address
     BillingAddressId         string          `json:"billing_address_id" form:"billing_address_id"` //The address id for the billing address
     NossoNumero              *string         `json:"nosso_numero,omitempty" form:"nosso_numero,omitempty"` //Customer identification number with the bank
     DocumentNumber           string          `json:"document_number" form:"document_number"` //Boleto identification
     StatementDescriptor      string          `json:"statement_descriptor" form:"statement_descriptor"` //Soft Descriptor
-    Interest                 *CreateInterestRequest `json:"interest,omitempty" form:"interest,omitempty"` //TODO: Write general description for this field
-    Fine                     *CreateFineRequest `json:"fine,omitempty" form:"fine,omitempty"` //TODO: Write general description for this field
+    Interest                 *CreateInterestRequest `json:"interest,omitempty" form:"interest,omitempty"` //Interest Request
+    Fine                     *CreateFineRequest `json:"fine,omitempty" form:"fine,omitempty"` //Fine Request
     MaxDaysToPayPastDue      *int64          `json:"max_days_to_pay_past_due,omitempty" form:"max_days_to_pay_past_due,omitempty"` //TODO: Write general description for this field
 }
 
@@ -997,7 +997,7 @@ type CreateBoletoPaymentRequest struct {
  */
 type ListAnticipationResponse struct {
     Data            []*GetAnticipationResponse `json:"data" form:"data"` //Anticipations
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1021,7 +1021,7 @@ type GetBoletoTransactionResponse struct {
     Bank                 string          `json:"bank" form:"bank"` //TODO: Write general description for this field
     DocumentNumber       string          `json:"document_number" form:"document_number"` //TODO: Write general description for this field
     Instructions         string          `json:"instructions" form:"instructions"` //TODO: Write general description for this field
-    BillingAddress       GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //TODO: Write general description for this field
+    BillingAddress       GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //Response object for getting a billing address
     DueAt                *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //TODO: Write general description for this field
     QrCode               string          `json:"qr_code" form:"qr_code"` //TODO: Write general description for this field
     Line                 string          `json:"line" form:"line"` //TODO: Write general description for this field
@@ -1035,6 +1035,14 @@ type GetBoletoTransactionResponse struct {
 }
 
 /*
+ * Structure for the custom type GetLocationResponse
+ */
+type GetLocationResponse struct {
+    Latitude        string          `json:"latitude" form:"latitude"` //Latitude
+    Longitude       string          `json:"longitude" form:"longitude"` //Longitude
+}
+
+/*
  * Structure for the custom type GetSubscriptionItemResponse
  */
 type GetSubscriptionItemResponse struct {
@@ -1043,7 +1051,7 @@ type GetSubscriptionItemResponse struct {
     Status          string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    PricingScheme   GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //TODO: Write general description for this field
+    PricingScheme   GetPricingSchemeResponse `json:"pricing_scheme" form:"pricing_scheme"` //Response object for getting a pricing scheme
     Discounts       []*GetDiscountResponse `json:"discounts" form:"discounts"` //TODO: Write general description for this field
     Increments      []*GetIncrementResponse `json:"increments" form:"increments"` //TODO: Write general description for this field
     Subscription    GetSubscriptionResponse `json:"subscription" form:"subscription"` //TODO: Write general description for this field
@@ -1065,21 +1073,13 @@ type GetDebitCardTransactionResponse struct {
     AcquirerNsu               string          `json:"acquirer_nsu" form:"acquirer_nsu"` //Acquirer NSU
     AcquirerAuthCode          string          `json:"acquirer_auth_code" form:"acquirer_auth_code"` //Acquirer authorization code
     OperationType             string          `json:"operation_type" form:"operation_type"` //Operation type
-    Card                      GetCardResponse `json:"card" form:"card"` //Card data
+    Card                      GetCardResponse `json:"card" form:"card"` //Response object for getting a credit card
     AcquirerMessage           string          `json:"acquirer_message" form:"acquirer_message"` //Acquirer message
     AcquirerReturnCode        string          `json:"acquirer_return_code" form:"acquirer_return_code"` //Acquirer Return Code
     Mpi                       string          `json:"mpi" form:"mpi"` //Merchant Plugin
     Eci                       string          `json:"eci" form:"eci"` //Electronic Commerce Indicator (ECI)
     AuthenticationType        string          `json:"authentication_type" form:"authentication_type"` //Authentication type
     ThreedAuthenticationUrl   string          `json:"threed_authentication_url" form:"threed_authentication_url"` //3D-S Authentication Url
-}
-
-/*
- * Structure for the custom type GetLocationResponse
- */
-type GetLocationResponse struct {
-    Latitude        string          `json:"latitude" form:"latitude"` //Latitude
-    Longitude       string          `json:"longitude" form:"longitude"` //Longitude
 }
 
 /*
@@ -1092,13 +1092,6 @@ type CreateTransferSettingsRequest struct {
 }
 
 /*
- * Structure for the custom type GetGatewayErrorResponse
- */
-type GetGatewayErrorResponse struct {
-    Message         string          `json:"message" form:"message"` //The message error
-}
-
-/*
  * Structure for the custom type CreateTransferRequest
  */
 type CreateTransferRequest struct {
@@ -1107,19 +1100,10 @@ type CreateTransferRequest struct {
 }
 
 /*
- * Structure for the custom type GetBillingAddressResponse
+ * Structure for the custom type GetGatewayErrorResponse
  */
-type GetBillingAddressResponse struct {
-    Street          string          `json:"street" form:"street"` //TODO: Write general description for this field
-    Number          string          `json:"number" form:"number"` //TODO: Write general description for this field
-    ZipCode         string          `json:"zip_code" form:"zip_code"` //TODO: Write general description for this field
-    Neighborhood    string          `json:"neighborhood" form:"neighborhood"` //TODO: Write general description for this field
-    City            string          `json:"city" form:"city"` //TODO: Write general description for this field
-    State           string          `json:"state" form:"state"` //TODO: Write general description for this field
-    Country         string          `json:"country" form:"country"` //TODO: Write general description for this field
-    Complement      string          `json:"complement" form:"complement"` //TODO: Write general description for this field
-    Line1           string          `json:"line_1" form:"line_1"` //Line 1 for address
-    Line2           string          `json:"line_2" form:"line_2"` //Line 2 for address
+type GetGatewayErrorResponse struct {
+    Message         string          `json:"message" form:"message"` //The message error
 }
 
 /*
@@ -1127,7 +1111,7 @@ type GetBillingAddressResponse struct {
  */
 type ListTransferResponse struct {
     Data            []*GetTransferResponse `json:"data" form:"data"` //Transfers
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1147,18 +1131,7 @@ type CreateUsageRequest struct {
  */
 type CreatePaymentAuthenticationRequest struct {
     Type            string          `json:"type" form:"type"` //The Authentication type
-    ThreedSecure    CreateThreeDSecureRequest `json:"threed_secure" form:"threed_secure"` //The 3D-S authentication object
-}
-
-/*
- * Structure for the custom type CreateIncrementRequest
- */
-type CreateIncrementRequest struct {
-    Value           float64         `json:"value" form:"value"` //The increment value
-    IncrementType   string          `json:"increment_type" form:"increment_type"` //Increment type. Can be either flat or percentage.
-    ItemId          string          `json:"item_id" form:"item_id"` //The item where the increment will be applied
-    Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles that the increment will be applied
-    Description     *string         `json:"description,omitempty" form:"description,omitempty"` //Description
+    ThreedSecure    CreateThreeDSecureRequest `json:"threed_secure" form:"threed_secure"` //Creates a 3D-S authentication payment
 }
 
 /*
@@ -1166,14 +1139,6 @@ type CreateIncrementRequest struct {
  */
 type UpdateInvoiceStatusRequest struct {
     Status          string          `json:"status" form:"status"` //Status
-}
-
-/*
- * Structure for the custom type GetAnticipationLimitResponse
- */
-type GetAnticipationLimitResponse struct {
-    Amount           int64           `json:"amount" form:"amount"` //Amount
-    AnticipationFee  int64           `json:"anticipation_fee" form:"anticipation_fee"` //Anticipation fee
 }
 
 /*
@@ -1187,7 +1152,7 @@ type GetUsageResponse struct {
     CreatedAt         *time.Time      `json:"created_at" form:"created_at"` //Creation date
     Status            string          `json:"status" form:"status"` //Status
     DeletedAt         *time.Time      `json:"deleted_at,omitempty" form:"deleted_at,omitempty"` //TODO: Write general description for this field
-    SubscriptionItem  GetSubscriptionItemResponse `json:"subscription_item" form:"subscription_item"` //Subscription item
+    SubscriptionItem  GetSubscriptionItemResponse `json:"subscription_item" form:"subscription_item"` //TODO: Write general description for this field
     Code              *string         `json:"code,omitempty" form:"code,omitempty"` //Identification code in the client system
     Group             *string         `json:"group,omitempty" form:"group,omitempty"` //Identification group in the client system
     Amount            *int64          `json:"amount,omitempty" form:"amount,omitempty"` //Field used in item scheme type 'Percent'
@@ -1197,8 +1162,8 @@ type GetUsageResponse struct {
  * Structure for the custom type CreateSubscriptionRequest
  */
 type CreateSubscriptionRequest struct {
-    Customer               CreateCustomerRequest `json:"customer" form:"customer"` //Customer
-    Card                   CreateCardRequest `json:"card" form:"card"` //Card
+    Customer               CreateCustomerRequest `json:"customer" form:"customer"` //Request for creating a new customer
+    Card                   CreateCardRequest `json:"card" form:"card"` //Card data
     Code                   string          `json:"code" form:"code"` //Subscription code
     PaymentMethod          string          `json:"payment_method" form:"payment_method"` //Payment method
     BillingType            string          `json:"billing_type" form:"billing_type"` //Billing type
@@ -1207,12 +1172,12 @@ type CreateSubscriptionRequest struct {
     Currency               string          `json:"currency" form:"currency"` //Currency
     Interval               string          `json:"interval" form:"interval"` //Interval
     IntervalCount          int64           `json:"interval_count" form:"interval_count"` //Interval count
-    PricingScheme          CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Subscription pricing scheme
+    PricingScheme          CreatePricingSchemeRequest `json:"pricing_scheme" form:"pricing_scheme"` //Request for creating a pricing scheme
     Items                  []*CreateSubscriptionItemRequest `json:"items" form:"items"` //Subscription items
-    Shipping               CreateShippingRequest `json:"shipping" form:"shipping"` //Shipping
+    Shipping               CreateShippingRequest `json:"shipping" form:"shipping"` //Shipping data
     Discounts              []*CreateDiscountRequest `json:"discounts" form:"discounts"` //Discounts
     Metadata               map[string]string `json:"metadata" form:"metadata"` //Metadata
-    Setup                  CreateSetupRequest `json:"setup" form:"setup"` //Setup data
+    Setup                  CreateSetupRequest `json:"setup" form:"setup"` //Request for creating a Setup for a subscription. The setup is an order that will be created at the subscription creation.
     PlanId                 *string         `json:"plan_id,omitempty" form:"plan_id,omitempty"` //Plan id
     CustomerId             *string         `json:"customer_id,omitempty" form:"customer_id,omitempty"` //Customer id
     CardId                 *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //Card id
@@ -1228,7 +1193,7 @@ type CreateSubscriptionRequest struct {
     Increments             []*CreateIncrementRequest `json:"increments" form:"increments"` //Increments
     Period                 *CreatePeriodRequest `json:"period,omitempty" form:"period,omitempty"` //TODO: Write general description for this field
     Submerchant            *CreateSubMerchantRequest `json:"submerchant,omitempty" form:"submerchant,omitempty"` //SubMerchant
-    Split                  *CreateSubscriptionSplitRequest `json:"split,omitempty" form:"split,omitempty"` //Subscription's split
+    Split                  *CreateSubscriptionSplitRequest `json:"split,omitempty" form:"split,omitempty"` //TODO: Write general description for this field
 }
 
 /*
@@ -1243,6 +1208,14 @@ type CreateApplePayRequest struct {
 }
 
 /*
+ * Structure for the custom type GetAnticipationLimitResponse
+ */
+type GetAnticipationLimitResponse struct {
+    Amount           int64           `json:"amount" form:"amount"` //Amount
+    AnticipationFee  int64           `json:"anticipation_fee" form:"anticipation_fee"` //Anticipation fee
+}
+
+/*
  * Structure for the custom type UpdateCustomerRequest
  */
 type UpdateCustomerRequest struct {
@@ -1250,7 +1223,7 @@ type UpdateCustomerRequest struct {
     Email           *string         `json:"email,omitempty" form:"email,omitempty"` //Email
     Document        *string         `json:"document,omitempty" form:"document,omitempty"` //Document number
     Type            *string         `json:"type,omitempty" form:"type,omitempty"` //Person type
-    Address         *CreateAddressRequest `json:"address,omitempty" form:"address,omitempty"` //Address
+    Address         *CreateAddressRequest `json:"address,omitempty" form:"address,omitempty"` //Request for creating a new Address
     Metadata        *map[string]string `json:"metadata,omitempty" form:"metadata,omitempty"` //Metadata
     Phones          *CreatePhonesRequest `json:"phones,omitempty" form:"phones,omitempty"` //TODO: Write general description for this field
     Code            *string         `json:"code,omitempty" form:"code,omitempty"` //Código de referência do cliente no sistema da loja. Max: 52 caracteres
@@ -1268,19 +1241,19 @@ type GetSubscriptionResponse struct {
     Interval               string          `json:"interval" form:"interval"` //TODO: Write general description for this field
     IntervalCount          int64           `json:"interval_count" form:"interval_count"` //TODO: Write general description for this field
     BillingType            string          `json:"billing_type" form:"billing_type"` //TODO: Write general description for this field
-    CurrentCycle           *GetPeriodResponse `json:"current_cycle,omitempty" form:"current_cycle,omitempty"` //TODO: Write general description for this field
+    CurrentCycle           *GetPeriodResponse `json:"current_cycle,omitempty" form:"current_cycle,omitempty"` //Response object for getting a period
     PaymentMethod          string          `json:"payment_method" form:"payment_method"` //TODO: Write general description for this field
     Currency               string          `json:"currency" form:"currency"` //TODO: Write general description for this field
     Installments           int64           `json:"installments" form:"installments"` //TODO: Write general description for this field
     Status                 string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt              *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt              *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    Customer               *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
-    Card                   GetCardResponse `json:"card" form:"card"` //TODO: Write general description for this field
+    Customer               *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
+    Card                   GetCardResponse `json:"card" form:"card"` //Response object for getting a credit card
     Items                  []*GetSubscriptionItemResponse `json:"items" form:"items"` //TODO: Write general description for this field
     StatementDescriptor    string          `json:"statement_descriptor" form:"statement_descriptor"` //TODO: Write general description for this field
     Metadata               map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
-    Setup                  GetSetupResponse `json:"setup" form:"setup"` //TODO: Write general description for this field
+    Setup                  GetSetupResponse `json:"setup" form:"setup"` //Response object for getting the setup from a subscription
     GatewayAffiliationId   string          `json:"gateway_affiliation_id" form:"gateway_affiliation_id"` //Affiliation Code
     NextBillingAt          *time.Time      `json:"next_billing_at,omitempty" form:"next_billing_at,omitempty"` //TODO: Write general description for this field
     BillingDay             *int64          `json:"billing_day,omitempty" form:"billing_day,omitempty"` //TODO: Write general description for this field
@@ -1289,7 +1262,7 @@ type GetSubscriptionResponse struct {
     Discounts              []*GetDiscountResponse `json:"discounts,omitempty" form:"discounts,omitempty"` //Subscription discounts
     Increments             []*GetIncrementResponse `json:"increments" form:"increments"` //Subscription increments
     BoletoDueDays          *int64          `json:"boleto_due_days,omitempty" form:"boleto_due_days,omitempty"` //Days until boleto expires
-    Split                  GetSubscriptionSplitResponse `json:"split" form:"split"` //Subscription's split responde
+    Split                  GetSubscriptionSplitResponse `json:"split" form:"split"` //TODO: Write general description for this field
 }
 
 /*
@@ -1313,12 +1286,12 @@ type GetPeriodResponse struct {
  */
 type CreateDebitCardPaymentRequest struct {
     StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //The text that will be shown on the debit card's statement
-    Card                 *CreateCardRequest `json:"card,omitempty" form:"card,omitempty"` //Debit card data
+    Card                 *CreateCardRequest `json:"card,omitempty" form:"card,omitempty"` //Card data
     CardId               *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //The debit card id
     CardToken            *string         `json:"card_token,omitempty" form:"card_token,omitempty"` //The debit card token
     Recurrence           *bool           `json:"recurrence,omitempty" form:"recurrence,omitempty"` //Indicates a recurrence
     Authentication       *CreatePaymentAuthenticationRequest `json:"authentication,omitempty" form:"authentication,omitempty"` //The payment authentication request
-    Token                *CreateCardPaymentContactlessRequest `json:"token,omitempty" form:"token,omitempty"` //The Debit card payment token request
+    Token                *CreateCardPaymentContactlessRequest `json:"token,omitempty" form:"token,omitempty"` //The card payment contactless request
     RecurrencyCycle      *string         `json:"recurrency_cycle,omitempty" form:"recurrency_cycle,omitempty"` //Defines whether the card has been used one or more times.
 }
 
@@ -1329,19 +1302,6 @@ type CreateApplePayHeaderRequest struct {
     PublicKeyHash        *string         `json:"public_key_hash,omitempty" form:"public_key_hash,omitempty"` //SHA–256 hash, Base64 string codified
     EphemeralPublicKey   string          `json:"ephemeral_public_key" form:"ephemeral_public_key"` //X.509 encoded key bytes, Base64 encoded as a string
     TransactionId        *string         `json:"transaction_id,omitempty" form:"transaction_id,omitempty"` //Transaction identifier, generated on Device
-}
-
-/*
- * Structure for the custom type GetTransferResponse
- */
-type GetTransferResponse struct {
-    Id              string          `json:"id" form:"id"` //Id
-    Amount          int64           `json:"amount" form:"amount"` //Transfer amount
-    Status          string          `json:"status" form:"status"` //Transfer status
-    CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //Transfer creation date
-    UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //Transfer last update date
-    BankAccount     GetBankAccountResponse `json:"bank_account" form:"bank_account"` //Bank account
-    Metadata        map[string]string `json:"metadata" form:"metadata"` //Metadata
 }
 
 /*
@@ -1365,7 +1325,7 @@ type UpdateOrderStatusRequest struct {
 type CreateCreditCardPaymentRequest struct {
     Installments           *int64          `json:"installments,omitempty" form:"installments,omitempty"` //Number of installments
     StatementDescriptor    *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //The text that will be shown on the credit card's statement
-    Card                   *CreateCardRequest `json:"card,omitempty" form:"card,omitempty"` //Credit card data
+    Card                   *CreateCardRequest `json:"card,omitempty" form:"card,omitempty"` //Card data
     CardId                 *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //The credit card id
     CardToken              *string         `json:"card_token,omitempty" form:"card_token,omitempty"` //TODO: Write general description for this field
     Recurrence             *bool           `json:"recurrence,omitempty" form:"recurrence,omitempty"` //Indicates a recurrence
@@ -1374,7 +1334,7 @@ type CreateCreditCardPaymentRequest struct {
     ExtendedLimitCode      *string         `json:"extended_limit_code,omitempty" form:"extended_limit_code,omitempty"` //Extended Limit Code
     MerchantCategoryCode   *int64          `json:"merchant_category_code,omitempty" form:"merchant_category_code,omitempty"` //Customer business segment code
     Authentication         *CreatePaymentAuthenticationRequest `json:"authentication,omitempty" form:"authentication,omitempty"` //The payment authentication request
-    Contactless            *CreateCardPaymentContactlessRequest `json:"contactless,omitempty" form:"contactless,omitempty"` //The Credit card payment contactless request
+    Contactless            *CreateCardPaymentContactlessRequest `json:"contactless,omitempty" form:"contactless,omitempty"` //The card payment contactless request
     AutoRecovery           *bool           `json:"auto_recovery,omitempty" form:"auto_recovery,omitempty"` //Indicates whether a particular payment will enter the offline retry flow
     OperationType          *string         `json:"operation_type,omitempty" form:"operation_type,omitempty"` //AuthOnly, AuthAndCapture, PreAuth
     RecurrencyCycle        *string         `json:"recurrency_cycle,omitempty" form:"recurrency_cycle,omitempty"` //Defines whether the card has been used one or more times.
@@ -1385,7 +1345,7 @@ type CreateCreditCardPaymentRequest struct {
  */
 type ListDiscountsResponse struct {
     Data            []*GetDiscountResponse `json:"data" form:"data"` //The Discounts response
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1397,11 +1357,24 @@ type CreateRecipientRequest struct {
     Description          string          `json:"description" form:"description"` //Recipient description
     Document             string          `json:"document" form:"document"` //Recipient document number
     Type                 string          `json:"type" form:"type"` //Recipient type
-    DefaultBankAccount   CreateBankAccountRequest `json:"default_bank_account" form:"default_bank_account"` //Bank account
+    DefaultBankAccount   CreateBankAccountRequest `json:"default_bank_account" form:"default_bank_account"` //Request for creating a bank account
     Metadata             map[string]string `json:"metadata" form:"metadata"` //Metadata
-    TransferSettings     *CreateTransferSettingsRequest `json:"transfer_settings,omitempty" form:"transfer_settings,omitempty"` //Receiver Transfer Information
+    TransferSettings     *CreateTransferSettingsRequest `json:"transfer_settings,omitempty" form:"transfer_settings,omitempty"` //Informações de transferência do recebedor
     Code                 string          `json:"code" form:"code"` //Recipient code
     PaymentMode          string          `json:"payment_mode" form:"payment_mode"` //Payment mode
+}
+
+/*
+ * Structure for the custom type GetTransferResponse
+ */
+type GetTransferResponse struct {
+    Id              string          `json:"id" form:"id"` //Id
+    Amount          int64           `json:"amount" form:"amount"` //Transfer amount
+    Status          string          `json:"status" form:"status"` //Transfer status
+    CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //Transfer creation date
+    UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //Transfer last update date
+    BankAccount     GetBankAccountResponse `json:"bank_account" form:"bank_account"` //TODO: Write general description for this field
+    Metadata        map[string]string `json:"metadata" form:"metadata"` //Metadata
 }
 
 /*
@@ -1409,7 +1382,7 @@ type CreateRecipientRequest struct {
  */
 type ListRecipientResponse struct {
     Data            []*GetRecipientResponse `json:"data" form:"data"` //Recipients
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1424,22 +1397,22 @@ type GetDeviceResponse struct {
  */
 type CreatePaymentRequest struct {
     PaymentMethod          string          `json:"payment_method" form:"payment_method"` //Payment method
-    CreditCard             *CreateCreditCardPaymentRequest `json:"credit_card,omitempty" form:"credit_card,omitempty"` //Settings for credit card payment
-    DebitCard              *CreateDebitCardPaymentRequest `json:"debit_card,omitempty" form:"debit_card,omitempty"` //Settings for debit card payment
-    Boleto                 *CreateBoletoPaymentRequest `json:"boleto,omitempty" form:"boleto,omitempty"` //Settings for boleto payment
+    CreditCard             *CreateCreditCardPaymentRequest `json:"credit_card,omitempty" form:"credit_card,omitempty"` //The settings for creating a credit card payment
+    DebitCard              *CreateDebitCardPaymentRequest `json:"debit_card,omitempty" form:"debit_card,omitempty"` //The settings for creating a debit card payment
+    Boleto                 *CreateBoletoPaymentRequest `json:"boleto,omitempty" form:"boleto,omitempty"` //Contains the settings for creating a boleto payment
     Currency               *string         `json:"currency,omitempty" form:"currency,omitempty"` //Currency. Must be informed using 3 characters
-    Voucher                *CreateVoucherPaymentRequest `json:"voucher,omitempty" form:"voucher,omitempty"` //Settings for voucher payment
+    Voucher                *CreateVoucherPaymentRequest `json:"voucher,omitempty" form:"voucher,omitempty"` //The settings for creating a voucher payment
     Split                  []*CreateSplitRequest `json:"split,omitempty" form:"split,omitempty"` //Splits
-    BankTransfer           *CreateBankTransferPaymentRequest `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Settings for bank transfer payment
+    BankTransfer           *CreateBankTransferPaymentRequest `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Request for creating a bank transfer payment
     GatewayAffiliationId   *string         `json:"gateway_affiliation_id,omitempty" form:"gateway_affiliation_id,omitempty"` //Gateway affiliation code
     Amount                 *int64          `json:"amount,omitempty" form:"amount,omitempty"` //The amount of the payment, in cents
-    Checkout               *CreateCheckoutPaymentRequest `json:"checkout,omitempty" form:"checkout,omitempty"` //Settings for checkout payment
+    Checkout               *CreateCheckoutPaymentRequest `json:"checkout,omitempty" form:"checkout,omitempty"` //Checkout payment request
     CustomerId             *string         `json:"customer_id,omitempty" form:"customer_id,omitempty"` //Customer Id
-    Customer               *CreateCustomerRequest `json:"customer,omitempty" form:"customer,omitempty"` //Customer
+    Customer               *CreateCustomerRequest `json:"customer,omitempty" form:"customer,omitempty"` //Request for creating a new customer
     Metadata               *map[string]string `json:"metadata,omitempty" form:"metadata,omitempty"` //Metadata
-    Cash                   *CreateCashPaymentRequest `json:"cash,omitempty" form:"cash,omitempty"` //Settings for cash payment
-    PrivateLabel           CreatePrivateLabelPaymentRequest `json:"private_label" form:"private_label"` //Settings for private label payment
-    Pix                    *CreatePixPaymentRequest `json:"pix,omitempty" form:"pix,omitempty"` //Settings for pix payment
+    Cash                   *CreateCashPaymentRequest `json:"cash,omitempty" form:"cash,omitempty"` //TODO: Write general description for this field
+    PrivateLabel           CreatePrivateLabelPaymentRequest `json:"private_label" form:"private_label"` //The settings for creating a private label payment
+    Pix                    *CreatePixPaymentRequest `json:"pix,omitempty" form:"pix,omitempty"` //Contains information to create a pix payment
 }
 
 /*
@@ -1458,12 +1431,12 @@ type GetTransactionResponse struct {
     NextAttempt              *time.Time      `json:"next_attempt,omitempty" form:"next_attempt,omitempty"` //Date and time of the next attempt
     TransactionType          *string         `json:"transaction_type,omitempty" form:"transaction_type,omitempty"` //TODO: Write general description for this field
     Id                       string          `json:"id" form:"id"` //Código da transação
-    GatewayResponse          GetGatewayResponseResponse `json:"gateway_response" form:"gateway_response"` //The Gateway Response
+    GatewayResponse          GetGatewayResponseResponse `json:"gateway_response" form:"gateway_response"` //The Transaction Gateway Response
     AntifraudResponse        GetAntifraudResponse `json:"antifraud_response" form:"antifraud_response"` //TODO: Write general description for this field
     Metadata                 *map[string]string `json:"metadata,omitempty" form:"metadata,omitempty"` //TODO: Write general description for this field
     Split                    []*GetSplitResponse `json:"split" form:"split"` //TODO: Write general description for this field
-    Interest                 *GetInterestResponse `json:"interest,omitempty" form:"interest,omitempty"` //TODO: Write general description for this field
-    Fine                     *GetFineResponse `json:"fine,omitempty" form:"fine,omitempty"` //TODO: Write general description for this field
+    Interest                 *GetInterestResponse `json:"interest,omitempty" form:"interest,omitempty"` //Interest response
+    Fine                     *GetFineResponse `json:"fine,omitempty" form:"fine,omitempty"` //Fine Response
     MaxDaysToPayPastDue      *int64          `json:"max_days_to_pay_past_due,omitempty" form:"max_days_to_pay_past_due,omitempty"` //TODO: Write general description for this field
 }
 
@@ -1471,7 +1444,7 @@ type GetTransactionResponse struct {
  * Structure for the custom type UpdateRecipientBankAccountRequest
  */
 type UpdateRecipientBankAccountRequest struct {
-    BankAccount     CreateBankAccountRequest `json:"bank_account" form:"bank_account"` //Bank account
+    BankAccount     CreateBankAccountRequest `json:"bank_account" form:"bank_account"` //Request for creating a bank account
     PaymentMode     string          `json:"payment_mode" form:"payment_mode"` //Payment mode
 }
 
@@ -1485,6 +1458,41 @@ type UpdateTransferSettingsRequest struct {
 }
 
 /*
+ * Structure for the custom type GetBillingAddressResponse
+ */
+type GetBillingAddressResponse struct {
+    Street          string          `json:"street" form:"street"` //TODO: Write general description for this field
+    Number          string          `json:"number" form:"number"` //TODO: Write general description for this field
+    ZipCode         string          `json:"zip_code" form:"zip_code"` //TODO: Write general description for this field
+    Neighborhood    string          `json:"neighborhood" form:"neighborhood"` //TODO: Write general description for this field
+    City            string          `json:"city" form:"city"` //TODO: Write general description for this field
+    State           string          `json:"state" form:"state"` //TODO: Write general description for this field
+    Country         string          `json:"country" form:"country"` //TODO: Write general description for this field
+    Complement      string          `json:"complement" form:"complement"` //TODO: Write general description for this field
+    Line1           string          `json:"line_1" form:"line_1"` //Line 1 for address
+    Line2           string          `json:"line_2" form:"line_2"` //Line 2 for address
+}
+
+/*
+ * Structure for the custom type CreateIncrementRequest
+ */
+type CreateIncrementRequest struct {
+    Value           float64         `json:"value" form:"value"` //The increment value
+    IncrementType   string          `json:"increment_type" form:"increment_type"` //Increment type. Can be either flat or percentage.
+    ItemId          string          `json:"item_id" form:"item_id"` //The item where the increment will be applied
+    Cycles          *int64          `json:"cycles,omitempty" form:"cycles,omitempty"` //Number of cycles that the increment will be applied
+    Description     *string         `json:"description,omitempty" form:"description,omitempty"` //Description
+}
+
+/*
+ * Structure for the custom type CreateCashPaymentRequest
+ */
+type CreateCashPaymentRequest struct {
+    Description     string          `json:"description" form:"description"` //Description
+    Confirm         bool            `json:"confirm" form:"confirm"` //Indicates whether cash collection will be confirmed in the act of creation
+}
+
+/*
  * Structure for the custom type CreateCancelChargeRequest
  */
 type CreateCancelChargeRequest struct {
@@ -1495,10 +1503,52 @@ type CreateCancelChargeRequest struct {
 }
 
 /*
- * Structure for the custom type UpdateSubscriptionStartAtRequest
+ * Structure for the custom type CreateShippingRequest
  */
-type UpdateSubscriptionStartAtRequest struct {
-    StartAt         *time.Time      `json:"start_at" form:"start_at"` //The date when the subscription periods will start
+type CreateShippingRequest struct {
+    Amount                  int64           `json:"amount" form:"amount"` //Shipping amount
+    Description             string          `json:"description" form:"description"` //Description
+    RecipientName           string          `json:"recipient_name" form:"recipient_name"` //Recipient name
+    RecipientPhone          string          `json:"recipient_phone" form:"recipient_phone"` //Recipient phone number
+    AddressId               string          `json:"address_id" form:"address_id"` //The id of the address that will be used for shipping
+    Address                 CreateAddressRequest `json:"address" form:"address"` //Request for creating a new Address
+    MaxDeliveryDate         *time.Time      `json:"max_delivery_date,omitempty" form:"max_delivery_date,omitempty"` //Data máxima de entrega
+    EstimatedDeliveryDate   *time.Time      `json:"estimated_delivery_date,omitempty" form:"estimated_delivery_date,omitempty"` //Prazo estimado de entrega
+    Type                    string          `json:"type" form:"type"` //Shipping type
+}
+
+/*
+ * Structure for the custom type GetCheckoutCreditCardPaymentResponse
+ */
+type GetCheckoutCreditCardPaymentResponse struct {
+    StatementDescriptor string          `json:"statementDescriptor" form:"statementDescriptor"` //Descrição na fatura
+    Installments        []*GetCheckoutCardInstallmentOptionsResponse `json:"installments" form:"installments"` //Parcelas
+    Authentication      GetPaymentAuthenticationResponse `json:"authentication" form:"authentication"` //Payment Authentication response
+}
+
+/*
+ * Structure for the custom type CreateChargeRequest
+ */
+type CreateChargeRequest struct {
+    Code            string          `json:"code" form:"code"` //Code
+    Amount          int64           `json:"amount" form:"amount"` //The amount of the charge, in cents
+    CustomerId      string          `json:"customer_id" form:"customer_id"` //The customer's id
+    Customer        CreateCustomerRequest `json:"customer" form:"customer"` //Request for creating a new customer
+    Payment         CreatePaymentRequest `json:"payment" form:"payment"` //Payment data
+    Metadata        map[string]string `json:"metadata" form:"metadata"` //Metadata
+    DueAt           *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //The charge due date
+    Antifraud       CreateAntifraudRequest `json:"antifraud" form:"antifraud"` //TODO: Write general description for this field
+    OrderId         string          `json:"order_id" form:"order_id"` //Order Id
+}
+
+/*
+ * Structure for the custom type CreateTransfer
+ */
+type CreateTransfer struct {
+    Amount          int64           `json:"amount" form:"amount"` //TODO: Write general description for this field
+    SourceId        string          `json:"source_id" form:"source_id"` //TODO: Write general description for this field
+    TargetId        string          `json:"target_id" form:"target_id"` //TODO: Write general description for this field
+    Metadata        *[]string       `json:"metadata,omitempty" form:"metadata,omitempty"` //TODO: Write general description for this field
 }
 
 /*
@@ -1519,7 +1569,7 @@ type CreateCardRequest struct {
     ExpMonth           int64           `json:"exp_month" form:"exp_month"` //The expiration month
     ExpYear            int64           `json:"exp_year" form:"exp_year"` //The expiration year, that can be informed with 2 or 4 digits
     Cvv                string          `json:"cvv" form:"cvv"` //The card's security code
-    BillingAddress     CreateAddressRequest `json:"billing_address" form:"billing_address"` //Card's billing address
+    BillingAddress     CreateAddressRequest `json:"billing_address" form:"billing_address"` //Request for creating a new Address
     Brand              string          `json:"brand" form:"brand"` //Card brand
     BillingAddressId   string          `json:"billing_address_id" form:"billing_address_id"` //The address id for the billing address
     Metadata           map[string]string `json:"metadata" form:"metadata"` //Metadata
@@ -1545,6 +1595,31 @@ type CreateEmvDataDukptDecryptRequest struct {
 type GetWithdrawTargetResponse struct {
     TargetId        string          `json:"target_id" form:"target_id"` //TODO: Write general description for this field
     Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
+}
+
+/*
+ * Structure for the custom type CreateCancelChargeSplitRulesRequest
+ */
+type CreateCancelChargeSplitRulesRequest struct {
+    Id              string          `json:"id" form:"id"` //The split rule gateway id
+    Amount          int64           `json:"Amount" form:"Amount"` //The split rule amount
+    Type            string          `json:"type" form:"type"` //The amount type (flat ou percentage)
+}
+
+/*
+ * Structure for the custom type UpdateSubscriptionStartAtRequest
+ */
+type UpdateSubscriptionStartAtRequest struct {
+    StartAt         *time.Time      `json:"start_at" form:"start_at"` //The date when the subscription periods will start
+}
+
+/*
+ * Structure for the custom type CreatePixPaymentRequest
+ */
+type CreatePixPaymentRequest struct {
+    ExpiresAt              *time.Time      `json:"expires_at,omitempty" form:"expires_at,omitempty"` //Datetime when pix payment will expire
+    ExpiresIn              *int64          `json:"expires_in,omitempty" form:"expires_in,omitempty"` //Seconds until pix payment expires
+    AdditionalInformation  []*PixAdditionalInformation `json:"additional_information,omitempty" form:"additional_information,omitempty"` //Pix additional information
 }
 
 /*
@@ -1582,152 +1657,15 @@ type UpdateAutomaticAnticipationSettingsRequest struct {
 }
 
 /*
- * Structure for the custom type CreateCashPaymentRequest
- */
-type CreateCashPaymentRequest struct {
-    Description     string          `json:"description" form:"description"` //Description
-    Confirm         bool            `json:"confirm" form:"confirm"` //Indicates whether cash collection will be confirmed in the act of creation
-}
-
-/*
- * Structure for the custom type CreateConfirmPaymentRequest
- */
-type CreateConfirmPaymentRequest struct {
-    Description     string          `json:"description" form:"description"` //Description
-    Amount          *int64          `json:"Amount,omitempty" form:"Amount,omitempty"` //Amount
-    Code            string          `json:"Code" form:"Code"` //Code reference
-}
-
-/*
- * Structure for the custom type CreateShippingRequest
- */
-type CreateShippingRequest struct {
-    Amount                  int64           `json:"amount" form:"amount"` //Shipping amount
-    Description             string          `json:"description" form:"description"` //Description
-    RecipientName           string          `json:"recipient_name" form:"recipient_name"` //Recipient name
-    RecipientPhone          string          `json:"recipient_phone" form:"recipient_phone"` //Recipient phone number
-    AddressId               string          `json:"address_id" form:"address_id"` //The id of the address that will be used for shipping
-    Address                 CreateAddressRequest `json:"address" form:"address"` //Address data
-    MaxDeliveryDate         *time.Time      `json:"max_delivery_date,omitempty" form:"max_delivery_date,omitempty"` //Data máxima de entrega
-    EstimatedDeliveryDate   *time.Time      `json:"estimated_delivery_date,omitempty" form:"estimated_delivery_date,omitempty"` //Prazo estimado de entrega
-    Type                    string          `json:"type" form:"type"` //Shipping type
-}
-
-/*
- * Structure for the custom type GetCheckoutCreditCardPaymentResponse
- */
-type GetCheckoutCreditCardPaymentResponse struct {
-    StatementDescriptor string          `json:"statementDescriptor" form:"statementDescriptor"` //Descrição na fatura
-    Installments        []*GetCheckoutCardInstallmentOptionsResponse `json:"installments" form:"installments"` //Parcelas
-    Authentication      GetPaymentAuthenticationResponse `json:"authentication" form:"authentication"` //Payment Authentication response
-}
-
-/*
- * Structure for the custom type CreateChargeRequest
- */
-type CreateChargeRequest struct {
-    Code            string          `json:"code" form:"code"` //Code
-    Amount          int64           `json:"amount" form:"amount"` //The amount of the charge, in cents
-    CustomerId      string          `json:"customer_id" form:"customer_id"` //The customer's id
-    Customer        CreateCustomerRequest `json:"customer" form:"customer"` //Customer data
-    Payment         CreatePaymentRequest `json:"payment" form:"payment"` //Payment data
-    Metadata        map[string]string `json:"metadata" form:"metadata"` //Metadata
-    DueAt           *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //The charge due date
-    Antifraud       CreateAntifraudRequest `json:"antifraud" form:"antifraud"` //TODO: Write general description for this field
-    OrderId         string          `json:"order_id" form:"order_id"` //Order Id
-}
-
-/*
- * Structure for the custom type CreateTransfer
- */
-type CreateTransfer struct {
-    Amount          int64           `json:"amount" form:"amount"` //TODO: Write general description for this field
-    SourceId        string          `json:"source_id" form:"source_id"` //TODO: Write general description for this field
-    TargetId        string          `json:"target_id" form:"target_id"` //TODO: Write general description for this field
-    Metadata        *[]string       `json:"metadata,omitempty" form:"metadata,omitempty"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type GetCheckoutDebitCardPaymentResponse
- */
-type GetCheckoutDebitCardPaymentResponse struct {
-    StatementDescriptor  string          `json:"statement_descriptor" form:"statement_descriptor"` //Descrição na fatura
-    Authentication       GetPaymentAuthenticationResponse `json:"authentication" form:"authentication"` //Payment Authentication response object data
-}
-
-/*
- * Structure for the custom type GetAnticipationResponse
- */
-type GetAnticipationResponse struct {
-    Id               string          `json:"id" form:"id"` //Id
-    RequestedAmount  int64           `json:"requested_amount" form:"requested_amount"` //Requested amount
-    ApprovedAmount   int64           `json:"approved_amount" form:"approved_amount"` //Approved amount
-    Recipient        *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient
-    Pgid             string          `json:"pgid" form:"pgid"` //Anticipation id on the gateway
-    CreatedAt        *time.Time      `json:"created_at" form:"created_at"` //Creation date
-    UpdatedAt        *time.Time      `json:"updated_at" form:"updated_at"` //Last update date
-    PaymentDate      *time.Time      `json:"payment_date" form:"payment_date"` //Payment date
-    Status           string          `json:"status" form:"status"` //Status
-    Timeframe        string          `json:"timeframe" form:"timeframe"` //Timeframe
-}
-
-/*
- * Structure for the custom type GetPrivateLabelTransactionResponse
- */
-type GetPrivateLabelTransactionResponse struct {
-    GetTransactionResponse    // Anonymous member to emulate model inheritence
-    StatementDescriptor       string          `json:"statement_descriptor" form:"statement_descriptor"` //Text that will appear on the credit card's statement
-    AcquirerName              string          `json:"acquirer_name" form:"acquirer_name"` //Acquirer name
-    AcquirerAffiliationCode   string          `json:"acquirer_affiliation_code" form:"acquirer_affiliation_code"` //Aquirer affiliation code
-    AcquirerTid               string          `json:"acquirer_tid" form:"acquirer_tid"` //Acquirer TID
-    AcquirerNsu               string          `json:"acquirer_nsu" form:"acquirer_nsu"` //Acquirer NSU
-    AcquirerAuthCode          string          `json:"acquirer_auth_code" form:"acquirer_auth_code"` //Acquirer authorization code
-    OperationType             string          `json:"operation_type" form:"operation_type"` //Operation type
-    Card                      GetCardResponse `json:"card" form:"card"` //Card data
-    AcquirerMessage           string          `json:"acquirer_message" form:"acquirer_message"` //Acquirer message
-    AcquirerReturnCode        string          `json:"acquirer_return_code" form:"acquirer_return_code"` //Acquirer Return Code
-    Installments              *int64          `json:"installments,omitempty" form:"installments,omitempty"` //Number of installments
-}
-
-/*
- * Structure for the custom type CreateAutomaticAnticipationSettingsRequest
- */
-type CreateAutomaticAnticipationSettingsRequest struct {
-    Enabled           bool            `json:"enabled" form:"enabled"` //TODO: Write general description for this field
-    Type              string          `json:"type" form:"type"` //TODO: Write general description for this field
-    VolumePercentage  int64           `json:"volume_percentage" form:"volume_percentage"` //TODO: Write general description for this field
-    Delay             int64           `json:"delay" form:"delay"` //TODO: Write general description for this field
-    Days              []int64         `json:"days" form:"days"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type CreateCancelChargeSplitRulesRequest
- */
-type CreateCancelChargeSplitRulesRequest struct {
-    Id              string          `json:"id" form:"id"` //The split rule gateway id
-    Amount          int64           `json:"Amount" form:"Amount"` //The split rule amount
-    Type            string          `json:"type" form:"type"` //The amount type (flat ou percentage)
-}
-
-/*
  * Structure for the custom type GetSplitResponse
  */
 type GetSplitResponse struct {
     Type            string          `json:"type" form:"type"` //Type
     Amount          int64           `json:"amount" form:"amount"` //Amount
-    Recipient       *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient
+    Recipient       *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient response
     GatewayId       string          `json:"gateway_id" form:"gateway_id"` //The split rule gateway id
     Options         *GetSplitOptionsResponse `json:"options,omitempty" form:"options,omitempty"` //TODO: Write general description for this field
     Id              string          `json:"id" form:"id"` //TODO: Write general description for this field
-}
-
-/*
- * Structure for the custom type CreatePixPaymentRequest
- */
-type CreatePixPaymentRequest struct {
-    ExpiresAt              *time.Time      `json:"expires_at,omitempty" form:"expires_at,omitempty"` //Datetime when pix payment will expire
-    ExpiresIn              *int64          `json:"expires_in,omitempty" form:"expires_in,omitempty"` //Seconds until pix payment expires
-    AdditionalInformation  []*PixAdditionalInformation `json:"additional_information,omitempty" form:"additional_information,omitempty"` //Pix additional information
 }
 
 /*
@@ -1735,7 +1673,7 @@ type CreatePixPaymentRequest struct {
  */
 type ListTransactionsFilesResponse struct {
     Data            []*GetTransactionReportFileResponse `json:"data" form:"data"` //TODO: Write general description for this field
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1766,11 +1704,80 @@ type GetWithdrawSourceResponse struct {
 }
 
 /*
+ * Structure for the custom type CreateConfirmPaymentRequest
+ */
+type CreateConfirmPaymentRequest struct {
+    Description     string          `json:"description" form:"description"` //Description
+    Amount          *int64          `json:"Amount,omitempty" form:"Amount,omitempty"` //Amount
+    Code            string          `json:"Code" form:"Code"` //Code reference
+}
+
+/*
+ * Structure for the custom type GetCheckoutDebitCardPaymentResponse
+ */
+type GetCheckoutDebitCardPaymentResponse struct {
+    StatementDescriptor  string          `json:"statement_descriptor" form:"statement_descriptor"` //Descrição na fatura
+    Authentication       GetPaymentAuthenticationResponse `json:"authentication" form:"authentication"` //Payment Authentication response
+}
+
+/*
+ * Structure for the custom type GetAnticipationResponse
+ */
+type GetAnticipationResponse struct {
+    Id               string          `json:"id" form:"id"` //Id
+    RequestedAmount  int64           `json:"requested_amount" form:"requested_amount"` //Requested amount
+    ApprovedAmount   int64           `json:"approved_amount" form:"approved_amount"` //Approved amount
+    Recipient        *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient response
+    Pgid             string          `json:"pgid" form:"pgid"` //Anticipation id on the gateway
+    CreatedAt        *time.Time      `json:"created_at" form:"created_at"` //Creation date
+    UpdatedAt        *time.Time      `json:"updated_at" form:"updated_at"` //Last update date
+    PaymentDate      *time.Time      `json:"payment_date" form:"payment_date"` //Payment date
+    Status           string          `json:"status" form:"status"` //Status
+    Timeframe        string          `json:"timeframe" form:"timeframe"` //Timeframe
+}
+
+/*
+ * Structure for the custom type GetPrivateLabelTransactionResponse
+ */
+type GetPrivateLabelTransactionResponse struct {
+    GetTransactionResponse    // Anonymous member to emulate model inheritence
+    StatementDescriptor       string          `json:"statement_descriptor" form:"statement_descriptor"` //Text that will appear on the credit card's statement
+    AcquirerName              string          `json:"acquirer_name" form:"acquirer_name"` //Acquirer name
+    AcquirerAffiliationCode   string          `json:"acquirer_affiliation_code" form:"acquirer_affiliation_code"` //Aquirer affiliation code
+    AcquirerTid               string          `json:"acquirer_tid" form:"acquirer_tid"` //Acquirer TID
+    AcquirerNsu               string          `json:"acquirer_nsu" form:"acquirer_nsu"` //Acquirer NSU
+    AcquirerAuthCode          string          `json:"acquirer_auth_code" form:"acquirer_auth_code"` //Acquirer authorization code
+    OperationType             string          `json:"operation_type" form:"operation_type"` //Operation type
+    Card                      GetCardResponse `json:"card" form:"card"` //Response object for getting a credit card
+    AcquirerMessage           string          `json:"acquirer_message" form:"acquirer_message"` //Acquirer message
+    AcquirerReturnCode        string          `json:"acquirer_return_code" form:"acquirer_return_code"` //Acquirer Return Code
+    Installments              *int64          `json:"installments,omitempty" form:"installments,omitempty"` //Number of installments
+}
+
+/*
+ * Structure for the custom type CreateAutomaticAnticipationSettingsRequest
+ */
+type CreateAutomaticAnticipationSettingsRequest struct {
+    Enabled           bool            `json:"enabled" form:"enabled"` //TODO: Write general description for this field
+    Type              string          `json:"type" form:"type"` //TODO: Write general description for this field
+    VolumePercentage  int64           `json:"volume_percentage" form:"volume_percentage"` //TODO: Write general description for this field
+    Delay             int64           `json:"delay" form:"delay"` //TODO: Write general description for this field
+    Days              []int64         `json:"days" form:"days"` //TODO: Write general description for this field
+}
+
+/*
  * Structure for the custom type GetCashTransactionResponse
  */
 type GetCashTransactionResponse struct {
     GetTransactionResponse // Anonymous member to emulate model inheritence
     Description     string          `json:"description" form:"description"` //Description
+}
+
+/*
+ * Structure for the custom type UpdateSubscriptionMinimumPriceRequest
+ */
+type UpdateSubscriptionMinimumPriceRequest struct {
+    MinimumPrice    *int64          `json:"minimum_price,omitempty" form:"minimum_price,omitempty"` //Valor mínimo da assinatura
 }
 
 /*
@@ -1826,16 +1833,9 @@ type GetBankAccountResponse struct {
     CreatedAt           *time.Time      `json:"created_at" form:"created_at"` //Creation date
     UpdatedAt           *time.Time      `json:"updated_at" form:"updated_at"` //Last update date
     DeletedAt           *time.Time      `json:"deleted_at" form:"deleted_at"` //Deletion date
-    Recipient           *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient
+    Recipient           *GetRecipientResponse `json:"recipient,omitempty" form:"recipient,omitempty"` //Recipient response
     Metadata            map[string]string `json:"metadata" form:"metadata"` //Metadata
     PixKey              string          `json:"pix_key" form:"pix_key"` //Pix Key
-}
-
-/*
- * Structure for the custom type UpdateSubscriptionMinimumPriceRequest
- */
-type UpdateSubscriptionMinimumPriceRequest struct {
-    MinimumPrice    *int64          `json:"minimum_price,omitempty" form:"minimum_price,omitempty"` //Valor mínimo da assinatura
 }
 
 /*
@@ -1887,7 +1887,7 @@ type GetUsageReportResponse struct {
  */
 type ListTransfers struct {
     Data            []*GetTransfer  `json:"data" form:"data"` //The Increments response
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1906,10 +1906,17 @@ type GetShippingResponse struct {
     Description             string          `json:"description" form:"description"` //TODO: Write general description for this field
     RecipientName           string          `json:"recipient_name" form:"recipient_name"` //TODO: Write general description for this field
     RecipientPhone          string          `json:"recipient_phone" form:"recipient_phone"` //TODO: Write general description for this field
-    Address                 GetAddressResponse `json:"address" form:"address"` //TODO: Write general description for this field
+    Address                 GetAddressResponse `json:"address" form:"address"` //Response object for getting an Address
     MaxDeliveryDate         *time.Time      `json:"max_delivery_date,omitempty" form:"max_delivery_date,omitempty"` //Data máxima de entrega
     EstimatedDeliveryDate   *time.Time      `json:"estimated_delivery_date,omitempty" form:"estimated_delivery_date,omitempty"` //Prazo estimado de entrega
     Type                    string          `json:"type" form:"type"` //Shipping Type
+}
+
+/*
+ * Structure for the custom type UpdateCurrentCycleEndDateRequest
+ */
+type UpdateCurrentCycleEndDateRequest struct {
+    EndAt           *time.Time      `json:"end_at,omitempty" form:"end_at,omitempty"` //Current cycle end date
 }
 
 /*
@@ -1925,9 +1932,9 @@ type CreateCheckoutBankTransferRequest struct {
  */
 type CreateCardPaymentContactlessRequest struct {
     Type            string          `json:"type" form:"type"` //The authentication type
-    ApplePay        *CreateApplePayRequest `json:"apple_pay,omitempty" form:"apple_pay,omitempty"` //The ApplePay encrypted request
-    GooglePay       *CreateGooglePayRequest `json:"google_pay,omitempty" form:"google_pay,omitempty"` //The GooglePay encrypted request
-    Emv             *CreateEmvDecryptRequest `json:"emv,omitempty" form:"emv,omitempty"` //The Emv encrypted request
+    ApplePay        *CreateApplePayRequest `json:"apple_pay,omitempty" form:"apple_pay,omitempty"` //The ApplePay Token Payment Request
+    GooglePay       *CreateGooglePayRequest `json:"google_pay,omitempty" form:"google_pay,omitempty"` //The GooglePay Token Payment Request
+    Emv             *CreateEmvDecryptRequest `json:"emv,omitempty" form:"emv,omitempty"` //TODO: Write general description for this field
 }
 
 /*
@@ -1938,7 +1945,7 @@ type CreateCustomerRequest struct {
     Email           string          `json:"email" form:"email"` //Email
     Document        string          `json:"document" form:"document"` //Document number. Only numbers, no special characters.
     Type            string          `json:"type" form:"type"` //Person type. Can be either 'individual' or 'company'
-    Address         CreateAddressRequest `json:"address" form:"address"` //The customer's address
+    Address         CreateAddressRequest `json:"address" form:"address"` //Request for creating a new Address
     Metadata        map[string]string `json:"metadata" form:"metadata"` //Metadata
     Phones          CreatePhonesRequest `json:"phones" form:"phones"` //TODO: Write general description for this field
     Code            string          `json:"code" form:"code"` //Customer code
@@ -1959,24 +1966,7 @@ type GetTransferTargetResponse struct {
  */
 type ListWithdrawals struct {
     Data            []*GetWithdrawResponse `json:"data" form:"data"` //The Increments response
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
-}
-
-/*
- * Structure for the custom type UpdateCurrentCycleEndDateRequest
- */
-type UpdateCurrentCycleEndDateRequest struct {
-    EndAt           *time.Time      `json:"end_at,omitempty" form:"end_at,omitempty"` //Current cycle end date
-}
-
-/*
- * Structure for the custom type CreateCheckoutCreditCardPaymentRequest
- */
-type CreateCheckoutCreditCardPaymentRequest struct {
-    StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //Card invoice text descriptor
-    Installments         []*CreateCheckoutCardInstallmentOptionRequest `json:"installments,omitempty" form:"installments,omitempty"` //Payment installment options
-    Authentication       *CreatePaymentAuthenticationRequest `json:"authentication,omitempty" form:"authentication,omitempty"` //Creates payment authentication
-    Capture              *bool           `json:"capture,omitempty" form:"capture,omitempty"` //Authorize and capture?
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -1996,20 +1986,20 @@ type GetCheckoutPaymentResponse struct {
     UpdatedAt                  *time.Time      `json:"updated_at" form:"updated_at"` //Data de atualização
     CanceledAt                 *time.Time      `json:"canceled_at,omitempty" form:"canceled_at,omitempty"` //Data de cancelamento
     CustomerEditable           bool            `json:"customer_editable" form:"customer_editable"` //Torna o objeto customer editável
-    Customer                   *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Dados do comprador
-    Billingaddress             GetAddressResponse `json:"billingaddress" form:"billingaddress"` //Dados do endereço de cobrança
-    CreditCard                 GetCheckoutCreditCardPaymentResponse `json:"credit_card" form:"credit_card"` //Configurações de cartão de crédito
-    Boleto                     GetCheckoutBoletoPaymentResponse `json:"boleto" form:"boleto"` //Configurações de boleto
+    Customer                   *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
+    Billingaddress             GetAddressResponse `json:"billingaddress" form:"billingaddress"` //Response object for getting an Address
+    CreditCard                 GetCheckoutCreditCardPaymentResponse `json:"credit_card" form:"credit_card"` //TODO: Write general description for this field
+    Boleto                     GetCheckoutBoletoPaymentResponse `json:"boleto" form:"boleto"` //TODO: Write general description for this field
     BillingAddressEditable     bool            `json:"billing_address_editable" form:"billing_address_editable"` //Indica se o billing address poderá ser editado
-    Shipping                   GetShippingResponse `json:"shipping" form:"shipping"` //Configurações  de entrega
+    Shipping                   GetShippingResponse `json:"shipping" form:"shipping"` //Response object for getting the shipping data
     Shippable                  bool            `json:"shippable" form:"shippable"` //Indica se possui entrega
     ClosedAt                   *time.Time      `json:"closed_at,omitempty" form:"closed_at,omitempty"` //Data de fechamento
     ExpiresAt                  *time.Time      `json:"expires_at,omitempty" form:"expires_at,omitempty"` //Data de expiração
     Currency                   string          `json:"currency" form:"currency"` //Moeda
-    DebitCard                  *GetCheckoutDebitCardPaymentResponse `json:"debit_card,omitempty" form:"debit_card,omitempty"` //Configurações de cartão de débito
-    BankTransfer               *GetCheckoutBankTransferPaymentResponse `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Bank transfer payment response
+    DebitCard                  *GetCheckoutDebitCardPaymentResponse `json:"debit_card,omitempty" form:"debit_card,omitempty"` //TODO: Write general description for this field
+    BankTransfer               *GetCheckoutBankTransferPaymentResponse `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Bank transfer checkout response
     AcceptedBrands             []string        `json:"accepted_brands" form:"accepted_brands"` //Accepted Brands
-    Pix                        *GetCheckoutPixPaymentResponse `json:"pix,omitempty" form:"pix,omitempty"` //Pix payment response
+    Pix                        *GetCheckoutPixPaymentResponse `json:"pix,omitempty" form:"pix,omitempty"` //Checkout pix payment response
 }
 
 /*
@@ -2017,7 +2007,7 @@ type GetCheckoutPaymentResponse struct {
  */
 type CreateEmvDataDecryptRequest struct {
     Cipher          string          `json:"cipher" form:"cipher"` //Emv Decrypt cipher type
-    Dukpt           *CreateEmvDataDukptDecryptRequest `json:"dukpt,omitempty" form:"dukpt,omitempty"` //Dukpt data request
+    Dukpt           *CreateEmvDataDukptDecryptRequest `json:"dukpt,omitempty" form:"dukpt,omitempty"` //TODO: Write general description for this field
     Tags            []*CreateEmvDataTlvDecryptRequest `json:"tags" form:"tags"` //Encrypted tags list
 }
 
@@ -2052,13 +2042,64 @@ type GetAutomaticAnticipationResponse struct {
 }
 
 /*
+ * Structure for the custom type CreateCheckoutPaymentRequest
+ */
+type CreateCheckoutPaymentRequest struct {
+    AcceptedPaymentMethods         []string        `json:"accepted_payment_methods" form:"accepted_payment_methods"` //Accepted Payment Methods
+    AcceptedMultiPaymentMethods    []interface{}   `json:"accepted_multi_payment_methods" form:"accepted_multi_payment_methods"` //Accepted Multi Payment Methods
+    SuccessUrl                     string          `json:"success_url" form:"success_url"` //Success url
+    DefaultPaymentMethod           *string         `json:"default_payment_method,omitempty" form:"default_payment_method,omitempty"` //Default payment method
+    GatewayAffiliationId           *string         `json:"gateway_affiliation_id,omitempty" form:"gateway_affiliation_id,omitempty"` //Gateway Affiliation Id
+    CreditCard                     *CreateCheckoutCreditCardPaymentRequest `json:"credit_card,omitempty" form:"credit_card,omitempty"` //Checkout card payment request
+    DebitCard                      *CreateCheckoutDebitCardPaymentRequest `json:"debit_card,omitempty" form:"debit_card,omitempty"` //Checkout credit card payment request
+    Boleto                         *CreateCheckoutBoletoPaymentRequest `json:"boleto,omitempty" form:"boleto,omitempty"` //TODO: Write general description for this field
+    CustomerEditable               *bool           `json:"customer_editable,omitempty" form:"customer_editable,omitempty"` //Customer is editable?
+    ExpiresIn                      *int64          `json:"expires_in,omitempty" form:"expires_in,omitempty"` //Time in minutes for expiration
+    SkipCheckoutSuccessPage        bool            `json:"skip_checkout_success_page" form:"skip_checkout_success_page"` //Skip postpay success screen?
+    BillingAddressEditable         bool            `json:"billing_address_editable" form:"billing_address_editable"` //Billing Address is editable?
+    BillingAddress                 CreateAddressRequest `json:"billing_address" form:"billing_address"` //Request for creating a new Address
+    BankTransfer                   *CreateCheckoutBankTransferRequest `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Checkout bank transfer payment request
+    AcceptedBrands                 []string        `json:"accepted_brands" form:"accepted_brands"` //Accepted Brands
+    Pix                            *CreateCheckoutPixPaymentRequest `json:"pix,omitempty" form:"pix,omitempty"` //Checkout pix payment request
+}
+
+/*
+ * Structure for the custom type CreateCheckoutCreditCardPaymentRequest
+ */
+type CreateCheckoutCreditCardPaymentRequest struct {
+    StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //Card invoice text descriptor
+    Installments         []*CreateCheckoutCardInstallmentOptionRequest `json:"installments,omitempty" form:"installments,omitempty"` //Payment installment options
+    Authentication       *CreatePaymentAuthenticationRequest `json:"authentication,omitempty" form:"authentication,omitempty"` //The payment authentication request
+    Capture              *bool           `json:"capture,omitempty" form:"capture,omitempty"` //Authorize and capture?
+}
+
+/*
+ * Structure for the custom type GetTransfer
+ */
+type GetTransfer struct {
+    Id                     string          `json:"id" form:"id"` //TODO: Write general description for this field
+    GatewayId              string          `json:"gateway_id" form:"gateway_id"` //TODO: Write general description for this field
+    Amount                 int64           `json:"amount" form:"amount"` //TODO: Write general description for this field
+    Status                 string          `json:"status" form:"status"` //TODO: Write general description for this field
+    CreatedAt              *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
+    UpdatedAt              *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
+    Metadata               *map[string]string `json:"metadata,omitempty" form:"metadata,omitempty"` //TODO: Write general description for this field
+    Fee                    *int64          `json:"fee,omitempty" form:"fee,omitempty"` //TODO: Write general description for this field
+    FundingDate            *time.Time      `json:"funding_date,omitempty" form:"funding_date,omitempty"` //TODO: Write general description for this field
+    FundingEstimatedDate   *time.Time      `json:"funding_estimated_date,omitempty" form:"funding_estimated_date,omitempty"` //TODO: Write general description for this field
+    Type                   string          `json:"type" form:"type"` //TODO: Write general description for this field
+    Source                 GetTransferSourceResponse `json:"source" form:"source"` //TODO: Write general description for this field
+    Target                 GetTransferTargetResponse `json:"target" form:"target"` //TODO: Write general description for this field
+}
+
+/*
  * Structure for the custom type CreateSplitRequest
  */
 type CreateSplitRequest struct {
     Type            string          `json:"type" form:"type"` //Split type
     Amount          int64           `json:"amount" form:"amount"` //Amount
     RecipientId     string          `json:"recipient_id" form:"recipient_id"` //Recipient id
-    Options         *CreateSplitOptionsRequest `json:"options,omitempty" form:"options,omitempty"` //The split options request
+    Options         *CreateSplitOptionsRequest `json:"options,omitempty" form:"options,omitempty"` //The Split Options Request
     SplitRuleId     *string         `json:"split_rule_id,omitempty" form:"split_rule_id,omitempty"` //Rule code used in cancellation.
 }
 
@@ -2086,28 +2127,6 @@ type GetTransferSettingsResponse struct {
 }
 
 /*
- * Structure for the custom type CreateCheckoutPaymentRequest
- */
-type CreateCheckoutPaymentRequest struct {
-    AcceptedPaymentMethods         []string        `json:"accepted_payment_methods" form:"accepted_payment_methods"` //Accepted Payment Methods
-    AcceptedMultiPaymentMethods    []interface{}   `json:"accepted_multi_payment_methods" form:"accepted_multi_payment_methods"` //Accepted Multi Payment Methods
-    SuccessUrl                     string          `json:"success_url" form:"success_url"` //Success url
-    DefaultPaymentMethod           *string         `json:"default_payment_method,omitempty" form:"default_payment_method,omitempty"` //Default payment method
-    GatewayAffiliationId           *string         `json:"gateway_affiliation_id,omitempty" form:"gateway_affiliation_id,omitempty"` //Gateway Affiliation Id
-    CreditCard                     *CreateCheckoutCreditCardPaymentRequest `json:"credit_card,omitempty" form:"credit_card,omitempty"` //Credit Card payment request
-    DebitCard                      *CreateCheckoutDebitCardPaymentRequest `json:"debit_card,omitempty" form:"debit_card,omitempty"` //Debit Card payment request
-    Boleto                         *CreateCheckoutBoletoPaymentRequest `json:"boleto,omitempty" form:"boleto,omitempty"` //Boleto payment request
-    CustomerEditable               *bool           `json:"customer_editable,omitempty" form:"customer_editable,omitempty"` //Customer is editable?
-    ExpiresIn                      *int64          `json:"expires_in,omitempty" form:"expires_in,omitempty"` //Time in minutes for expiration
-    SkipCheckoutSuccessPage        bool            `json:"skip_checkout_success_page" form:"skip_checkout_success_page"` //Skip postpay success screen?
-    BillingAddressEditable         bool            `json:"billing_address_editable" form:"billing_address_editable"` //Billing Address is editable?
-    BillingAddress                 CreateAddressRequest `json:"billing_address" form:"billing_address"` //Billing Address
-    BankTransfer                   *CreateCheckoutBankTransferRequest `json:"bank_transfer,omitempty" form:"bank_transfer,omitempty"` //Bank Transfer payment request
-    AcceptedBrands                 []string        `json:"accepted_brands" form:"accepted_brands"` //Accepted Brands
-    Pix                            *CreateCheckoutPixPaymentRequest `json:"pix,omitempty" form:"pix,omitempty"` //Pix payment request
-}
-
-/*
  * Structure for the custom type CreatePeriodRequest
  */
 type CreatePeriodRequest struct {
@@ -2115,22 +2134,11 @@ type CreatePeriodRequest struct {
 }
 
 /*
- * Structure for the custom type GetTransfer
+ * Structure for the custom type GetPaymentAuthenticationResponse
  */
-type GetTransfer struct {
-    Id                     string          `json:"id" form:"id"` //TODO: Write general description for this field
-    GatewayId              string          `json:"gateway_id" form:"gateway_id"` //TODO: Write general description for this field
-    Amount                 int64           `json:"amount" form:"amount"` //TODO: Write general description for this field
-    Status                 string          `json:"status" form:"status"` //TODO: Write general description for this field
-    CreatedAt              *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
-    UpdatedAt              *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    Metadata               *map[string]string `json:"metadata,omitempty" form:"metadata,omitempty"` //TODO: Write general description for this field
-    Fee                    *int64          `json:"fee,omitempty" form:"fee,omitempty"` //TODO: Write general description for this field
-    FundingDate            *time.Time      `json:"funding_date,omitempty" form:"funding_date,omitempty"` //TODO: Write general description for this field
-    FundingEstimatedDate   *time.Time      `json:"funding_estimated_date,omitempty" form:"funding_estimated_date,omitempty"` //TODO: Write general description for this field
-    Type                   string          `json:"type" form:"type"` //TODO: Write general description for this field
-    Source                 GetTransferSourceResponse `json:"source" form:"source"` //TODO: Write general description for this field
-    Target                 GetTransferTargetResponse `json:"target" form:"target"` //TODO: Write general description for this field
+type GetPaymentAuthenticationResponse struct {
+    Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
+    ThreedSecure    GetThreeDSecureResponse `json:"threed_secure" form:"threed_secure"` //3D-S payment authentication response
 }
 
 /*
@@ -2179,7 +2187,7 @@ type GetAddressResponse struct {
     Status          string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     UpdatedAt       *time.Time      `json:"updated_at" form:"updated_at"` //TODO: Write general description for this field
-    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
+    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
     Metadata        map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     Line1           string          `json:"line_1" form:"line_1"` //Line 1 for address
     Line2           string          `json:"line_2" form:"line_2"` //Line 2 for address
@@ -2215,14 +2223,6 @@ type GetSplitOptionsResponse struct {
 }
 
 /*
- * Structure for the custom type GetPaymentAuthenticationResponse
- */
-type GetPaymentAuthenticationResponse struct {
-    Type            string          `json:"type" form:"type"` //TODO: Write general description for this field
-    ThreedSecure    GetThreeDSecureResponse `json:"threed_secure" form:"threed_secure"` //3D-S payment authentication response
-}
-
-/*
  * Structure for the custom type GetCreditCardTransactionResponse
  */
 type GetCreditCardTransactionResponse struct {
@@ -2234,7 +2234,7 @@ type GetCreditCardTransactionResponse struct {
     AcquirerNsu               string          `json:"acquirer_nsu" form:"acquirer_nsu"` //Acquirer NSU
     AcquirerAuthCode          string          `json:"acquirer_auth_code" form:"acquirer_auth_code"` //Acquirer authorization code
     OperationType             string          `json:"operation_type" form:"operation_type"` //Operation type
-    Card                      GetCardResponse `json:"card" form:"card"` //Card data
+    Card                      GetCardResponse `json:"card" form:"card"` //Response object for getting a credit card
     AcquirerMessage           string          `json:"acquirer_message" form:"acquirer_message"` //Acquirer message
     AcquirerReturnCode        string          `json:"acquirer_return_code" form:"acquirer_return_code"` //Acquirer Return Code
     Installments              *int64          `json:"installments,omitempty" form:"installments,omitempty"` //Number of installments
@@ -2246,7 +2246,7 @@ type GetCreditCardTransactionResponse struct {
  */
 type ListChargeTransactionsResponse struct {
     Data            []*GetTransactionResponse `json:"data" form:"data"` //The charge transactions objects
-    Paging          PagingResponse  `json:"paging" form:"paging"` //Paging object
+    Paging          PagingResponse  `json:"paging" form:"paging"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -2254,7 +2254,7 @@ type ListChargeTransactionsResponse struct {
  */
 type ListCyclesResponse struct {
     Data            []*GetPeriodResponse `json:"data,omitempty" form:"data,omitempty"` //The subscription cycles objects
-    Paging          *PagingResponse `json:"paging,omitempty" form:"paging,omitempty"` //Paging object
+    Paging          *PagingResponse `json:"paging,omitempty" form:"paging,omitempty"` //Object used for returning lists of objects with pagination
 }
 
 /*
@@ -2269,13 +2269,13 @@ type GetInvoiceResponse struct {
     PaymentMethod   string          `json:"payment_method" form:"payment_method"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
     Items           []*GetInvoiceItemResponse `json:"items" form:"items"` //TODO: Write general description for this field
-    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
-    Charge          GetChargeResponse `json:"charge" form:"charge"` //TODO: Write general description for this field
+    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
+    Charge          GetChargeResponse `json:"charge" form:"charge"` //Response object for getting a charge
     Installments    int64           `json:"installments" form:"installments"` //TODO: Write general description for this field
-    BillingAddress  GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //TODO: Write general description for this field
+    BillingAddress  GetBillingAddressResponse `json:"billing_address" form:"billing_address"` //Response object for getting a billing address
     Subscription    GetSubscriptionResponse `json:"subscription" form:"subscription"` //TODO: Write general description for this field
-    Cycle           *GetPeriodResponse `json:"cycle,omitempty" form:"cycle,omitempty"` //TODO: Write general description for this field
-    Shipping        GetShippingResponse `json:"shipping" form:"shipping"` //TODO: Write general description for this field
+    Cycle           *GetPeriodResponse `json:"cycle,omitempty" form:"cycle,omitempty"` //Response object for getting a period
+    Shipping        GetShippingResponse `json:"shipping" form:"shipping"` //Response object for getting the shipping data
     Metadata        map[string]string `json:"metadata" form:"metadata"` //TODO: Write general description for this field
     DueAt           *time.Time      `json:"due_at,omitempty" form:"due_at,omitempty"` //TODO: Write general description for this field
     CanceledAt      *time.Time      `json:"canceled_at,omitempty" form:"canceled_at,omitempty"` //TODO: Write general description for this field
@@ -2294,7 +2294,7 @@ type GetAccessTokenResponse struct {
     Code            string          `json:"code" form:"code"` //TODO: Write general description for this field
     Status          string          `json:"status" form:"status"` //TODO: Write general description for this field
     CreatedAt       *time.Time      `json:"created_at" form:"created_at"` //TODO: Write general description for this field
-    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //TODO: Write general description for this field
+    Customer        *GetCustomerResponse `json:"customer,omitempty" form:"customer,omitempty"` //Response object for getting a customer
 }
 
 /*
@@ -2315,8 +2315,8 @@ type CreateSubMerchantRequest struct {
     MerchantCategoryCode     string          `json:"merchant_category_code" form:"merchant_category_code"` //Merchant Category Code
     Document                 string          `json:"document" form:"document"` //Document number. Only numbers, no special characters.
     Type                     string          `json:"type" form:"type"` //Document type. Can be either 'individual' or 'company'
-    Phone                    CreatePhoneRequest `json:"phone" form:"phone"` //Phone
-    Address                  CreateAddressRequest `json:"address" form:"address"` //Address
+    Phone                    CreatePhoneRequest `json:"phone" form:"phone"` //TODO: Write general description for this field
+    Address                  CreateAddressRequest `json:"address" form:"address"` //Request for creating a new Address
 }
 
 /*
@@ -2329,7 +2329,7 @@ type GetPixTransactionResponse struct {
     ExpiresAt              *time.Time      `json:"expires_at" form:"expires_at"` //TODO: Write general description for this field
     AdditionalInformation  []*PixAdditionalInformation `json:"additional_information" form:"additional_information"` //TODO: Write general description for this field
     EndToEndId             *string         `json:"end_to_end_id,omitempty" form:"end_to_end_id,omitempty"` //TODO: Write general description for this field
-    Payer                  *GetPixPayerResponse `json:"payer,omitempty" form:"payer,omitempty"` //TODO: Write general description for this field
+    Payer                  GetPixPayerResponse `json:"payer" form:"payer"` //Pix payer data.
 }
 
 /*
@@ -2387,7 +2387,7 @@ type GetPixPayerResponse struct {
     Name            *string         `json:"name,omitempty" form:"name,omitempty"` //TODO: Write general description for this field
     Document        *string         `json:"document,omitempty" form:"document,omitempty"` //TODO: Write general description for this field
     DocumentType    *string         `json:"document_type,omitempty" form:"document_type,omitempty"` //TODO: Write general description for this field
-    BankAccount     *GetPixBankAccountResponse `json:"bank_account,omitempty" form:"bank_account,omitempty"` //TODO: Write general description for this field
+    BankAccount     GetPixBankAccountResponse `json:"bank_account" form:"bank_account"` //Payer's bank details.
 }
 
 /*
