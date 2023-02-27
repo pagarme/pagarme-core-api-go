@@ -15,9 +15,9 @@ import "pagarmecoreapi_lib/models_pkg"
 type TRANSFERS interface {
     GetTransferById (string) (*models_pkg.GetTransfer, error)
 
-    CreateTransfer (*models_pkg.CreateTransfer) (*models_pkg.GetTransfer, error)
+    PostCreateTransfer (*models_pkg.CreateTransfer) (*models_pkg.GetTransfer, error)
 
-    GetTransfers () (*models_pkg.ListTransfers, error)
+    GetTransfers1 () (*models_pkg.ListTransfers, error)
 }
 
 /*

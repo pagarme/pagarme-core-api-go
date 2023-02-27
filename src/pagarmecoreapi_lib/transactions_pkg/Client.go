@@ -22,7 +22,7 @@ type TRANSACTIONS_IMPL struct {
 }
 
 /**
- * TODO: type endpoint description here
+ * GetTransaction
  * @param    string        transactionId      parameter: Required
  * @return	Returns the *models_pkg.GetTransactionResponse response from the API call
  */

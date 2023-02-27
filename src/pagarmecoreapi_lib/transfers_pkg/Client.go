@@ -22,7 +22,7 @@ type TRANSFERS_IMPL struct {
 }
 
 /**
- * TODO: type endpoint description here
+ * GetTransferById
  * @param    string        transferId      parameter: Required
  * @return	Returns the *models_pkg.GetTransfer response from the API call
  */
@@ -103,12 +103,12 @@ func (me *TRANSFERS_IMPL) GetTransferById (
 }
 
 /**
- * TODO: type endpoint description here
- * @param    *models_pkg.CreateTransfer        request     parameter: Required
+ * CreateTransfer
+ * @param    *models_pkg.CreateTransfer        body             parameter: Required
  * @return	Returns the *models_pkg.GetTransfer response from the API call
  */
-func (me *TRANSFERS_IMPL) CreateTransfer (
-            request *models_pkg.CreateTransfer) (*models_pkg.GetTransfer, error) {
+func (me *TRANSFERS_IMPL) PostCreateTransfer (
+            body *models_pkg.CreateTransfer) (*models_pkg.GetTransfer, error) {
     //the endpoint path uri
     _pathUrl := "/transfers/recipients"
 
@@ -131,10 +131,11 @@ func (me *TRANSFERS_IMPL) CreateTransfer (
         "user-agent" : "PagarmeCoreApi - Go 5.7.0",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
     }
 
     //prepare API request
-    _request := unirest.PostWithAuth(_queryBuilder, headers, request, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.PostWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -179,7 +180,7 @@ func (me *TRANSFERS_IMPL) CreateTransfer (
  * Gets all transfers
  * @return	Returns the *models_pkg.ListTransfers response from the API call
  */
-func (me *TRANSFERS_IMPL) GetTransfers () (*models_pkg.ListTransfers, error) {
+func (me *TRANSFERS_IMPL) GetTransfers1 () (*models_pkg.ListTransfers, error) {
     //the endpoint path uri
     _pathUrl := "/transfers"
 
