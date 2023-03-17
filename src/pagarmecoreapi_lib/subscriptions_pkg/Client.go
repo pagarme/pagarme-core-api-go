@@ -61,7 +61,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionCard (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -153,7 +153,7 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteUsage (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -239,7 +239,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateDiscount (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -328,7 +328,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateAnUsage (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -439,7 +439,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetUsages (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -524,7 +524,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
@@ -604,7 +604,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionPaymentMethod (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -693,7 +693,7 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteDiscount (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -807,7 +807,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -892,7 +892,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateSubscriptionItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -979,7 +979,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -1067,7 +1067,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1184,7 +1184,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -1258,7 +1258,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateSubscription (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1309,13 +1309,15 @@ func (me *SUBSCRIPTIONS_IMPL) CreateSubscription (
 
 /**
  * Cancels a subscription
- * @param    string         subscriptionId      parameter: Required
- * @param    *string        idempotencyKey      parameter: Optional
+ * @param    string                                             subscriptionId      parameter: Required
+ * @param    *string                                            idempotencyKey      parameter: Optional
+ * @param    *models_pkg.CreateCancelSubscriptionRequest        body                parameter: Optional
  * @return	Returns the *models_pkg.GetSubscriptionResponse response from the API call
  */
 func (me *SUBSCRIPTIONS_IMPL) CancelSubscription (
             subscriptionId string,
-            idempotencyKey *string) (*models_pkg.GetSubscriptionResponse, error) {
+            idempotencyKey *string,
+            body *models_pkg.CreateCancelSubscriptionRequest) (*models_pkg.GetSubscriptionResponse, error) {
     //the endpoint path uri
     _pathUrl := "/subscriptions/{subscription_id}"
 
@@ -1344,13 +1346,15 @@ func (me *SUBSCRIPTIONS_IMPL) CancelSubscription (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.DeleteWithAuth(_queryBuilder, headers, nil, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.DeleteWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -1426,7 +1430,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscription (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -1511,7 +1515,7 @@ func (me *SUBSCRIPTIONS_IMPL) CreateIncrement (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1598,7 +1602,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscountById (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -1683,7 +1687,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1771,7 +1775,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMetadata (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1860,7 +1864,7 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteIncrement (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -1945,7 +1949,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetIncrementById (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -2040,7 +2044,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycles (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -2123,7 +2127,7 @@ func (me *SUBSCRIPTIONS_IMPL) RenewSubscription (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -2219,7 +2223,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscounts (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -2304,7 +2308,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionBillingDate (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -2393,7 +2397,7 @@ func (me *SUBSCRIPTIONS_IMPL) DeleteSubscriptionItem (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -2489,7 +2493,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetIncrements (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -2574,7 +2578,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -2662,7 +2666,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -2750,7 +2754,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -2838,7 +2842,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -2925,7 +2929,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycleById (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -3009,7 +3013,7 @@ func (me *SUBSCRIPTIONS_IMPL) GetUsageReport (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -3092,7 +3096,7 @@ func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
