@@ -30,7 +30,7 @@ type CHARGES interface {
 
     GetCharge (string) (*models_pkg.GetChargeResponse, error)
 
-    CancelCharge (string, *string) (*models_pkg.GetChargeResponse, error)
+    CancelCharge (string, *string, *models_pkg.CreateCancelChargeRequest) (*models_pkg.GetChargeResponse, error)
 
     GetChargesSummary (string, *time.Time, *time.Time) (*models_pkg.GetChargesSummaryResponse, error)
 

@@ -42,7 +42,7 @@ type SUBSCRIPTIONS interface {
 
     CreateSubscription (*models_pkg.CreateSubscriptionRequest, *string) (*models_pkg.GetSubscriptionResponse, error)
 
-    CancelSubscription (string, *string) (*models_pkg.GetSubscriptionResponse, error)
+    CancelSubscription (string, *string, *models_pkg.CreateCancelSubscriptionRequest) (*models_pkg.GetSubscriptionResponse, error)
 
     GetSubscription (string) (*models_pkg.GetSubscriptionResponse, error)
 

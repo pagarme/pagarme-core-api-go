@@ -61,7 +61,7 @@ func (me *CHARGES_IMPL) UpdateChargeMetadata (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -149,7 +149,7 @@ func (me *CHARGES_IMPL) CaptureCharge (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -237,7 +237,7 @@ func (me *CHARGES_IMPL) UpdateChargePaymentMethod (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -335,7 +335,7 @@ func (me *CHARGES_IMPL) GetChargeTransactions (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -420,7 +420,7 @@ func (me *CHARGES_IMPL) UpdateChargeDueDate (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -528,7 +528,7 @@ func (me *CHARGES_IMPL) GetCharges (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -613,7 +613,7 @@ func (me *CHARGES_IMPL) UpdateChargeCard (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -697,7 +697,7 @@ func (me *CHARGES_IMPL) GetCharge (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -745,13 +745,15 @@ func (me *CHARGES_IMPL) GetCharge (
 
 /**
  * Cancel a charge
- * @param    string         chargeId            parameter: Required
- * @param    *string        idempotencyKey      parameter: Optional
+ * @param    string                                       chargeId            parameter: Required
+ * @param    *string                                      idempotencyKey      parameter: Optional
+ * @param    *models_pkg.CreateCancelChargeRequest        body                parameter: Optional
  * @return	Returns the *models_pkg.GetChargeResponse response from the API call
  */
 func (me *CHARGES_IMPL) CancelCharge (
             chargeId string,
-            idempotencyKey *string) (*models_pkg.GetChargeResponse, error) {
+            idempotencyKey *string,
+            body *models_pkg.CreateCancelChargeRequest) (*models_pkg.GetChargeResponse, error) {
     //the endpoint path uri
     _pathUrl := "/charges/{charge_id}"
 
@@ -780,13 +782,15 @@ func (me *CHARGES_IMPL) CancelCharge (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
+        "content-type" : "application/json; charset=utf-8",
+        "Content-Type" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
 
     //prepare API request
-    _request := unirest.DeleteWithAuth(_queryBuilder, headers, nil, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
+    _request := unirest.DeleteWithAuth(_queryBuilder, headers, body, me.config.BasicAuthUserName(), me.config.BasicAuthPassword())
     //and invoke the API call request to fetch the response
     _response, err := unirest.AsString(_request,false);
     if err != nil {
@@ -868,7 +872,7 @@ func (me *CHARGES_IMPL) GetChargesSummary (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
     }
 
@@ -951,7 +955,7 @@ func (me *CHARGES_IMPL) RetryCharge (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "idempotency-key" : apihelper_pkg.ToString(idempotencyKey, ""),
     }
@@ -1026,7 +1030,7 @@ func (me *CHARGES_IMPL) CreateCharge (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",
@@ -1114,7 +1118,7 @@ func (me *CHARGES_IMPL) ConfirmPayment (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.0",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.1",
         "accept" : "application/json",
         "content-type" : "application/json; charset=utf-8",
         "Content-Type" : "application/json",

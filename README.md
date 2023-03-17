@@ -361,8 +361,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetUsages(
 ```go
 subscriptionId := "subscription_id"
 itemId := "item_id"
-page,_ := strconv.ParseInt("110", 10, 8)
-size,_ := strconv.ParseInt("110", 10, 8)
+page,_ := strconv.ParseInt("135", 10, 8)
+size,_ := strconv.ParseInt("135", 10, 8)
 code := "code"
 group := "group"
 usedSince := time.Now()
@@ -561,8 +561,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("110", 10, 8)
-size,_ := strconv.ParseInt("110", 10, 8)
+page,_ := strconv.ParseInt("135", 10, 8)
+size,_ := strconv.ParseInt("135", 10, 8)
 name := "name"
 code := "code"
 status := "status"
@@ -768,8 +768,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("110", 10, 8)
-size,_ := strconv.ParseInt("110", 10, 8)
+page,_ := strconv.ParseInt("94", 10, 8)
+size,_ := strconv.ParseInt("94", 10, 8)
 code := "code"
 billingType := "billing_type"
 customerId := "customer_id"
@@ -850,7 +850,8 @@ result,_ = subscriptions.CreateSubscription(body, idempotencyKey)
 ```go
 func (me *SUBSCRIPTIONS_IMPL) CancelSubscription(
             subscriptionId string,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+            idempotencyKey *string,
+            body *models_pkg.CreateCancelSubscriptionRequest)(*models_pkg.GetSubscriptionResponse,error)
 ```
 
 #### Parameters
@@ -859,6 +860,7 @@ func (me *SUBSCRIPTIONS_IMPL) CancelSubscription(
 |-----------|------|-------------|
 | subscriptionId |  ``` Required ```  | Subscription id |
 | idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+| body |  ``` Optional ```  | Request for cancelling a subscription |
 
 
 #### Example Usage
@@ -866,9 +868,10 @@ func (me *SUBSCRIPTIONS_IMPL) CancelSubscription(
 ```go
 subscriptionId := "subscription_id"
 idempotencyKey := "idempotency-key"
+var body *models_pkg.CreateCancelSubscriptionRequest
 
 var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.CancelSubscription(subscriptionId, idempotencyKey)
+result,_ = subscriptions.CancelSubscription(subscriptionId, idempotencyKey, body)
 
 ```
 
@@ -1308,8 +1311,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetDiscounts(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("235", 10, 8)
+size,_ := strconv.ParseInt("235", 10, 8)
 
 var result *models_pkg.ListDiscountsResponse
 result,_ = subscriptions.GetDiscounts(subscriptionId, page, size)
@@ -1446,8 +1449,8 @@ func (me *SUBSCRIPTIONS_IMPL) GetIncrements(
 
 ```go
 subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("235", 10, 8)
+size,_ := strconv.ParseInt("235", 10, 8)
 
 var result *models_pkg.ListIncrementsResponse
 result,_ = subscriptions.GetIncrements(subscriptionId, page, size)
@@ -1824,8 +1827,8 @@ func (me *ORDERS_IMPL) GetOrders(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("235", 10, 8)
+size,_ := strconv.ParseInt("235", 10, 8)
 code := "code"
 status := "status"
 createdSince := time.Now()
@@ -2696,8 +2699,8 @@ func (me *PLANS_IMPL) GetPlans(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("235", 10, 8)
+size,_ := strconv.ParseInt("235", 10, 8)
 name := "name"
 status := "status"
 billingType := "billing_type"
@@ -2990,8 +2993,8 @@ func (me *INVOICES_IMPL) GetInvoices(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("235", 10, 8)
+size,_ := strconv.ParseInt("235", 10, 8)
 code := "code"
 customerId := "customer_id"
 subscriptionId := "subscription_id"
@@ -3514,8 +3517,8 @@ func (me *CUSTOMERS_IMPL) GetAccessTokens(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 
 var result *models_pkg.ListAccessTokensResponse
 result,_ = customers.GetAccessTokens(customerId, page, size)
@@ -3606,8 +3609,8 @@ func (me *CUSTOMERS_IMPL) GetAddresses(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 
 var result *models_pkg.ListAddressesResponse
 result,_ = customers.GetAddresses(customerId, page, size)
@@ -3835,8 +3838,8 @@ func (me *CUSTOMERS_IMPL) GetCards(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 
 var result *models_pkg.ListCardsResponse
 result,_ = customers.GetCards(customerId, page, size)
@@ -4208,8 +4211,8 @@ func (me *CHARGES_IMPL) GetChargeTransactions(
 
 ```go
 chargeId := "charge_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 
 var result *models_pkg.ListChargeTransactionsResponse
 result,_ = charges.GetChargeTransactions(chargeId, page, size)
@@ -4311,8 +4314,8 @@ func (me *CHARGES_IMPL) GetCharges(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 code := "code"
 status := "status"
 paymentMethod := "payment_method"
@@ -4432,7 +4435,8 @@ result,_ = charges.GetCharge(chargeId)
 ```go
 func (me *CHARGES_IMPL) CancelCharge(
             chargeId string,
-            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
+            idempotencyKey *string,
+            body *models_pkg.CreateCancelChargeRequest)(*models_pkg.GetChargeResponse,error)
 ```
 
 #### Parameters
@@ -4441,6 +4445,7 @@ func (me *CHARGES_IMPL) CancelCharge(
 |-----------|------|-------------|
 | chargeId |  ``` Required ```  | Charge id |
 | idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+| body |  ``` Optional ```  | Request for cancelling a charge |
 
 
 #### Example Usage
@@ -4448,9 +4453,10 @@ func (me *CHARGES_IMPL) CancelCharge(
 ```go
 chargeId := "charge_id"
 idempotencyKey := "idempotency-key"
+var body *models_pkg.CreateCancelChargeRequest
 
 var result *models_pkg.GetChargeResponse
-result,_ = charges.CancelCharge(chargeId, idempotencyKey)
+result,_ = charges.CancelCharge(chargeId, idempotencyKey, body)
 
 ```
 
@@ -4868,8 +4874,8 @@ func (me *RECIPIENTS_IMPL) GetAnticipations(
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 status := "status"
 timeframe := "timeframe"
 paymentDateSince := time.Now()
@@ -4963,8 +4969,8 @@ func (me *RECIPIENTS_IMPL) GetRecipients(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("202", 10, 8)
-size,_ := strconv.ParseInt("202", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 
 var result *models_pkg.ListRecipientResponse
 result,_ = recipients.GetRecipients(page, size)
@@ -5193,8 +5199,8 @@ func (me *RECIPIENTS_IMPL) GetTransfers(
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("160", 10, 8)
-size,_ := strconv.ParseInt("160", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 status := "status"
 createdSince := time.Now()
 createdUntil := time.Now()
@@ -5337,8 +5343,8 @@ func (me *RECIPIENTS_IMPL) GetWithdrawals(
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("160", 10, 8)
-size,_ := strconv.ParseInt("160", 10, 8)
+page,_ := strconv.ParseInt("71", 10, 8)
+size,_ := strconv.ParseInt("71", 10, 8)
 status := "status"
 createdSince := time.Now()
 createdUntil := time.Now()
