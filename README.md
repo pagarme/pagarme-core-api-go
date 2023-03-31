@@ -125,8 +125,8 @@ To configure these for your generated code, open the file "Configuration.go" and
 * [charges_pkg](#charges_pkg)
 * [recipients_pkg](#recipients_pkg)
 * [tokens_pkg](#tokens_pkg)
-* [transactions_pkg](#transactions_pkg)
 * [transfers_pkg](#transfers_pkg)
+* [transactions_pkg](#transactions_pkg)
 
 ## <a name="subscriptions_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".subscriptions_pkg") subscriptions_pkg
 
@@ -168,101 +168,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetSubscriptionResponse
 result,_ = subscriptions.UpdateSubscriptionCard(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="delete_usage"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteUsage") DeleteUsage
-
-> Deletes a usage
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) DeleteUsage(
-            subscriptionId string,
-            itemId string,
-            usageId string,
-            idempotencyKey *string)(*models_pkg.GetUsageResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| itemId |  ``` Required ```  | The subscription item id |
-| usageId |  ``` Required ```  | The usage id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-itemId := "item_id"
-usageId := "usage_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetUsageResponse
-result,_ = subscriptions.DeleteUsage(subscriptionId, itemId, usageId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_discount"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.CreateDiscount") CreateDiscount
-
-> Creates a discount
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) CreateDiscount(
-            subscriptionId string,
-            body *models_pkg.CreateDiscountRequest,
-            idempotencyKey *string)(*models_pkg.GetDiscountResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription id |
-| body |  ``` Required ```  | Request for creating a discount |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.CreateDiscountRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetDiscountResponse
-result,_ = subscriptions.CreateDiscount(subscriptionId, body, idempotencyKey)
 
 ```
 
@@ -325,113 +230,6 @@ result,_ = subscriptions.CreateAnUsage(subscriptionId, itemId, idempotencyKey)
 
 
 
-### <a name="get_usages"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetUsages") GetUsages
-
-> Lists all usages from a subscription item
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetUsages(
-            subscriptionId string,
-            itemId string,
-            page *int64,
-            size *int64,
-            code *string,
-            group *string,
-            usedSince *time.Time,
-            usedUntil *time.Time)(*models_pkg.ListUsagesResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| itemId |  ``` Required ```  | The subscription item id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| code |  ``` Optional ```  | Identification code in the client system |
-| group |  ``` Optional ```  | Identification group in the client system |
-| usedSince |  ``` Optional ```  | TODO: Add a parameter description |
-| usedUntil |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-itemId := "item_id"
-page,_ := strconv.ParseInt("135", 10, 8)
-size,_ := strconv.ParseInt("135", 10, 8)
-code := "code"
-group := "group"
-usedSince := time.Now()
-usedUntil := time.Now()
-
-var result *models_pkg.ListUsagesResponse
-result,_ = subscriptions.GetUsages(subscriptionId, itemId, page, size, code, group, usedSince, usedUntil)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_current_cycle_status"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateCurrentCycleStatus") UpdateCurrentCycleStatus
-
-> UpdateCurrentCycleStatus
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus(
-            subscriptionId string,
-            body *models_pkg.UpdateCurrentCycleStatusRequest,
-            idempotencyKey *string)(,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-| body |  ``` Required ```  | Request for updating the end date of the subscription current status |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateCurrentCycleStatusRequest
-idempotencyKey := "idempotency-key"
-
-var result 
-result,_ = subscriptions.UpdateCurrentCycleStatus(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="update_subscription_payment_method"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionPaymentMethod") UpdateSubscriptionPaymentMethod
 
 > Updates the payment method from a subscription
@@ -462,116 +260,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetSubscriptionResponse
 result,_ = subscriptions.UpdateSubscriptionPaymentMethod(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="delete_discount"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteDiscount") DeleteDiscount
-
-> Deletes a discount
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) DeleteDiscount(
-            subscriptionId string,
-            discountId string,
-            idempotencyKey *string)(*models_pkg.GetDiscountResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription id |
-| discountId |  ``` Required ```  | Discount Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-discountId := "discount_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetDiscountResponse
-result,_ = subscriptions.DeleteDiscount(subscriptionId, discountId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_subscription_items"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptionItems") GetSubscriptionItems
-
-> Get Subscription Items
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems(
-            subscriptionId string,
-            page *int64,
-            size *int64,
-            name *string,
-            code *string,
-            status *string,
-            description *string,
-            createdSince *string,
-            createdUntil *string)(*models_pkg.ListSubscriptionItemsResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| name |  ``` Optional ```  | The item name |
-| code |  ``` Optional ```  | Identification code in the client system |
-| status |  ``` Optional ```  | The item statis |
-| description |  ``` Optional ```  | The item description |
-| createdSince |  ``` Optional ```  | Filter for item's creation date start range |
-| createdUntil |  ``` Optional ```  | Filter for item's creation date end range |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("135", 10, 8)
-size,_ := strconv.ParseInt("135", 10, 8)
-name := "name"
-code := "code"
-status := "status"
-description := "description"
-createdSince := "created_since"
-createdUntil := "created_until"
-
-var result *models_pkg.ListSubscriptionItemsResponse
-result,_ = subscriptions.GetSubscriptionItems(subscriptionId, page, size, name, code, status, description, createdSince, createdUntil)
 
 ```
 
@@ -677,6 +365,343 @@ result,_ = subscriptions.GetSubscriptionItem(subscriptionId, itemId)
 
 
 
+### <a name="update_subscription_affiliation_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionAffiliationId") UpdateSubscriptionAffiliationId
+
+> UpdateSubscriptionAffiliationId
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId(
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionAffiliationIdRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
+| body |  ``` Required ```  | Request for updating a subscription affiliation id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateSubscriptionAffiliationIdRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionAffiliationId(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_increments"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetIncrements") GetIncrements
+
+> GetIncrements
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetIncrements(
+            subscriptionId string,
+            page *int64,
+            size *int64)(*models_pkg.ListIncrementsResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+
+var result *models_pkg.ListIncrementsResponse
+result,_ = subscriptions.GetIncrements(subscriptionId, page, size)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_subscription_due_days"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionDueDays") UpdateSubscriptionDueDays
+
+> Updates the boleto due days from a subscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays(
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionDueDaysRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+| body |  ``` Required ```  | TODO: Add a parameter description |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateSubscriptionDueDaysRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionDueDays(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_subscription_start_at"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionStartAt") UpdateSubscriptionStartAt
+
+> Updates the start at date from a subscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt(
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionStartAtRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| body |  ``` Required ```  | Request for updating the subscription start date |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateSubscriptionStartAtRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionStartAt(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_subscription_cycle_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptionCycleById") GetSubscriptionCycleById
+
+> GetSubscriptionCycleById
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycleById(
+            subscriptionId string,
+            cycleId string)(*models_pkg.GetPeriodResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| cycleId |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+cycleId := "cycleId"
+
+var result *models_pkg.GetPeriodResponse
+result,_ = subscriptions.GetSubscriptionCycleById(subscriptionId, cycleId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="delete_discount"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteDiscount") DeleteDiscount
+
+> Deletes a discount
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) DeleteDiscount(
+            subscriptionId string,
+            discountId string,
+            idempotencyKey *string)(*models_pkg.GetDiscountResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription id |
+| discountId |  ``` Required ```  | Discount Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+discountId := "discount_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetDiscountResponse
+result,_ = subscriptions.DeleteDiscount(subscriptionId, discountId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_subscription_items"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptionItems") GetSubscriptionItems
+
+> Get Subscription Items
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionItems(
+            subscriptionId string,
+            page *int64,
+            size *int64,
+            name *string,
+            code *string,
+            status *string,
+            description *string,
+            createdSince *string,
+            createdUntil *string)(*models_pkg.ListSubscriptionItemsResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| name |  ``` Optional ```  | The item name |
+| code |  ``` Optional ```  | Identification code in the client system |
+| status |  ``` Optional ```  | The item statis |
+| description |  ``` Optional ```  | The item description |
+| createdSince |  ``` Optional ```  | Filter for item's creation date start range |
+| createdUntil |  ``` Optional ```  | Filter for item's creation date end range |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+name := "name"
+code := "code"
+status := "status"
+description := "description"
+createdSince := "created_since"
+createdUntil := "created_until"
+
+var result *models_pkg.ListSubscriptionItemsResponse
+result,_ = subscriptions.GetSubscriptionItems(subscriptionId, page, size, name, code, status, description, createdSince, createdUntil)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
 ### <a name="update_subscription_item"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionItem") UpdateSubscriptionItem
 
 > Updates a subscription item
@@ -726,79 +751,6 @@ result,_ = subscriptions.UpdateSubscriptionItem(subscriptionId, itemId, body, id
 
 
 
-### <a name="get_subscriptions"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptions") GetSubscriptions
-
-> Gets all subscriptions
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions(
-            page *int64,
-            size *int64,
-            code *string,
-            billingType *string,
-            customerId *string,
-            planId *string,
-            cardId *string,
-            status *string,
-            nextBillingSince *time.Time,
-            nextBillingUntil *time.Time,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListSubscriptionsResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| code |  ``` Optional ```  | Filter for subscription's code |
-| billingType |  ``` Optional ```  | Filter for subscription's billing type |
-| customerId |  ``` Optional ```  | Filter for subscription's customer id |
-| planId |  ``` Optional ```  | Filter for subscription's plan id |
-| cardId |  ``` Optional ```  | Filter for subscription's card id |
-| status |  ``` Optional ```  | Filter for subscription's status |
-| nextBillingSince |  ``` Optional ```  | Filter for subscription's next billing date start range |
-| nextBillingUntil |  ``` Optional ```  | Filter for subscription's next billing date end range |
-| createdSince |  ``` Optional ```  | Filter for subscription's creation date start range |
-| createdUntil |  ``` Optional ```  | Filter for subscriptions creation date end range |
-
-
-#### Example Usage
-
-```go
-page,_ := strconv.ParseInt("94", 10, 8)
-size,_ := strconv.ParseInt("94", 10, 8)
-code := "code"
-billingType := "billing_type"
-customerId := "customer_id"
-planId := "plan_id"
-cardId := "card_id"
-status := "status"
-nextBillingSince := time.Now()
-nextBillingUntil := time.Now()
-createdSince := time.Now()
-createdUntil := time.Now()
-
-var result *models_pkg.ListSubscriptionsResponse
-result,_ = subscriptions.GetSubscriptions(page, size, code, billingType, customerId, planId, cardId, status, nextBillingSince, nextBillingUntil, createdSince, createdUntil)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="create_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.CreateSubscription") CreateSubscription
 
 > Creates a new subscription
@@ -826,6 +778,343 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetSubscriptionResponse
 result,_ = subscriptions.CreateSubscription(body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_discount_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscountById") GetDiscountById
+
+> GetDiscountById
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetDiscountById(
+            subscriptionId string,
+            discountId string)(*models_pkg.GetDiscountResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| discountId |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+discountId := "discountId"
+
+var result *models_pkg.GetDiscountResponse
+result,_ = subscriptions.GetDiscountById(subscriptionId, discountId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_subscription_billing_date"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionBillingDate") UpdateSubscriptionBillingDate
+
+> Updates the billing date from a subscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionBillingDate(
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionBillingDateRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| body |  ``` Required ```  | Request for updating the subscription billing date |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateSubscriptionBillingDateRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionBillingDate(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_latest_period_end_at"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateLatestPeriodEndAt") UpdateLatestPeriodEndAt
+
+> UpdateLatestPeriodEndAt
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt(
+            subscriptionId string,
+            body *models_pkg.UpdateCurrentCycleEndDateRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
+| body |  ``` Required ```  | Request for updating the end date of the current signature cycle |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateCurrentCycleEndDateRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateLatestPeriodEndAt(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_discount"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.CreateDiscount") CreateDiscount
+
+> Creates a discount
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) CreateDiscount(
+            subscriptionId string,
+            body *models_pkg.CreateDiscountRequest,
+            idempotencyKey *string)(*models_pkg.GetDiscountResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription id |
+| body |  ``` Required ```  | Request for creating a discount |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.CreateDiscountRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetDiscountResponse
+result,_ = subscriptions.CreateDiscount(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="delete_usage"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteUsage") DeleteUsage
+
+> Deletes a usage
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) DeleteUsage(
+            subscriptionId string,
+            itemId string,
+            usageId string,
+            idempotencyKey *string)(*models_pkg.GetUsageResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| itemId |  ``` Required ```  | The subscription item id |
+| usageId |  ``` Required ```  | The usage id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+itemId := "item_id"
+usageId := "usage_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetUsageResponse
+result,_ = subscriptions.DeleteUsage(subscriptionId, itemId, usageId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_usages"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetUsages") GetUsages
+
+> Lists all usages from a subscription item
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetUsages(
+            subscriptionId string,
+            itemId string,
+            page *int64,
+            size *int64,
+            code *string,
+            group *string,
+            usedSince *time.Time,
+            usedUntil *time.Time)(*models_pkg.ListUsagesResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| itemId |  ``` Required ```  | The subscription item id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| code |  ``` Optional ```  | Identification code in the client system |
+| group |  ``` Optional ```  | Identification group in the client system |
+| usedSince |  ``` Optional ```  | TODO: Add a parameter description |
+| usedUntil |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+itemId := "item_id"
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+code := "code"
+group := "group"
+usedSince := time.Now()
+usedUntil := time.Now()
+
+var result *models_pkg.ListUsagesResponse
+result,_ = subscriptions.GetUsages(subscriptionId, itemId, page, size, code, group, usedSince, usedUntil)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_current_cycle_status"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateCurrentCycleStatus") UpdateCurrentCycleStatus
+
+> UpdateCurrentCycleStatus
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateCurrentCycleStatus(
+            subscriptionId string,
+            body *models_pkg.UpdateCurrentCycleStatusRequest,
+            idempotencyKey *string)(,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+| body |  ``` Required ```  | Request for updating the end date of the subscription current status |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateCurrentCycleStatusRequest
+idempotencyKey := "idempotency-key"
+
+var result 
+result,_ = subscriptions.UpdateCurrentCycleStatus(subscriptionId, body, idempotencyKey)
 
 ```
 
@@ -888,45 +1177,6 @@ result,_ = subscriptions.CancelSubscription(subscriptionId, idempotencyKey, body
 
 
 
-### <a name="get_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscription") GetSubscription
-
-> Gets a subscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetSubscription(subscriptionId string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription id |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.GetSubscription(subscriptionId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="create_increment"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.CreateIncrement") CreateIncrement
 
 > Creates a increment
@@ -973,95 +1223,6 @@ result,_ = subscriptions.CreateIncrement(subscriptionId, body, idempotencyKey)
 
 
 
-### <a name="get_discount_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscountById") GetDiscountById
-
-> GetDiscountById
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetDiscountById(
-            subscriptionId string,
-            discountId string)(*models_pkg.GetDiscountResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| discountId |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-discountId := "discountId"
-
-var result *models_pkg.GetDiscountResponse
-result,_ = subscriptions.GetDiscountById(subscriptionId, discountId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_subscription_affiliation_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionAffiliationId") UpdateSubscriptionAffiliationId
-
-> UpdateSubscriptionAffiliationId
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionAffiliationId(
-            subscriptionId string,
-            body *models_pkg.UpdateSubscriptionAffiliationIdRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
-| body |  ``` Required ```  | Request for updating a subscription affiliation id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateSubscriptionAffiliationIdRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionAffiliationId(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="update_subscription_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionMetadata") UpdateSubscriptionMetadata
 
 > Updates the metadata from a subscription
@@ -1092,6 +1253,253 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetSubscriptionResponse
 result,_ = subscriptions.UpdateSubscriptionMetadata(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_discounts"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscounts") GetDiscounts
+
+> GetDiscounts
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetDiscounts(
+            subscriptionId string,
+            page int64,
+            size int64)(*models_pkg.ListDiscountsResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | The subscription id |
+| page |  ``` Required ```  | Page number |
+| size |  ``` Required ```  | Page size |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+
+var result *models_pkg.ListDiscountsResponse
+result,_ = subscriptions.GetDiscounts(subscriptionId, page, size)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_subscription_minium_price"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionMiniumPrice") UpdateSubscriptionMiniumPrice
+
+> Atualização do valor mínimo da assinatura
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice(
+            subscriptionId string,
+            body *models_pkg.UpdateSubscriptionMinimumPriceRequest,
+            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+| body |  ``` Required ```  | Request da requisição com o valor mínimo que será configurado |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+var body *models_pkg.UpdateSubscriptionMinimumPriceRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSubscriptionMiniumPrice(subscriptionId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_split_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSplitSubscription") UpdateSplitSubscription
+
+> UpdateSplitSubscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription(
+            id string,
+            body *models_pkg.UpdateSubscriptionSplitRequest)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| id |  ``` Required ```  | Subscription's id |
+| body |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+id := "id"
+var body *models_pkg.UpdateSubscriptionSplitRequest
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.UpdateSplitSubscription(id, body)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_subscriptions"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptions") GetSubscriptions
+
+> Gets all subscriptions
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetSubscriptions(
+            page *int64,
+            size *int64,
+            code *string,
+            billingType *string,
+            customerId *string,
+            planId *string,
+            cardId *string,
+            status *string,
+            nextBillingSince *time.Time,
+            nextBillingUntil *time.Time,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListSubscriptionsResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| code |  ``` Optional ```  | Filter for subscription's code |
+| billingType |  ``` Optional ```  | Filter for subscription's billing type |
+| customerId |  ``` Optional ```  | Filter for subscription's customer id |
+| planId |  ``` Optional ```  | Filter for subscription's plan id |
+| cardId |  ``` Optional ```  | Filter for subscription's card id |
+| status |  ``` Optional ```  | Filter for subscription's status |
+| nextBillingSince |  ``` Optional ```  | Filter for subscription's next billing date start range |
+| nextBillingUntil |  ``` Optional ```  | Filter for subscription's next billing date end range |
+| createdSince |  ``` Optional ```  | Filter for subscription's creation date start range |
+| createdUntil |  ``` Optional ```  | Filter for subscriptions creation date end range |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+code := "code"
+billingType := "billing_type"
+customerId := "customer_id"
+planId := "plan_id"
+cardId := "card_id"
+status := "status"
+nextBillingSince := time.Now()
+nextBillingUntil := time.Now()
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListSubscriptionsResponse
+result,_ = subscriptions.GetSubscriptions(page, size, code, billingType, customerId, planId, cardId, status, nextBillingSince, nextBillingUntil, createdSince, createdUntil)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscription") GetSubscription
+
+> Gets a subscription
+
+
+```go
+func (me *SUBSCRIPTIONS_IMPL) GetSubscription(subscriptionId string)(*models_pkg.GetSubscriptionResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription id |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+
+var result *models_pkg.GetSubscriptionResponse
+result,_ = subscriptions.GetSubscription(subscriptionId)
 
 ```
 
@@ -1286,98 +1694,6 @@ result,_ = subscriptions.RenewSubscription(subscriptionId, idempotencyKey)
 
 
 
-### <a name="get_discounts"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetDiscounts") GetDiscounts
-
-> GetDiscounts
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetDiscounts(
-            subscriptionId string,
-            page int64,
-            size int64)(*models_pkg.ListDiscountsResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| page |  ``` Required ```  | Page number |
-| size |  ``` Required ```  | Page size |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("235", 10, 8)
-size,_ := strconv.ParseInt("235", 10, 8)
-
-var result *models_pkg.ListDiscountsResponse
-result,_ = subscriptions.GetDiscounts(subscriptionId, page, size)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_subscription_billing_date"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionBillingDate") UpdateSubscriptionBillingDate
-
-> Updates the billing date from a subscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionBillingDate(
-            subscriptionId string,
-            body *models_pkg.UpdateSubscriptionBillingDateRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| body |  ``` Required ```  | Request for updating the subscription billing date |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateSubscriptionBillingDateRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionBillingDate(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="delete_subscription_item"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.DeleteSubscriptionItem") DeleteSubscriptionItem
 
 > Deletes a subscription item
@@ -1424,279 +1740,6 @@ result,_ = subscriptions.DeleteSubscriptionItem(subscriptionId, subscriptionItem
 
 
 
-### <a name="get_increments"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetIncrements") GetIncrements
-
-> GetIncrements
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetIncrements(
-            subscriptionId string,
-            page *int64,
-            size *int64)(*models_pkg.ListIncrementsResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-page,_ := strconv.ParseInt("235", 10, 8)
-size,_ := strconv.ParseInt("235", 10, 8)
-
-var result *models_pkg.ListIncrementsResponse
-result,_ = subscriptions.GetIncrements(subscriptionId, page, size)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_subscription_due_days"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionDueDays") UpdateSubscriptionDueDays
-
-> Updates the boleto due days from a subscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionDueDays(
-            subscriptionId string,
-            body *models_pkg.UpdateSubscriptionDueDaysRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-| body |  ``` Required ```  | TODO: Add a parameter description |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateSubscriptionDueDaysRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionDueDays(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_subscription_start_at"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionStartAt") UpdateSubscriptionStartAt
-
-> Updates the start at date from a subscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionStartAt(
-            subscriptionId string,
-            body *models_pkg.UpdateSubscriptionStartAtRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| body |  ``` Required ```  | Request for updating the subscription start date |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateSubscriptionStartAtRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionStartAt(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_latest_period_end_at"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateLatestPeriodEndAt") UpdateLatestPeriodEndAt
-
-> UpdateLatestPeriodEndAt
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateLatestPeriodEndAt(
-            subscriptionId string,
-            body *models_pkg.UpdateCurrentCycleEndDateRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | TODO: Add a parameter description |
-| body |  ``` Required ```  | Request for updating the end date of the current signature cycle |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateCurrentCycleEndDateRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateLatestPeriodEndAt(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_subscription_minium_price"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSubscriptionMiniumPrice") UpdateSubscriptionMiniumPrice
-
-> Atualização do valor mínimo da assinatura
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSubscriptionMiniumPrice(
-            subscriptionId string,
-            body *models_pkg.UpdateSubscriptionMinimumPriceRequest,
-            idempotencyKey *string)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-| body |  ``` Required ```  | Request da requisição com o valor mínimo que será configurado |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-var body *models_pkg.UpdateSubscriptionMinimumPriceRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSubscriptionMiniumPrice(subscriptionId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_subscription_cycle_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetSubscriptionCycleById") GetSubscriptionCycleById
-
-> GetSubscriptionCycleById
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) GetSubscriptionCycleById(
-            subscriptionId string,
-            cycleId string)(*models_pkg.GetPeriodResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | The subscription id |
-| cycleId |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-cycleId := "cycleId"
-
-var result *models_pkg.GetPeriodResponse
-result,_ = subscriptions.GetSubscriptionCycleById(subscriptionId, cycleId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="get_usage_report"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.GetUsageReport") GetUsageReport
 
 > GetUsageReport
@@ -1724,49 +1767,6 @@ periodId := "period_id"
 
 var result *models_pkg.GetUsageReportResponse
 result,_ = subscriptions.GetUsageReport(subscriptionId, periodId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_split_subscription"></a>![Method: ](https://apidocs.io/img/method.png ".subscriptions_pkg.UpdateSplitSubscription") UpdateSplitSubscription
-
-> UpdateSplitSubscription
-
-
-```go
-func (me *SUBSCRIPTIONS_IMPL) UpdateSplitSubscription(
-            id string,
-            body *models_pkg.UpdateSubscriptionSplitRequest)(*models_pkg.GetSubscriptionResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| id |  ``` Required ```  | Subscription's id |
-| body |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-id := "id"
-var body *models_pkg.UpdateSubscriptionSplitRequest
-
-var result *models_pkg.GetSubscriptionResponse
-result,_ = subscriptions.UpdateSplitSubscription(id, body)
 
 ```
 
@@ -1827,8 +1827,8 @@ func (me *ORDERS_IMPL) GetOrders(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("235", 10, 8)
-size,_ := strconv.ParseInt("235", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 code := "code"
 status := "status"
 createdSince := time.Now()
@@ -1896,49 +1896,6 @@ result,_ = orders.CreateOrder(body, idempotencyKey)
 
 
 
-### <a name="delete_all_order_items"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteAllOrderItems") DeleteAllOrderItems
-
-> DeleteAllOrderItems
-
-
-```go
-func (me *ORDERS_IMPL) DeleteAllOrderItems(
-            orderId string,
-            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| orderId |  ``` Required ```  | Order Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-orderId := "orderId"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetOrderResponse
-result,_ = orders.DeleteAllOrderItems(orderId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="create_order_item"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.CreateOrderItem") CreateOrderItem
 
 > CreateOrderItem
@@ -1969,6 +1926,184 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetOrderItemResponse
 result,_ = orders.CreateOrderItem(orderId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_order_item"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.GetOrderItem") GetOrderItem
+
+> GetOrderItem
+
+
+```go
+func (me *ORDERS_IMPL) GetOrderItem(
+            orderId string,
+            itemId string)(*models_pkg.GetOrderItemResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| orderId |  ``` Required ```  | Order Id |
+| itemId |  ``` Required ```  | Item Id |
+
+
+#### Example Usage
+
+```go
+orderId := "orderId"
+itemId := "itemId"
+
+var result *models_pkg.GetOrderItemResponse
+result,_ = orders.GetOrderItem(orderId, itemId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="delete_order_item"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteOrderItem") DeleteOrderItem
+
+> DeleteOrderItem
+
+
+```go
+func (me *ORDERS_IMPL) DeleteOrderItem(
+            orderId string,
+            itemId string,
+            idempotencyKey *string)(*models_pkg.GetOrderItemResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| orderId |  ``` Required ```  | Order Id |
+| itemId |  ``` Required ```  | Item Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+orderId := "orderId"
+itemId := "itemId"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetOrderItemResponse
+result,_ = orders.DeleteOrderItem(orderId, itemId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_order_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.UpdateOrderMetadata") UpdateOrderMetadata
+
+> Updates the metadata from an order
+
+
+```go
+func (me *ORDERS_IMPL) UpdateOrderMetadata(
+            orderId string,
+            body *models_pkg.UpdateMetadataRequest,
+            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| orderId |  ``` Required ```  | The order id |
+| body |  ``` Required ```  | Request for updating the order metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+orderId := "order_id"
+var body *models_pkg.UpdateMetadataRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetOrderResponse
+result,_ = orders.UpdateOrderMetadata(orderId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="delete_all_order_items"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteAllOrderItems") DeleteAllOrderItems
+
+> DeleteAllOrderItems
+
+
+```go
+func (me *ORDERS_IMPL) DeleteAllOrderItems(
+            orderId string,
+            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| orderId |  ``` Required ```  | Order Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+orderId := "orderId"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetOrderResponse
+result,_ = orders.DeleteAllOrderItems(orderId, idempotencyKey)
 
 ```
 
@@ -2034,95 +2169,6 @@ result,_ = orders.UpdateOrderItem(orderId, itemId, body, idempotencyKey)
 
 
 
-### <a name="delete_order_item"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.DeleteOrderItem") DeleteOrderItem
-
-> DeleteOrderItem
-
-
-```go
-func (me *ORDERS_IMPL) DeleteOrderItem(
-            orderId string,
-            itemId string,
-            idempotencyKey *string)(*models_pkg.GetOrderItemResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| orderId |  ``` Required ```  | Order Id |
-| itemId |  ``` Required ```  | Item Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-orderId := "orderId"
-itemId := "itemId"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetOrderItemResponse
-result,_ = orders.DeleteOrderItem(orderId, itemId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_order_item"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.GetOrderItem") GetOrderItem
-
-> GetOrderItem
-
-
-```go
-func (me *ORDERS_IMPL) GetOrderItem(
-            orderId string,
-            itemId string)(*models_pkg.GetOrderItemResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| orderId |  ``` Required ```  | Order Id |
-| itemId |  ``` Required ```  | Item Id |
-
-
-#### Example Usage
-
-```go
-orderId := "orderId"
-itemId := "itemId"
-
-var result *models_pkg.GetOrderItemResponse
-result,_ = orders.GetOrderItem(orderId, itemId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="close_order"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.CloseOrder") CloseOrder
 
 > CloseOrder
@@ -2153,52 +2199,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetOrderResponse
 result,_ = orders.CloseOrder(id, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_order_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".orders_pkg.UpdateOrderMetadata") UpdateOrderMetadata
-
-> Updates the metadata from an order
-
-
-```go
-func (me *ORDERS_IMPL) UpdateOrderMetadata(
-            orderId string,
-            body *models_pkg.UpdateMetadataRequest,
-            idempotencyKey *string)(*models_pkg.GetOrderResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| orderId |  ``` Required ```  | The order id |
-| body |  ``` Required ```  | Request for updating the order metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-orderId := "order_id"
-var body *models_pkg.UpdateMetadataRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetOrderResponse
-result,_ = orders.UpdateOrderMetadata(orderId, body, idempotencyKey)
 
 ```
 
@@ -2305,6 +2305,49 @@ result,_ = plans.GetPlan(planId)
 
 
 
+### <a name="create_plan"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.CreatePlan") CreatePlan
+
+> Creates a new plan
+
+
+```go
+func (me *PLANS_IMPL) CreatePlan(
+            body *models_pkg.CreatePlanRequest,
+            idempotencyKey *string)(*models_pkg.GetPlanResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| body |  ``` Required ```  | Request for creating a plan |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+var body *models_pkg.CreatePlanRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetPlanResponse
+result,_ = plans.CreatePlan(body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
 ### <a name="update_plan"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.UpdatePlan") UpdatePlan
 
 > Updates a plan
@@ -2335,6 +2378,153 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetPlanResponse
 result,_ = plans.UpdatePlan(planId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_plan_item"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.GetPlanItem") GetPlanItem
+
+> Gets a plan item
+
+
+```go
+func (me *PLANS_IMPL) GetPlanItem(
+            planId string,
+            planItemId string)(*models_pkg.GetPlanItemResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| planId |  ``` Required ```  | Plan id |
+| planItemId |  ``` Required ```  | Plan item id |
+
+
+#### Example Usage
+
+```go
+planId := "plan_id"
+planItemId := "plan_item_id"
+
+var result *models_pkg.GetPlanItemResponse
+result,_ = plans.GetPlanItem(planId, planItemId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_plan_item"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.CreatePlanItem") CreatePlanItem
+
+> Adds a new item to a plan
+
+
+```go
+func (me *PLANS_IMPL) CreatePlanItem(
+            planId string,
+            body *models_pkg.CreatePlanItemRequest,
+            idempotencyKey *string)(*models_pkg.GetPlanItemResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| planId |  ``` Required ```  | Plan id |
+| body |  ``` Required ```  | Request for creating a plan item |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+planId := "plan_id"
+var body *models_pkg.CreatePlanItemRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetPlanItemResponse
+result,_ = plans.CreatePlanItem(planId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_plans"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.GetPlans") GetPlans
+
+> Gets all plans
+
+
+```go
+func (me *PLANS_IMPL) GetPlans(
+            page *int64,
+            size *int64,
+            name *string,
+            status *string,
+            billingType *string,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListPlansResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| name |  ``` Optional ```  | Filter for Plan's name |
+| status |  ``` Optional ```  | Filter for Plan's status |
+| billingType |  ``` Optional ```  | Filter for plan's billing type |
+| createdSince |  ``` Optional ```  | Filter for plan's creation date start range |
+| createdUntil |  ``` Optional ```  | Filter for plan's creation date end range |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+name := "name"
+status := "status"
+billingType := "billing_type"
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListPlansResponse
+result,_ = plans.GetPlans(page, size, name, status, billingType, createdSince, createdUntil)
 
 ```
 
@@ -2489,49 +2679,6 @@ result,_ = plans.UpdatePlanItem(planId, planItemId, body, idempotencyKey)
 
 
 
-### <a name="get_plan_item"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.GetPlanItem") GetPlanItem
-
-> Gets a plan item
-
-
-```go
-func (me *PLANS_IMPL) GetPlanItem(
-            planId string,
-            planItemId string)(*models_pkg.GetPlanItemResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| planId |  ``` Required ```  | Plan id |
-| planItemId |  ``` Required ```  | Plan item id |
-
-
-#### Example Usage
-
-```go
-planId := "plan_id"
-planItemId := "plan_item_id"
-
-var result *models_pkg.GetPlanItemResponse
-result,_ = plans.GetPlanItem(planId, planItemId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="delete_plan_item"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.DeletePlanItem") DeletePlanItem
 
 > Removes an item from a plan
@@ -2578,153 +2725,6 @@ result,_ = plans.DeletePlanItem(planId, planItemId, idempotencyKey)
 
 
 
-### <a name="create_plan_item"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.CreatePlanItem") CreatePlanItem
-
-> Adds a new item to a plan
-
-
-```go
-func (me *PLANS_IMPL) CreatePlanItem(
-            planId string,
-            body *models_pkg.CreatePlanItemRequest,
-            idempotencyKey *string)(*models_pkg.GetPlanItemResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| planId |  ``` Required ```  | Plan id |
-| body |  ``` Required ```  | Request for creating a plan item |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-planId := "plan_id"
-var body *models_pkg.CreatePlanItemRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetPlanItemResponse
-result,_ = plans.CreatePlanItem(planId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_plan"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.CreatePlan") CreatePlan
-
-> Creates a new plan
-
-
-```go
-func (me *PLANS_IMPL) CreatePlan(
-            body *models_pkg.CreatePlanRequest,
-            idempotencyKey *string)(*models_pkg.GetPlanResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| body |  ``` Required ```  | Request for creating a plan |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-var body *models_pkg.CreatePlanRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetPlanResponse
-result,_ = plans.CreatePlan(body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_plans"></a>![Method: ](https://apidocs.io/img/method.png ".plans_pkg.GetPlans") GetPlans
-
-> Gets all plans
-
-
-```go
-func (me *PLANS_IMPL) GetPlans(
-            page *int64,
-            size *int64,
-            name *string,
-            status *string,
-            billingType *string,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListPlansResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| name |  ``` Optional ```  | Filter for Plan's name |
-| status |  ``` Optional ```  | Filter for Plan's status |
-| billingType |  ``` Optional ```  | Filter for plan's billing type |
-| createdSince |  ``` Optional ```  | Filter for plan's creation date start range |
-| createdUntil |  ``` Optional ```  | Filter for plan's creation date end range |
-
-
-#### Example Usage
-
-```go
-page,_ := strconv.ParseInt("235", 10, 8)
-size,_ := strconv.ParseInt("235", 10, 8)
-name := "name"
-status := "status"
-billingType := "billing_type"
-createdSince := time.Now()
-createdUntil := time.Now()
-
-var result *models_pkg.ListPlansResponse
-result,_ = plans.GetPlans(page, size, name, status, billingType, createdSince, createdUntil)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 [Back to List of Controllers](#list_of_controllers)
 
 ## <a name="invoices_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".invoices_pkg") invoices_pkg
@@ -2736,45 +2736,6 @@ Factory for the ``` INVOICES ``` interface can be accessed from the package invo
 ```go
 invoices := invoices_pkg.NewINVOICES()
 ```
-
-### <a name="get_partial_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetPartialInvoice") GetPartialInvoice
-
-> GetPartialInvoice
-
-
-```go
-func (me *INVOICES_IMPL) GetPartialInvoice(subscriptionId string)(*models_pkg.GetInvoiceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| subscriptionId |  ``` Required ```  | Subscription Id |
-
-
-#### Example Usage
-
-```go
-subscriptionId := "subscription_id"
-
-var result *models_pkg.GetInvoiceResponse
-result,_ = invoices.GetPartialInvoice(subscriptionId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
 
 ### <a name="cancel_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.CancelInvoice") CancelInvoice
 
@@ -2993,8 +2954,8 @@ func (me *INVOICES_IMPL) GetInvoices(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("235", 10, 8)
-size,_ := strconv.ParseInt("235", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 code := "code"
 customerId := "customer_id"
 subscriptionId := "subscription_id"
@@ -3007,6 +2968,45 @@ customerDocument := "customer_document"
 
 var result *models_pkg.ListInvoicesResponse
 result,_ = invoices.GetInvoices(page, size, code, customerId, subscriptionId, createdSince, createdUntil, status, dueSince, dueUntil, customerDocument)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_partial_invoice"></a>![Method: ](https://apidocs.io/img/method.png ".invoices_pkg.GetPartialInvoice") GetPartialInvoice
+
+> GetPartialInvoice
+
+
+```go
+func (me *INVOICES_IMPL) GetPartialInvoice(subscriptionId string)(*models_pkg.GetInvoiceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| subscriptionId |  ``` Required ```  | Subscription Id |
+
+
+#### Example Usage
+
+```go
+subscriptionId := "subscription_id"
+
+var result *models_pkg.GetInvoiceResponse
+result,_ = invoices.GetPartialInvoice(subscriptionId)
 
 ```
 
@@ -3081,55 +3081,6 @@ Factory for the ``` CUSTOMERS ``` interface can be accessed from the package cus
 customers := customers_pkg.NewCUSTOMERS()
 ```
 
-### <a name="update_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.UpdateCard") UpdateCard
-
-> Updates a card
-
-
-```go
-func (me *CUSTOMERS_IMPL) UpdateCard(
-            customerId string,
-            cardId string,
-            body *models_pkg.UpdateCardRequest,
-            idempotencyKey *string)(*models_pkg.GetCardResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| cardId |  ``` Required ```  | Card id |
-| body |  ``` Required ```  | Request for updating a card |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-cardId := "card_id"
-var body *models_pkg.UpdateCardRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetCardResponse
-result,_ = customers.UpdateCard(customerId, cardId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="delete_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.DeleteCard") DeleteCard
 
 > Delete a customer's card
@@ -3160,49 +3111,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetCardResponse
 result,_ = customers.DeleteCard(customerId, cardId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetCard") GetCard
-
-> Get a customer's card
-
-
-```go
-func (me *CUSTOMERS_IMPL) GetCard(
-            customerId string,
-            cardId string)(*models_pkg.GetCardResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer id |
-| cardId |  ``` Required ```  | Card id |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-cardId := "card_id"
-
-var result *models_pkg.GetCardResponse
-result,_ = customers.GetCard(customerId, cardId)
 
 ```
 
@@ -3311,187 +3219,6 @@ result,_ = customers.GetAddress(customerId, addressId)
 
 
 
-### <a name="delete_address"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.DeleteAddress") DeleteAddress
-
-> Delete a Customer's address
-
-
-```go
-func (me *CUSTOMERS_IMPL) DeleteAddress(
-            customerId string,
-            addressId string,
-            idempotencyKey *string)(*models_pkg.GetAddressResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| addressId |  ``` Required ```  | Address Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-addressId := "address_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetAddressResponse
-result,_ = customers.DeleteAddress(customerId, addressId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="delete_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.DeleteAccessToken") DeleteAccessToken
-
-> Delete a customer's access token
-
-
-```go
-func (me *CUSTOMERS_IMPL) DeleteAccessToken(
-            customerId string,
-            tokenId string,
-            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| tokenId |  ``` Required ```  | Token Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-tokenId := "token_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetAccessTokenResponse
-result,_ = customers.DeleteAccessToken(customerId, tokenId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAccessToken") GetAccessToken
-
-> Get a Customer's access token
-
-
-```go
-func (me *CUSTOMERS_IMPL) GetAccessToken(
-            customerId string,
-            tokenId string)(*models_pkg.GetAccessTokenResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| tokenId |  ``` Required ```  | Token Id |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-tokenId := "token_id"
-
-var result *models_pkg.GetAccessTokenResponse
-result,_ = customers.GetAccessToken(customerId, tokenId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAccessToken") CreateAccessToken
-
-> Creates a access token for a customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) CreateAccessToken(
-            customerId string,
-            body *models_pkg.CreateAccessTokenRequest,
-            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| body |  ``` Required ```  | Request for creating a access token |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-var body *models_pkg.CreateAccessTokenRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetAccessTokenResponse
-result,_ = customers.CreateAccessToken(customerId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="get_access_tokens"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAccessTokens") GetAccessTokens
 
 > Get all access tokens from a customer
@@ -3517,8 +3244,8 @@ func (me *CUSTOMERS_IMPL) GetAccessTokens(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 
 var result *models_pkg.ListAccessTokensResponse
 result,_ = customers.GetAccessTokens(customerId, page, size)
@@ -3538,106 +3265,15 @@ result,_ = customers.GetAccessTokens(customerId, page, size)
 
 
 
-### <a name="create_address"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAddress") CreateAddress
+### <a name="update_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.UpdateCustomer") UpdateCustomer
 
-> Creates a new address for a customer
+> Updates a customer
 
 
 ```go
-func (me *CUSTOMERS_IMPL) CreateAddress(
+func (me *CUSTOMERS_IMPL) UpdateCustomer(
             customerId string,
-            body *models_pkg.CreateAddressRequest,
-            idempotencyKey *string)(*models_pkg.GetAddressResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-| body |  ``` Required ```  | Request for creating an address |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-var body *models_pkg.CreateAddressRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetAddressResponse
-result,_ = customers.CreateAddress(customerId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_addresses"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAddresses") GetAddresses
-
-> Gets all adressess from a customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) GetAddresses(
-            customerId string,
-            page *int64,
-            size *int64)(*models_pkg.ListAddressesResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
-
-var result *models_pkg.ListAddressesResponse
-result,_ = customers.GetAddresses(customerId, page, size)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCustomer") CreateCustomer
-
-> Creates a new customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) CreateCustomer(
-            body *models_pkg.CreateCustomerRequest,
+            body *models_pkg.UpdateCustomerRequest,
             idempotencyKey *string)(*models_pkg.GetCustomerResponse,error)
 ```
 
@@ -3645,18 +3281,66 @@ func (me *CUSTOMERS_IMPL) CreateCustomer(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| body |  ``` Required ```  | Request for creating a customer |
+| customerId |  ``` Required ```  | Customer id |
+| body |  ``` Required ```  | Request for updating a customer |
 | idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
 
 
 #### Example Usage
 
 ```go
-var body *models_pkg.CreateCustomerRequest
+customerId := "customer_id"
+var body *models_pkg.UpdateCustomerRequest
 idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetCustomerResponse
-result,_ = customers.CreateCustomer(body, idempotencyKey)
+result,_ = customers.UpdateCustomer(customerId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="renew_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.RenewCard") RenewCard
+
+> Renew a card
+
+
+```go
+func (me *CUSTOMERS_IMPL) RenewCard(
+            customerId string,
+            cardId string,
+            idempotencyKey *string)(*models_pkg.GetCardResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer id |
+| cardId |  ``` Required ```  | Card Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+cardId := "card_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetCardResponse
+result,_ = customers.RenewCard(customerId, cardId, idempotencyKey)
 
 ```
 
@@ -3767,15 +3451,55 @@ result,_ = customers.DeleteAccessTokens(customerId)
 
 
 
-### <a name="create_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCard") CreateCard
+### <a name="get_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetCustomer") GetCustomer
 
-> Creates a new card for a customer
+> Get a customer
 
 
 ```go
-func (me *CUSTOMERS_IMPL) CreateCard(
+func (me *CUSTOMERS_IMPL) GetCustomer(customerId string)(*models_pkg.GetCustomerResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+
+var result *models_pkg.GetCustomerResponse
+result,_ = customers.GetCustomer(customerId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.UpdateCard") UpdateCard
+
+> Updates a card
+
+
+```go
+func (me *CUSTOMERS_IMPL) UpdateCard(
             customerId string,
-            body *models_pkg.CreateCardRequest,
+            cardId string,
+            body *models_pkg.UpdateCardRequest,
             idempotencyKey *string)(*models_pkg.GetCardResponse,error)
 ```
 
@@ -3783,8 +3507,9 @@ func (me *CUSTOMERS_IMPL) CreateCard(
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer id |
-| body |  ``` Required ```  | Request for creating a card |
+| customerId |  ``` Required ```  | Customer Id |
+| cardId |  ``` Required ```  | Card id |
+| body |  ``` Required ```  | Request for updating a card |
 | idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
 
 
@@ -3792,11 +3517,150 @@ func (me *CUSTOMERS_IMPL) CreateCard(
 
 ```go
 customerId := "customer_id"
-var body *models_pkg.CreateCardRequest
+cardId := "card_id"
+var body *models_pkg.UpdateCardRequest
 idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetCardResponse
-result,_ = customers.CreateCard(customerId, body, idempotencyKey)
+result,_ = customers.UpdateCard(customerId, cardId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="delete_address"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.DeleteAddress") DeleteAddress
+
+> Delete a Customer's address
+
+
+```go
+func (me *CUSTOMERS_IMPL) DeleteAddress(
+            customerId string,
+            addressId string,
+            idempotencyKey *string)(*models_pkg.GetAddressResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| addressId |  ``` Required ```  | Address Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+addressId := "address_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAddressResponse
+result,_ = customers.DeleteAddress(customerId, addressId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAccessToken") CreateAccessToken
+
+> Creates a access token for a customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) CreateAccessToken(
+            customerId string,
+            body *models_pkg.CreateAccessTokenRequest,
+            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| body |  ``` Required ```  | Request for creating a access token |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+var body *models_pkg.CreateAccessTokenRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAccessTokenResponse
+result,_ = customers.CreateAccessToken(customerId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_address"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateAddress") CreateAddress
+
+> Creates a new address for a customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) CreateAddress(
+            customerId string,
+            body *models_pkg.CreateAddressRequest,
+            idempotencyKey *string)(*models_pkg.GetAddressResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| body |  ``` Required ```  | Request for creating an address |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+var body *models_pkg.CreateAddressRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAddressResponse
+result,_ = customers.CreateAddress(customerId, body, idempotencyKey)
 
 ```
 
@@ -3838,142 +3702,11 @@ func (me *CUSTOMERS_IMPL) GetCards(
 
 ```go
 customerId := "customer_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
 
 var result *models_pkg.ListCardsResponse
 result,_ = customers.GetCards(customerId, page, size)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.UpdateCustomer") UpdateCustomer
-
-> Updates a customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) UpdateCustomer(
-            customerId string,
-            body *models_pkg.UpdateCustomerRequest,
-            idempotencyKey *string)(*models_pkg.GetCustomerResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer id |
-| body |  ``` Required ```  | Request for updating a customer |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-var body *models_pkg.UpdateCustomerRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetCustomerResponse
-result,_ = customers.UpdateCustomer(customerId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetCustomer") GetCustomer
-
-> Get a customer
-
-
-```go
-func (me *CUSTOMERS_IMPL) GetCustomer(customerId string)(*models_pkg.GetCustomerResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer Id |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-
-var result *models_pkg.GetCustomerResponse
-result,_ = customers.GetCustomer(customerId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="renew_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.RenewCard") RenewCard
-
-> Renew a card
-
-
-```go
-func (me *CUSTOMERS_IMPL) RenewCard(
-            customerId string,
-            cardId string,
-            idempotencyKey *string)(*models_pkg.GetCardResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| customerId |  ``` Required ```  | Customer id |
-| cardId |  ``` Required ```  | Card Id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-customerId := "customer_id"
-cardId := "card_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetCardResponse
-result,_ = customers.RenewCard(customerId, cardId, idempotencyKey)
 
 ```
 
@@ -4036,48 +3769,33 @@ result,_ = customers.UpdateCustomerMetadata(customerId, body, idempotencyKey)
 
 
 
-[Back to List of Controllers](#list_of_controllers)
+### <a name="get_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetCard") GetCard
 
-## <a name="charges_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".charges_pkg") charges_pkg
-
-### Get instance
-
-Factory for the ``` CHARGES ``` interface can be accessed from the package charges_pkg.
-
-```go
-charges := charges_pkg.NewCHARGES()
-```
-
-### <a name="update_charge_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.UpdateChargeMetadata") UpdateChargeMetadata
-
-> Updates the metadata from a charge
+> Get a customer's card
 
 
 ```go
-func (me *CHARGES_IMPL) UpdateChargeMetadata(
-            chargeId string,
-            body *models_pkg.UpdateMetadataRequest,
-            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
+func (me *CUSTOMERS_IMPL) GetCard(
+            customerId string,
+            cardId string)(*models_pkg.GetCardResponse,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| chargeId |  ``` Required ```  | The charge id |
-| body |  ``` Required ```  | Request for updating the charge metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+| customerId |  ``` Required ```  | Customer id |
+| cardId |  ``` Required ```  | Card id |
 
 
 #### Example Usage
 
 ```go
-chargeId := "charge_id"
-var body *models_pkg.UpdateMetadataRequest
-idempotencyKey := "idempotency-key"
+customerId := "customer_id"
+cardId := "card_id"
 
-var result *models_pkg.GetChargeResponse
-result,_ = charges.UpdateChargeMetadata(chargeId, body, idempotencyKey)
+var result *models_pkg.GetCardResponse
+result,_ = customers.GetCard(customerId, cardId)
 
 ```
 
@@ -4093,6 +3811,242 @@ result,_ = charges.UpdateChargeMetadata(chargeId, body, idempotencyKey)
 | 500 | Internal server error |
 
 
+
+### <a name="delete_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.DeleteAccessToken") DeleteAccessToken
+
+> Delete a customer's access token
+
+
+```go
+func (me *CUSTOMERS_IMPL) DeleteAccessToken(
+            customerId string,
+            tokenId string,
+            idempotencyKey *string)(*models_pkg.GetAccessTokenResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| tokenId |  ``` Required ```  | Token Id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+tokenId := "token_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetAccessTokenResponse
+result,_ = customers.DeleteAccessToken(customerId, tokenId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_access_token"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAccessToken") GetAccessToken
+
+> Get a Customer's access token
+
+
+```go
+func (me *CUSTOMERS_IMPL) GetAccessToken(
+            customerId string,
+            tokenId string)(*models_pkg.GetAccessTokenResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer Id |
+| tokenId |  ``` Required ```  | Token Id |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+tokenId := "token_id"
+
+var result *models_pkg.GetAccessTokenResponse
+result,_ = customers.GetAccessToken(customerId, tokenId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_addresses"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.GetAddresses") GetAddresses
+
+> Gets all adressess from a customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) GetAddresses(
+            customerId string,
+            page *int64,
+            size *int64)(*models_pkg.ListAddressesResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+page,_ := strconv.ParseInt("118", 10, 8)
+size,_ := strconv.ParseInt("118", 10, 8)
+
+var result *models_pkg.ListAddressesResponse
+result,_ = customers.GetAddresses(customerId, page, size)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_customer"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCustomer") CreateCustomer
+
+> Creates a new customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) CreateCustomer(
+            body *models_pkg.CreateCustomerRequest,
+            idempotencyKey *string)(*models_pkg.GetCustomerResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| body |  ``` Required ```  | Request for creating a customer |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+var body *models_pkg.CreateCustomerRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetCustomerResponse
+result,_ = customers.CreateCustomer(body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_card"></a>![Method: ](https://apidocs.io/img/method.png ".customers_pkg.CreateCard") CreateCard
+
+> Creates a new card for a customer
+
+
+```go
+func (me *CUSTOMERS_IMPL) CreateCard(
+            customerId string,
+            body *models_pkg.CreateCardRequest,
+            idempotencyKey *string)(*models_pkg.GetCardResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| customerId |  ``` Required ```  | Customer id |
+| body |  ``` Required ```  | Request for creating a card |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+customerId := "customer_id"
+var body *models_pkg.CreateCardRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetCardResponse
+result,_ = customers.CreateCard(customerId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+[Back to List of Controllers](#list_of_controllers)
+
+## <a name="charges_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".charges_pkg") charges_pkg
+
+### Get instance
+
+Factory for the ``` CHARGES ``` interface can be accessed from the package charges_pkg.
+
+```go
+charges := charges_pkg.NewCHARGES()
+```
 
 ### <a name="capture_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.CaptureCharge") CaptureCharge
 
@@ -4124,6 +4078,116 @@ var body *models_pkg.CreateCaptureChargeRequest
 
 var result *models_pkg.GetChargeResponse
 result,_ = charges.CaptureCharge(chargeId, idempotencyKey, body)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_charge_transactions"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetChargeTransactions") GetChargeTransactions
+
+> GetChargeTransactions
+
+
+```go
+func (me *CHARGES_IMPL) GetChargeTransactions(
+            chargeId string,
+            page *int64,
+            size *int64)(*models_pkg.ListChargeTransactionsResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| chargeId |  ``` Required ```  | Charge Id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+
+
+#### Example Usage
+
+```go
+chargeId := "charge_id"
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
+
+var result *models_pkg.ListChargeTransactionsResponse
+result,_ = charges.GetChargeTransactions(chargeId, page, size)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_charges"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetCharges") GetCharges
+
+> Lists all charges
+
+
+```go
+func (me *CHARGES_IMPL) GetCharges(
+            page *int64,
+            size *int64,
+            code *string,
+            status *string,
+            paymentMethod *string,
+            customerId *string,
+            orderId *string,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListChargesResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| code |  ``` Optional ```  | Filter for charge's code |
+| status |  ``` Optional ```  | Filter for charge's status |
+| paymentMethod |  ``` Optional ```  | Filter for charge's payment method |
+| customerId |  ``` Optional ```  | Filter for charge's customer id |
+| orderId |  ``` Optional ```  | Filter for charge's order id |
+| createdSince |  ``` Optional ```  | Filter for the beginning of the range for charge's creation |
+| createdUntil |  ``` Optional ```  | Filter for the end of the range for charge's creation |
+
+
+#### Example Usage
+
+```go
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
+code := "code"
+status := "status"
+paymentMethod := "payment_method"
+customerId := "customer_id"
+orderId := "order_id"
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListChargesResponse
+result,_ = charges.GetCharges(page, size, code, status, paymentMethod, customerId, orderId, createdSince, createdUntil)
 
 ```
 
@@ -4186,52 +4250,6 @@ result,_ = charges.UpdateChargePaymentMethod(chargeId, body, idempotencyKey)
 
 
 
-### <a name="get_charge_transactions"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetChargeTransactions") GetChargeTransactions
-
-> GetChargeTransactions
-
-
-```go
-func (me *CHARGES_IMPL) GetChargeTransactions(
-            chargeId string,
-            page *int64,
-            size *int64)(*models_pkg.ListChargeTransactionsResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| chargeId |  ``` Required ```  | Charge Id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-
-
-#### Example Usage
-
-```go
-chargeId := "charge_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
-
-var result *models_pkg.ListChargeTransactionsResponse
-result,_ = charges.GetChargeTransactions(chargeId, page, size)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="update_charge_due_date"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.UpdateChargeDueDate") UpdateChargeDueDate
 
 > Updates the due date from a charge
@@ -4278,54 +4296,164 @@ result,_ = charges.UpdateChargeDueDate(chargeId, body, idempotencyKey)
 
 
 
-### <a name="get_charges"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetCharges") GetCharges
+### <a name="confirm_payment"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.ConfirmPayment") ConfirmPayment
 
-> Lists all charges
+> ConfirmPayment
 
 
 ```go
-func (me *CHARGES_IMPL) GetCharges(
-            page *int64,
-            size *int64,
-            code *string,
-            status *string,
-            paymentMethod *string,
-            customerId *string,
-            orderId *string,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListChargesResponse,error)
+func (me *CHARGES_IMPL) ConfirmPayment(
+            chargeId string,
+            idempotencyKey *string,
+            body *models_pkg.CreateConfirmPaymentRequest)(*models_pkg.GetChargeResponse,error)
 ```
 
 #### Parameters
 
 | Parameter | Tags | Description |
 |-----------|------|-------------|
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| code |  ``` Optional ```  | Filter for charge's code |
-| status |  ``` Optional ```  | Filter for charge's status |
-| paymentMethod |  ``` Optional ```  | Filter for charge's payment method |
-| customerId |  ``` Optional ```  | Filter for charge's customer id |
-| orderId |  ``` Optional ```  | Filter for charge's order id |
-| createdSince |  ``` Optional ```  | Filter for the beginning of the range for charge's creation |
-| createdUntil |  ``` Optional ```  | Filter for the end of the range for charge's creation |
+| chargeId |  ``` Required ```  | TODO: Add a parameter description |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+| body |  ``` Optional ```  | Request for confirm payment |
 
 
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
-code := "code"
-status := "status"
-paymentMethod := "payment_method"
-customerId := "customer_id"
-orderId := "order_id"
-createdSince := time.Now()
-createdUntil := time.Now()
+chargeId := "charge_id"
+idempotencyKey := "idempotency-key"
+var body *models_pkg.CreateConfirmPaymentRequest
 
-var result *models_pkg.ListChargesResponse
-result,_ = charges.GetCharges(page, size, code, status, paymentMethod, customerId, orderId, createdSince, createdUntil)
+var result *models_pkg.GetChargeResponse
+result,_ = charges.ConfirmPayment(chargeId, idempotencyKey, body)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetCharge") GetCharge
+
+> Get a charge from its id
+
+
+```go
+func (me *CHARGES_IMPL) GetCharge(chargeId string)(*models_pkg.GetChargeResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| chargeId |  ``` Required ```  | Charge id |
+
+
+#### Example Usage
+
+```go
+chargeId := "charge_id"
+
+var result *models_pkg.GetChargeResponse
+result,_ = charges.GetCharge(chargeId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="retry_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.RetryCharge") RetryCharge
+
+> Retries a charge
+
+
+```go
+func (me *CHARGES_IMPL) RetryCharge(
+            chargeId string,
+            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| chargeId |  ``` Required ```  | Charge id |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+chargeId := "charge_id"
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetChargeResponse
+result,_ = charges.RetryCharge(chargeId, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_charge_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.UpdateChargeMetadata") UpdateChargeMetadata
+
+> Updates the metadata from a charge
+
+
+```go
+func (me *CHARGES_IMPL) UpdateChargeMetadata(
+            chargeId string,
+            body *models_pkg.UpdateMetadataRequest,
+            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| chargeId |  ``` Required ```  | The charge id |
+| body |  ``` Required ```  | Request for updating the charge metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+chargeId := "charge_id"
+var body *models_pkg.UpdateMetadataRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetChargeResponse
+result,_ = charges.UpdateChargeMetadata(chargeId, body, idempotencyKey)
 
 ```
 
@@ -4372,45 +4500,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetChargeResponse
 result,_ = charges.UpdateChargeCard(chargeId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.GetCharge") GetCharge
-
-> Get a charge from its id
-
-
-```go
-func (me *CHARGES_IMPL) GetCharge(chargeId string)(*models_pkg.GetChargeResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| chargeId |  ``` Required ```  | Charge id |
-
-
-#### Example Usage
-
-```go
-chargeId := "charge_id"
-
-var result *models_pkg.GetChargeResponse
-result,_ = charges.GetCharge(chargeId)
 
 ```
 
@@ -4519,49 +4608,6 @@ result,_ = charges.GetChargesSummary(status, createdSince, createdUntil)
 
 
 
-### <a name="retry_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.RetryCharge") RetryCharge
-
-> Retries a charge
-
-
-```go
-func (me *CHARGES_IMPL) RetryCharge(
-            chargeId string,
-            idempotencyKey *string)(*models_pkg.GetChargeResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| chargeId |  ``` Required ```  | Charge id |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-chargeId := "charge_id"
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetChargeResponse
-result,_ = charges.RetryCharge(chargeId, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="create_charge"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.CreateCharge") CreateCharge
 
 > Creates a new charge
@@ -4589,52 +4635,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetChargeResponse
 result,_ = charges.CreateCharge(body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="confirm_payment"></a>![Method: ](https://apidocs.io/img/method.png ".charges_pkg.ConfirmPayment") ConfirmPayment
-
-> ConfirmPayment
-
-
-```go
-func (me *CHARGES_IMPL) ConfirmPayment(
-            chargeId string,
-            idempotencyKey *string,
-            body *models_pkg.CreateConfirmPaymentRequest)(*models_pkg.GetChargeResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| chargeId |  ``` Required ```  | TODO: Add a parameter description |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-| body |  ``` Optional ```  | Request for confirm payment |
-
-
-#### Example Usage
-
-```go
-chargeId := "charge_id"
-idempotencyKey := "idempotency-key"
-var body *models_pkg.CreateConfirmPaymentRequest
-
-var result *models_pkg.GetChargeResponse
-result,_ = charges.ConfirmPayment(chargeId, idempotencyKey, body)
 
 ```
 
@@ -4706,6 +4706,372 @@ result,_ = recipients.GetTransfer(recipientId, transferId)
 
 
 
+### <a name="get_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipient") GetRecipient
+
+> Retrieves recipient information
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetRecipient(recipientId string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipiend id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.GetRecipient(recipientId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_recipient_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientMetadata") UpdateRecipientMetadata
+
+> Updates recipient metadata
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateRecipientMetadata(
+            recipientId string,
+            body *models_pkg.UpdateMetadataRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| body |  ``` Required ```  | Metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var body *models_pkg.UpdateMetadataRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipientMetadata(recipientId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateTransfer") CreateTransfer
+
+> Creates a transfer for a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateTransfer(
+            recipientId string,
+            body *models_pkg.CreateTransferRequest,
+            idempotencyKey *string)(*models_pkg.GetTransferResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient Id |
+| body |  ``` Required ```  | Transfer data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var body *models_pkg.CreateTransferRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetTransferResponse
+result,_ = recipients.CreateTransfer(recipientId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="update_automatic_anticipation_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateAutomaticAnticipationSettings") UpdateAutomaticAnticipationSettings
+
+> Updates recipient metadata
+
+
+```go
+func (me *RECIPIENTS_IMPL) UpdateAutomaticAnticipationSettings(
+            recipientId string,
+            body *models_pkg.UpdateAutomaticAnticipationSettingsRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| body |  ``` Required ```  | Metadata |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var body *models_pkg.UpdateAutomaticAnticipationSettingsRequest
+idempotencyKey := "idempotency-key"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateAutomaticAnticipationSettings(recipientId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_balance"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetBalance") GetBalance
+
+> Get balance information for a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetBalance(recipientId string)(*models_pkg.GetBalanceResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+
+var result *models_pkg.GetBalanceResponse
+result,_ = recipients.GetBalance(recipientId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_anticipations"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipations") GetAnticipations
+
+> Retrieves a paginated list of anticipations from a recipient
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetAnticipations(
+            recipientId string,
+            page *int64,
+            size *int64,
+            status *string,
+            timeframe *string,
+            paymentDateSince *time.Time,
+            paymentDateUntil *time.Time,
+            createdSince *time.Time,
+            createdUntil *time.Time)(*models_pkg.ListAnticipationResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | Recipient id |
+| page |  ``` Optional ```  | Page number |
+| size |  ``` Optional ```  | Page size |
+| status |  ``` Optional ```  | Filter for anticipation status |
+| timeframe |  ``` Optional ```  | Filter for anticipation timeframe |
+| paymentDateSince |  ``` Optional ```  | Filter for start range for anticipation payment date |
+| paymentDateUntil |  ``` Optional ```  | Filter for end range for anticipation payment date |
+| createdSince |  ``` Optional ```  | Filter for start range for anticipation creation date |
+| createdUntil |  ``` Optional ```  | Filter for end range for anticipation creation date |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
+status := "status"
+timeframe := "timeframe"
+paymentDateSince := time.Now()
+paymentDateUntil := time.Now()
+createdSince := time.Now()
+createdUntil := time.Now()
+
+var result *models_pkg.ListAnticipationResponse
+result,_ = recipients.GetAnticipations(recipientId, page, size, status, timeframe, paymentDateSince, paymentDateUntil, createdSince, createdUntil)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_withdraw_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawById") GetWithdrawById
+
+> GetWithdrawById
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetWithdrawById(
+            recipientId string,
+            withdrawalId string)(*models_pkg.GetWithdrawResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | TODO: Add a parameter description |
+| withdrawalId |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+withdrawalId := "withdrawal_id"
+
+var result *models_pkg.GetWithdrawResponse
+result,_ = recipients.GetWithdrawById(recipientId, withdrawalId)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="create_withdraw"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateWithdraw") CreateWithdraw
+
+> CreateWithdraw
+
+
+```go
+func (me *RECIPIENTS_IMPL) CreateWithdraw(
+            recipientId string,
+            body *models_pkg.CreateWithdrawRequest)(*models_pkg.GetWithdrawResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| recipientId |  ``` Required ```  | TODO: Add a parameter description |
+| body |  ``` Required ```  | TODO: Add a parameter description |
+
+
+#### Example Usage
+
+```go
+recipientId := "recipient_id"
+var body *models_pkg.CreateWithdrawRequest
+
+var result *models_pkg.GetWithdrawResponse
+result,_ = recipients.CreateWithdraw(recipientId, body)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
 ### <a name="update_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipient") UpdateRecipient
 
 > Updates a recipient
@@ -4736,45 +5102,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetRecipientResponse
 result,_ = recipients.UpdateRecipient(recipientId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_recipient"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipient") GetRecipient
-
-> Retrieves recipient information
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetRecipient(recipientId string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipiend id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.GetRecipient(recipientId)
 
 ```
 
@@ -4837,22 +5164,16 @@ result,_ = recipients.CreateAnticipation(recipientId, body, idempotencyKey)
 
 
 
-### <a name="get_anticipations"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetAnticipations") GetAnticipations
+### <a name="update_recipient_default_bank_account"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientDefaultBankAccount") UpdateRecipientDefaultBankAccount
 
-> Retrieves a paginated list of anticipations from a recipient
+> Updates the default bank account from a recipient
 
 
 ```go
-func (me *RECIPIENTS_IMPL) GetAnticipations(
+func (me *RECIPIENTS_IMPL) UpdateRecipientDefaultBankAccount(
             recipientId string,
-            page *int64,
-            size *int64,
-            status *string,
-            timeframe *string,
-            paymentDateSince *time.Time,
-            paymentDateUntil *time.Time,
-            createdSince *time.Time,
-            createdUntil *time.Time)(*models_pkg.ListAnticipationResponse,error)
+            body *models_pkg.UpdateRecipientBankAccountRequest,
+            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
 ```
 
 #### Parameters
@@ -4860,31 +5181,58 @@ func (me *RECIPIENTS_IMPL) GetAnticipations(
 | Parameter | Tags | Description |
 |-----------|------|-------------|
 | recipientId |  ``` Required ```  | Recipient id |
-| page |  ``` Optional ```  | Page number |
-| size |  ``` Optional ```  | Page size |
-| status |  ``` Optional ```  | Filter for anticipation status |
-| timeframe |  ``` Optional ```  | Filter for anticipation timeframe |
-| paymentDateSince |  ``` Optional ```  | Filter for start range for anticipation payment date |
-| paymentDateUntil |  ``` Optional ```  | Filter for end range for anticipation payment date |
-| createdSince |  ``` Optional ```  | Filter for start range for anticipation creation date |
-| createdUntil |  ``` Optional ```  | Filter for end range for anticipation creation date |
+| body |  ``` Required ```  | Bank account data |
+| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
 
 
 #### Example Usage
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
-status := "status"
-timeframe := "timeframe"
-paymentDateSince := time.Now()
-paymentDateUntil := time.Now()
-createdSince := time.Now()
-createdUntil := time.Now()
+var body *models_pkg.UpdateRecipientBankAccountRequest
+idempotencyKey := "idempotency-key"
 
-var result *models_pkg.ListAnticipationResponse
-result,_ = recipients.GetAnticipations(recipientId, page, size, status, timeframe, paymentDateSince, paymentDateUntil, createdSince, createdUntil)
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.UpdateRecipientDefaultBankAccount(recipientId, body, idempotencyKey)
+
+```
+
+#### Errors
+ 
+| Error Code | Error Description |
+|------------|-------------------|
+| 400 | Invalid request |
+| 401 | Invalid API key |
+| 404 | An informed resource was not found |
+| 412 | Business validation error |
+| 422 | Contract validation error |
+| 500 | Internal server error |
+
+
+
+### <a name="get_recipient_by_code"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipientByCode") GetRecipientByCode
+
+> Retrieves recipient information
+
+
+```go
+func (me *RECIPIENTS_IMPL) GetRecipientByCode(code string)(*models_pkg.GetRecipientResponse,error)
+```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| code |  ``` Required ```  | Recipient code |
+
+
+#### Example Usage
+
+```go
+code := "code"
+
+var result *models_pkg.GetRecipientResponse
+result,_ = recipients.GetRecipientByCode(code)
 
 ```
 
@@ -4969,8 +5317,8 @@ func (me *RECIPIENTS_IMPL) GetRecipients(
 #### Example Usage
 
 ```go
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
 
 var result *models_pkg.ListRecipientResponse
 result,_ = recipients.GetRecipients(page, size)
@@ -5033,141 +5381,6 @@ result,_ = recipients.CreateRecipient(body, idempotencyKey)
 
 
 
-### <a name="get_withdraw_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetWithdrawById") GetWithdrawById
-
-> GetWithdrawById
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetWithdrawById(
-            recipientId string,
-            withdrawalId string)(*models_pkg.GetWithdrawResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | TODO: Add a parameter description |
-| withdrawalId |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-withdrawalId := "withdrawal_id"
-
-var result *models_pkg.GetWithdrawResponse
-result,_ = recipients.GetWithdrawById(recipientId, withdrawalId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_recipient_default_bank_account"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientDefaultBankAccount") UpdateRecipientDefaultBankAccount
-
-> Updates the default bank account from a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipientDefaultBankAccount(
-            recipientId string,
-            body *models_pkg.UpdateRecipientBankAccountRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| body |  ``` Required ```  | Bank account data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var body *models_pkg.UpdateRecipientBankAccountRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipientDefaultBankAccount(recipientId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_recipient_metadata"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateRecipientMetadata") UpdateRecipientMetadata
-
-> Updates recipient metadata
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateRecipientMetadata(
-            recipientId string,
-            body *models_pkg.UpdateMetadataRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| body |  ``` Required ```  | Metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var body *models_pkg.UpdateMetadataRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateRecipientMetadata(recipientId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
 ### <a name="get_transfers"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetTransfers") GetTransfers
 
 > Gets a paginated list of transfers for the recipient
@@ -5199,103 +5412,14 @@ func (me *RECIPIENTS_IMPL) GetTransfers(
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
 status := "status"
 createdSince := time.Now()
 createdUntil := time.Now()
 
 var result *models_pkg.ListTransferResponse
 result,_ = recipients.GetTransfers(recipientId, page, size, status, createdSince, createdUntil)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_transfer"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateTransfer") CreateTransfer
-
-> Creates a transfer for a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateTransfer(
-            recipientId string,
-            body *models_pkg.CreateTransferRequest,
-            idempotencyKey *string)(*models_pkg.GetTransferResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient Id |
-| body |  ``` Required ```  | Transfer data |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var body *models_pkg.CreateTransferRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetTransferResponse
-result,_ = recipients.CreateTransfer(recipientId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="create_withdraw"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.CreateWithdraw") CreateWithdraw
-
-> CreateWithdraw
-
-
-```go
-func (me *RECIPIENTS_IMPL) CreateWithdraw(
-            recipientId string,
-            body *models_pkg.CreateWithdrawRequest)(*models_pkg.GetWithdrawResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | TODO: Add a parameter description |
-| body |  ``` Required ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var body *models_pkg.CreateWithdrawRequest
-
-var result *models_pkg.GetWithdrawResponse
-result,_ = recipients.CreateWithdraw(recipientId, body)
 
 ```
 
@@ -5343,60 +5467,14 @@ func (me *RECIPIENTS_IMPL) GetWithdrawals(
 
 ```go
 recipientId := "recipient_id"
-page,_ := strconv.ParseInt("71", 10, 8)
-size,_ := strconv.ParseInt("71", 10, 8)
+page,_ := strconv.ParseInt("209", 10, 8)
+size,_ := strconv.ParseInt("209", 10, 8)
 status := "status"
 createdSince := time.Now()
 createdUntil := time.Now()
 
 var result *models_pkg.ListWithdrawals
 result,_ = recipients.GetWithdrawals(recipientId, page, size, status, createdSince, createdUntil)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="update_automatic_anticipation_settings"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.UpdateAutomaticAnticipationSettings") UpdateAutomaticAnticipationSettings
-
-> Updates recipient metadata
-
-
-```go
-func (me *RECIPIENTS_IMPL) UpdateAutomaticAnticipationSettings(
-            recipientId string,
-            body *models_pkg.UpdateAutomaticAnticipationSettingsRequest,
-            idempotencyKey *string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-| body |  ``` Required ```  | Metadata |
-| idempotencyKey |  ``` Optional ```  | TODO: Add a parameter description |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-var body *models_pkg.UpdateAutomaticAnticipationSettingsRequest
-idempotencyKey := "idempotency-key"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.UpdateAutomaticAnticipationSettings(recipientId, body, idempotencyKey)
 
 ```
 
@@ -5486,84 +5564,6 @@ idempotencyKey := "idempotency-key"
 
 var result *models_pkg.GetRecipientResponse
 result,_ = recipients.UpdateRecipientTransferSettings(recipientId, body, idempotencyKey)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_balance"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetBalance") GetBalance
-
-> Get balance information for a recipient
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetBalance(recipientId string)(*models_pkg.GetBalanceResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| recipientId |  ``` Required ```  | Recipient id |
-
-
-#### Example Usage
-
-```go
-recipientId := "recipient_id"
-
-var result *models_pkg.GetBalanceResponse
-result,_ = recipients.GetBalance(recipientId)
-
-```
-
-#### Errors
- 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Invalid request |
-| 401 | Invalid API key |
-| 404 | An informed resource was not found |
-| 412 | Business validation error |
-| 422 | Contract validation error |
-| 500 | Internal server error |
-
-
-
-### <a name="get_recipient_by_code"></a>![Method: ](https://apidocs.io/img/method.png ".recipients_pkg.GetRecipientByCode") GetRecipientByCode
-
-> Retrieves recipient information
-
-
-```go
-func (me *RECIPIENTS_IMPL) GetRecipientByCode(code string)(*models_pkg.GetRecipientResponse,error)
-```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| code |  ``` Required ```  | Recipient code |
-
-
-#### Example Usage
-
-```go
-code := "code"
-
-var result *models_pkg.GetRecipientResponse
-result,_ = recipients.GetRecipientByCode(code)
 
 ```
 
@@ -5724,39 +5724,31 @@ result,_ = tokens.GetToken(id, publicKey, appId)
 
 [Back to List of Controllers](#list_of_controllers)
 
-## <a name="transactions_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transactions_pkg") transactions_pkg
+## <a name="transfers_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transfers_pkg") transfers_pkg
 
 ### Get instance
 
-Factory for the ``` TRANSACTIONS ``` interface can be accessed from the package transactions_pkg.
+Factory for the ``` TRANSFERS ``` interface can be accessed from the package transfers_pkg.
 
 ```go
-transactions := transactions_pkg.NewTRANSACTIONS()
+transfers := transfers_pkg.NewTRANSFERS()
 ```
 
-### <a name="get_transaction"></a>![Method: ](https://apidocs.io/img/method.png ".transactions_pkg.GetTransaction") GetTransaction
+### <a name="get_transfers1"></a>![Method: ](https://apidocs.io/img/method.png ".transfers_pkg.GetTransfers1") GetTransfers1
 
-> GetTransaction
+> Gets all transfers
 
 
 ```go
-func (me *TRANSACTIONS_IMPL) GetTransaction(transactionId string)(*models_pkg.GetTransactionResponse,error)
+func (me *TRANSFERS_IMPL) GetTransfers1()(*models_pkg.ListTransfers,error)
 ```
-
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| transactionId |  ``` Required ```  | TODO: Add a parameter description |
-
 
 #### Example Usage
 
 ```go
-transactionId := "transaction_id"
 
-var result *models_pkg.GetTransactionResponse
-result,_ = transactions.GetTransaction(transactionId)
+var result *models_pkg.ListTransfers
+result,_ = transfers.GetTransfers1()
 
 ```
 
@@ -5772,18 +5764,6 @@ result,_ = transactions.GetTransaction(transactionId)
 | 500 | Internal server error |
 
 
-
-[Back to List of Controllers](#list_of_controllers)
-
-## <a name="transfers_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transfers_pkg") transfers_pkg
-
-### Get instance
-
-Factory for the ``` TRANSFERS ``` interface can be accessed from the package transfers_pkg.
-
-```go
-transfers := transfers_pkg.NewTRANSFERS()
-```
 
 ### <a name="get_transfer_by_id"></a>![Method: ](https://apidocs.io/img/method.png ".transfers_pkg.GetTransferById") GetTransferById
 
@@ -5863,21 +5843,41 @@ result,_ = transfers.PostCreateTransfer(body)
 
 
 
-### <a name="get_transfers1"></a>![Method: ](https://apidocs.io/img/method.png ".transfers_pkg.GetTransfers1") GetTransfers1
+[Back to List of Controllers](#list_of_controllers)
 
-> Gets all transfers
+## <a name="transactions_pkg"></a>![Class: ](https://apidocs.io/img/class.png ".transactions_pkg") transactions_pkg
+
+### Get instance
+
+Factory for the ``` TRANSACTIONS ``` interface can be accessed from the package transactions_pkg.
+
+```go
+transactions := transactions_pkg.NewTRANSACTIONS()
+```
+
+### <a name="get_transaction"></a>![Method: ](https://apidocs.io/img/method.png ".transactions_pkg.GetTransaction") GetTransaction
+
+> GetTransaction
 
 
 ```go
-func (me *TRANSFERS_IMPL) GetTransfers1()(*models_pkg.ListTransfers,error)
+func (me *TRANSACTIONS_IMPL) GetTransaction(transactionId string)(*models_pkg.GetTransactionResponse,error)
 ```
+
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| transactionId |  ``` Required ```  | TODO: Add a parameter description |
+
 
 #### Example Usage
 
 ```go
+transactionId := "transaction_id"
 
-var result *models_pkg.ListTransfers
-result,_ = transfers.GetTransfers1()
+var result *models_pkg.GetTransactionResponse
+result,_ = transactions.GetTransaction(transactionId)
 
 ```
 
