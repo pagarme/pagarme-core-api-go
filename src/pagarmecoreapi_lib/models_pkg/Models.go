@@ -501,11 +501,12 @@ type CreateBankTransferPaymentRequest struct {
  * Structure for the custom type CreateVoucherPaymentRequest
  */
 type CreateVoucherPaymentRequest struct {
-    StatementDescriptor  *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //The text that will be shown on the voucher's statement
-    CardId               *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //Card id
-    CardToken            *string         `json:"card_token,omitempty" form:"card_token,omitempty"` //Card token
-    Card                 *CreateCardRequest `json:"Card,omitempty" form:"Card,omitempty"` //Card data
-    RecurrencyCycle      *string         `json:"recurrency_cycle,omitempty" form:"recurrency_cycle,omitempty"` //Defines whether the card has been used one or more times.
+    StatementDescriptor    *string         `json:"statement_descriptor,omitempty" form:"statement_descriptor,omitempty"` //The text that will be shown on the voucher's statement
+    CardId                 *string         `json:"card_id,omitempty" form:"card_id,omitempty"` //Card id
+    CardToken              *string         `json:"card_token,omitempty" form:"card_token,omitempty"` //Card token
+    Card                   *CreateCardRequest `json:"Card,omitempty" form:"Card,omitempty"` //Card data
+    RecurrencyCycle        *string         `json:"recurrency_cycle,omitempty" form:"recurrency_cycle,omitempty"` //Defines whether the card has been used one or more times.
+    MerchantCategoryCode   *int64          `json:"merchant_category_code,omitempty" form:"merchant_category_code,omitempty"` //Customer business segment code
 }
 
 /*
