@@ -56,7 +56,7 @@ func (me *TRANSACTIONS_IMPL) GetTransaction (
     }
     //prepare headers for the outgoing request
     headers := map[string]interface{} {
-        "user-agent" : "PagarmeCoreApi - Go 5.7.3",
+        "user-agent" : "PagarmeCoreApi - Go 5.7.4",
         "accept" : "application/json",
     }
 
