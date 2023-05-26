@@ -16,8 +16,8 @@ import(
 	"pagarmecoreapi_lib/charges_pkg"
 	"pagarmecoreapi_lib/recipients_pkg"
 	"pagarmecoreapi_lib/tokens_pkg"
-	"pagarmecoreapi_lib/transfers_pkg"
 	"pagarmecoreapi_lib/transactions_pkg"
+	"pagarmecoreapi_lib/transfers_pkg"
 )
 /*
  * Client structure as interface implementation
@@ -31,8 +31,8 @@ type PAGARMECOREAPI_IMPL struct {
      charges charges_pkg.CHARGES
      recipients recipients_pkg.RECIPIENTS
      tokens tokens_pkg.TOKENS
-     transfers transfers_pkg.TRANSFERS
      transactions transactions_pkg.TRANSACTIONS
+     transfers transfers_pkg.TRANSFERS
      config  configuration_pkg.CONFIGURATION
 }
 
@@ -124,16 +124,6 @@ func (me *PAGARMECOREAPI_IMPL) Tokens() tokens_pkg.TOKENS {
     return me.tokens
 }
 /**
-     * Access to Transfers controller
-     * @return Returns the Transfers() instance
-*/
-func (me *PAGARMECOREAPI_IMPL) Transfers() transfers_pkg.TRANSFERS {
-    if(me.transfers) == nil {
-        me.transfers = transfers_pkg.NewTRANSFERS(me.config)
-    }
-    return me.transfers
-}
-/**
      * Access to Transactions controller
      * @return Returns the Transactions() instance
 */
@@ -142,5 +132,15 @@ func (me *PAGARMECOREAPI_IMPL) Transactions() transactions_pkg.TRANSACTIONS {
         me.transactions = transactions_pkg.NewTRANSACTIONS(me.config)
     }
     return me.transactions
+}
+/**
+     * Access to Transfers controller
+     * @return Returns the Transfers() instance
+*/
+func (me *PAGARMECOREAPI_IMPL) Transfers() transfers_pkg.TRANSFERS {
+    if(me.transfers) == nil {
+        me.transfers = transfers_pkg.NewTRANSFERS(me.config)
+    }
+    return me.transfers
 }
 
