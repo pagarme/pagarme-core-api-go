@@ -18,19 +18,19 @@ type ORDERS interface {
 
     CreateOrder (*models_pkg.CreateOrderRequest, *string) (*models_pkg.GetOrderResponse, error)
 
-    CreateOrderItem (string, *models_pkg.CreateOrderItemRequest, *string) (*models_pkg.GetOrderItemResponse, error)
-
-    GetOrderItem (string, string) (*models_pkg.GetOrderItemResponse, error)
-
-    DeleteOrderItem (string, string, *string) (*models_pkg.GetOrderItemResponse, error)
-
-    UpdateOrderMetadata (string, *models_pkg.UpdateMetadataRequest, *string) (*models_pkg.GetOrderResponse, error)
-
     DeleteAllOrderItems (string, *string) (*models_pkg.GetOrderResponse, error)
+
+    CreateOrderItem (string, *models_pkg.CreateOrderItemRequest, *string) (*models_pkg.GetOrderItemResponse, error)
 
     UpdateOrderItem (string, string, *models_pkg.UpdateOrderItemRequest, *string) (*models_pkg.GetOrderItemResponse, error)
 
+    DeleteOrderItem (string, string, *string) (*models_pkg.GetOrderItemResponse, error)
+
+    GetOrderItem (string, string) (*models_pkg.GetOrderItemResponse, error)
+
     CloseOrder (string, *models_pkg.UpdateOrderStatusRequest, *string) (*models_pkg.GetOrderResponse, error)
+
+    UpdateOrderMetadata (string, *models_pkg.UpdateMetadataRequest, *string) (*models_pkg.GetOrderResponse, error)
 
     GetOrder (string) (*models_pkg.GetOrderResponse, error)
 }
