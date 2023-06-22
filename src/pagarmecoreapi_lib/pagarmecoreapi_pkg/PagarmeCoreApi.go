@@ -16,8 +16,8 @@ import(
 	"pagarmecoreapi_lib/charges_pkg"
 	"pagarmecoreapi_lib/recipients_pkg"
 	"pagarmecoreapi_lib/tokens_pkg"
-	"pagarmecoreapi_lib/transactions_pkg"
 	"pagarmecoreapi_lib/transfers_pkg"
+	"pagarmecoreapi_lib/transactions_pkg"
 )
 
 
@@ -33,8 +33,8 @@ type PAGARMECOREAPI interface {
     Charges()               charges_pkg.CHARGES
     Recipients()            recipients_pkg.RECIPIENTS
     Tokens()                tokens_pkg.TOKENS
-    Transactions()          transactions_pkg.TRANSACTIONS
     Transfers()             transfers_pkg.TRANSFERS
+    Transactions()          transactions_pkg.TRANSACTIONS
     Configuration()         configuration_pkg.CONFIGURATION
 }
 
